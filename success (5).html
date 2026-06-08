@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Payment Confirmed — USA Fan Pass</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+
+<!-- Meta Pixel -->
+<script>
+!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', 'PASTE_META_PIXEL_ID');
+fbq('track', 'PageView');
+</script>
+
+<!-- GA4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=PASTE_GA4_ID"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date()); gtag('config', 'PASTE_GA4_ID');
+</script>
+
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family:'DM Sans',sans-serif; background:#F7F5F0; min-height:100vh; display:flex; align-items:center; justify-content:center; padding:24px; }
+  .card { background:white; border-radius:20px; padding:40px 28px; max-width:480px; width:100%; text-align:center; box-shadow:0 8px 40px rgba(0,0,0,0.08); }
+  .spinner { width:48px; height:48px; border:3px solid #E5E2DA; border-top-color:#C8102E; border-radius:50%; animation:spin 0.8s linear infinite; margin:0 auto 24px; }
+  @keyframes spin { to { transform:rotate(360deg); } }
+  .check-icon { width:72px; height:72px; background:#F0FDF4; border-radius:50%; display:flex; align-items:center; justify-content:center; margin:0 auto 24px; }
+  h1 { font-family:'Bebas Neue',sans-serif; font-size:34px; letter-spacing:0.04em; margin-bottom:10px; color:#0A0A0A; }
+  .sub { font-size:15px; color:#6B7280; line-height:1.7; margin-bottom:20px; }
+  .highlight { background:#F0FDF4; border:1px solid #BBF7D0; border-radius:12px; padding:14px 16px; font-size:14px; color:#166534; font-weight:600; margin-bottom:20px; }
+  .guide-btn { display:block; background:#C8102E; color:white; padding:15px 24px; border-radius:10px; font-weight:700; font-size:15px; text-decoration:none; margin-bottom:10px; transition:background 0.2s; }
+  .guide-btn:hover { background:#a80d25; }
+  .guide-btn.secondary { background:#002868; }
+  .note { font-size:12px; color:#9CA3AF; margin-top:16px; line-height:1.6; }
+  .back-link { display:inline-block; margin-top:16px; font-size:13px; color:#6B7280; text-decoration:none; }
+  .back-link:hover { color:#0A0A0A; }
+  #state-loading, #state-success, #state-error { display:none; }
+  #state-loading.active, #state-success.active, #state-error.active { display:block; }
+</style>
+</head>
+<body>
+<div class="card">
+
+  <!-- Loading state -->
+  <div id="state-loading" class="active">
+    <div class="spinner"></div>
+    <h1>CONFIRMING YOUR PAYMENT</h1>
+    <p class="sub">Hang tight — we're confirming your payment and preparing your guides.</p>
+  </div>
+
+  <!-- Success state -->
+  <div id="state-success">
+    <div class="check-icon">
+      <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#16A34A" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+    </div>
+    <h1>YOU'RE ALL SET!</h1>
+    <p class="sub">Your USA Fan Pass is confirmed. Access your guides below — a copy has also been sent to your email.</p>
+    <div class="highlight">📧 Download link sent to your email</div>
+    <div id="guide-buttons"></div>
+    <p class="note">Didn't receive the email? Check your spam folder or contact us at<br><strong>hello@usafanpass.com</strong></p>
+    <a href="/" class="back-link">← Back to USA Fan Pass</a>
+  </div>
+
+  <!-- Error state -->
+  <div id="state-error">
+    <div style="font-size:48px;margin-bottom:20px;">⚠️</div>
+    <h1>SOMETHING WENT WRONG</h1>
+    <p class="sub">Your payment may have gone through — please check your email or contact us.</p>
+    <p class="note"><strong>hello@usafanpass.com</strong></p>
+    <a href="/" class="back-link">← Back to home</a>
+  </div>
+
+</div>
+
+<script>
+var SERVER_URL = 'https://PASTE_YOUR_RAILWAY_URL.railway.app';
+
+// GA4 purchase helper
+function fireGA4Purchase(data) {
+  if(typeof gtag === 'undefined') return;
+  gtag('event', 'purchase', {
+    transaction_id: new URLSearchParams(window.location.search).get('session_id'),
+    value:    data.amount_total,
+    currency: data.currency,
+    items:    (data.line_items || []).map(function(item) {
+      return {
+        item_name: item.description || 'USA Fan Pass',
+        price:     (item.amount_total || 0) / 100,
+        quantity:  1,
+      };
+    }),
+  });
+}
+
+// Meta Pixel Purchase (browser-side, deduplicates with CAPI)
+function fireMetaPurchase(data, sessionId) {
+  if(typeof fbq === 'undefined') return;
+  var fbclid  = localStorage.getItem('ufp_fbclid');
+  var eventId = fbclid ? 'purchase_' + fbclid : 'purchase_' + sessionId;
+  localStorage.removeItem('ufp_fbclid');
+
+  fbq('track', 'Purchase', {
+    value:        data.amount_total,
+    currency:     data.currency || 'USD',
+    content_ids:  (data.line_items || []).map(function(i){ return i.price?.id || ''; }),
+    content_type: 'product',
+  }, { eventID: eventId });
+}
+
+// Render guide access buttons
+function renderGuides(guideUrls, primaryGuide) {
+  var container = document.getElementById('guide-buttons');
+  if(!guideUrls || guideUrls.length === 0) {
+    container.innerHTML = '<p style="font-size:14px;color:#6B7280;">Your guides will be delivered to your email shortly.</p>';
+    return;
+  }
+  guideUrls.forEach(function(url, i) {
+    var btn = document.createElement('a');
+    btn.href = url;
+    btn.className = 'guide-btn' + (i > 0 ? ' secondary' : '');
+    btn.textContent = i === 0 ? 'ACCESS MY GUIDE →' : 'ACCESS GUIDE ' + (i + 1) + ' →';
+    container.appendChild(btn);
+  });
+  // Auto-redirect to primary after 4s if only one guide
+  if(guideUrls.length === 1 && primaryGuide) {
+    setTimeout(function(){ window.location.href = primaryGuide; }, 4000);
+  }
+}
+
+// Main: verify session
+(async function() {
+  var params    = new URLSearchParams(window.location.search);
+  var sessionId = params.get('session_id');
+
+  if(!sessionId) {
+    document.getElementById('state-loading').classList.remove('active');
+    document.getElementById('state-error').classList.add('active');
+    return;
+  }
+
+  try {
+    var res  = await fetch(SERVER_URL + '/verify-session?session_id=' + sessionId);
+    var data = await res.json();
+
+    document.getElementById('state-loading').classList.remove('active');
+
+    if(data.status === 'complete') {
+      document.getElementById('state-success').classList.add('active');
+      renderGuides(data.guide_urls, data.primary_guide);
+      fireGA4Purchase(data);
+      fireMetaPurchase(data, sessionId);
+    } else {
+      document.getElementById('state-error').classList.add('active');
+    }
+  } catch(err) {
+    console.error('verify error:', err);
+    document.getElementById('state-loading').classList.remove('active');
+    document.getElementById('state-error').classList.add('active');
+  }
+})();
+</script>
+</body>
+</html>
