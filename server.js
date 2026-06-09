@@ -34,10 +34,10 @@ const GUIDE_URLS = {
   'price_1TeUp8DOZDPnW2si7hiuKE0z': 'https://usa-fan-pass.vercel.app/healthcare-survival-guide-wc2026.html',
   'price_1TeUpwDOZDPnW2siFr72aDX3': 'https://usa-fan-pass.vercel.app/know-your-rights-worldcup2026.html',
   'price_1TeUqkDOZDPnW2sizJjJbRMA': 'https://usa-fan-pass.vercel.app/wc2026-survival-guide.html',
-  'price_1TeUgxDOZDPnW2siWe11knVD': 'https://usa-fan-pass.vercel.app/nynj-worldcup-guide.html',
-  'price_1TeUhhDOZDPnW2si5yoobFtz': 'https://usa-fan-pass.vercel.app/la-fan-pass-2026.html',
-  'price_1TeUigDOZDPnW2siaJlOGcbH': 'https://usa-fan-pass.vercel.app/nynj-worldcup-guide.html',
-  'price_1TeUjgDOZDPnW2siK0DVCXCw': 'https://usa-fan-pass.vercel.app/nynj-worldcup-guide.html',
+  'price_1TeUgxDOZDPnW2siWe11knVD': 'https://usa-fan-pass.vercel.app/east-coast-pack.html',
+  'price_1TeUhhDOZDPnW2si5yoobFtz': 'https://usa-fan-pass.vercel.app/westcoast-fan-pass-2026.html',
+  'price_1TeUigDOZDPnW2siaJlOGcbH': 'https://usa-fan-pass.vercel.app/all5cities-fan-pass-2026.html',
+  'price_1TeUjgDOZDPnW2siK0DVCXCw': 'https://usa-fan-pass.vercel.app/full-tournament-pass.html',
 };
 
 // ── BREVO HELPERS ─────────────────────────────────────────────────
