@@ -1279,12 +1279,7 @@
     renderCart(null, null); // no bundle price once item removed
   }
 
-  function handleCheckout() {
-    const sheet = document.getElementById('cartSheet');
-    const total = document.getElementById('cartTotalAmt').textContent;
-    alert('Redirecting to Stripe checkout\nItems: ' + cartItems.map(i=>i.name).join(', ') + '\nTotal: ' + total);
-    closeCart();
-  }
+
 
   // Legacy openModal shim (exit modal still calls it)
   function openModal(item, price) {
@@ -1292,6 +1287,95 @@
     const name = item || 'New York / NJ Pass';
     const desc = item || 'City guide';
     openCart([{id:'legacy', name, desc, flag, price: price || 9.99}]);
+  }
+
+
+  // ── ADDON PRICE IDS ──────────────────────────────────────────────
+  var ADDON_PRICE_IDS = {
+    'health': 'price_1TeUp8DOZDPnW2si7hiuKE0z',
+    'rights': 'price_1TeUpwDOZDPnW2siFr72aDX3',
+    'tips':   'price_1TeUqkDOZDPnW2sizJjJbRMA',
+    'esim':   'price_1TeUrjDOZDPnW2si2AoWa2bs',
+  };
+
+  // ── EMAIL GATE + STRIPE EMBEDDED CHECKOUT ────────────────────────
+  var pendingLineItems = [];
+
+  function handleCheckout() {
+    pendingLineItems = [];
+    cartItems.forEach(function(item) {
+      var pid = PRICE_IDS[item.id];
+      if(pid) pendingLineItems.push({ price: pid, quantity: 1 });
+    });
+    Object.keys(cartAddonsChecked).forEach(function(id) {
+      if(cartAddonsChecked[id] && ADDON_PRICE_IDS[id]) {
+        pendingLineItems.push({ price: ADDON_PRICE_IDS[id], quantity: 1 });
+      }
+    });
+    if(pendingLineItems.length === 0) return;
+    document.getElementById('emailGateModal').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  async function submitEmailGate() {
+    var email = document.getElementById('gateEmail').value.trim();
+    var name  = document.getElementById('gateName').value.trim();
+    if(!email || !email.includes('@')) {
+      document.getElementById('gateEmail').style.borderColor = '#C8102E';
+      return;
+    }
+    var btn = document.getElementById('gateContinueBtn');
+    btn.textContent = 'LOADING...'; btn.disabled = true;
+
+    var totalValue = parseFloat((document.getElementById('cartTotalAmt').textContent || '0').replace('$','')) || 0;
+
+    // Capture lead in Brevo
+    try {
+      await fetch(SERVER + '/capture-lead', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          email: email, name: name,
+          cities: cartItems.map(function(i){ return i.name; }).join(' + '),
+          orderValue: totalValue
+        })
+      });
+    } catch(e) {}
+
+    // Meta Pixel: Lead
+    if(typeof fbq !== 'undefined') fbq('track', 'Lead', { value: totalValue, currency: 'USD' });
+
+    // Create Stripe Embedded Checkout session
+    try {
+      var res = await fetch(SERVER + '/create-checkout-session', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ lineItems: pendingLineItems, email: email })
+      });
+      var data = await res.json();
+      if(!data.clientSecret) throw new Error(data.error || 'No client secret returned');
+
+      // Close email gate, open Stripe modal
+      document.getElementById('emailGateModal').classList.remove('open');
+      document.getElementById('stripeModal').classList.add('open');
+
+      // Meta Pixel: InitiateCheckout
+      if(typeof fbq !== 'undefined') {
+        fbq('track', 'InitiateCheckout', {
+          value: totalValue, currency: 'USD',
+          content_ids: pendingLineItems.map(function(i){ return i.price; })
+        });
+      }
+
+      // Mount Stripe Embedded Checkout
+      var stripe   = Stripe(STRIPE_PK);
+      var checkout = await stripe.initEmbeddedCheckout({ clientSecret: data.clientSecret });
+      checkout.mount('#stripe-checkout-container');
+
+    } catch(err) {
+      alert('Checkout error: ' + err.message);
+      btn.textContent = 'CONTINUE TO CHECKOUT →'; btn.disabled = false;
+    }
   }
 
   function updateCountdown() {
@@ -1305,21 +1389,8 @@
   }
   setInterval(updateCountdown, 1000); updateCountdown();
 
-  let currentItem = 'City Pass', currentPrice = 9.99;
-  function openModal(item, price) {
-    currentItem = item || 'New York / NJ Pass'; currentPrice = price || 9.99;
-    document.getElementById('cart-item').textContent = currentItem;
-    document.getElementById('cart-price').textContent = '$' + currentPrice.toFixed(2);
-    document.getElementById('cart-total').textContent = '$' + currentPrice.toFixed(2);
-    document.getElementById('modal').classList.add('open'); closeExit();
-  }
-  function closeModal() { document.getElementById('modal').classList.remove('open'); }
-  function closeModalOutside(e) { if (e.target === document.getElementById('modal')) closeModal(); }
-  function handleCheckout() {
-    const email = document.getElementById('modal-email').value;
-    if (!email || !email.includes('@')) { document.getElementById('modal-email').style.borderColor = 'var(--red)'; return; }
-    alert('Redirecting to Stripe checkout for ' + currentItem + ' — $' + currentPrice.toFixed(2)); closeModal();
-  }
+
+
   function toggleCity(card, city, price) {
     const flag = '🇺🇸';
     const id = city.toLowerCase().replace(/[^a-z]/g,'');
