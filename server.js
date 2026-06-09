@@ -42,7 +42,8 @@ const GUIDE_URLS = {
 
 // ── BREVO HELPERS ─────────────────────────────────────────────────
 async function addBuyerToBrevo({ email, firstName, lastName, cities, orderValue, guideUrls }) {
-  const body = {
+  // 1. Upsert contact with attributes
+  const contactBody = {
     email,
     attributes: {
       FIRSTNAME:   firstName  || '',
@@ -52,24 +53,50 @@ async function addBuyerToBrevo({ email, firstName, lastName, cities, orderValue,
       GUIDE_URLS:  guideUrls  || '',
       SOURCE:      'USA Fan Pass — Confirmed Purchase',
     },
-    listIds: [parseInt(process.env.BREVO_BUYERS_LIST_ID || '5')],
+    listIds: [parseInt(process.env.BREVO_BUYERS_LIST_ID || '7')],
     updateEnabled: true,
   };
 
-  const res = await fetch('https://api.brevo.com/v3/contacts', {
+  const contactRes = await fetch('https://api.brevo.com/v3/contacts', {
     method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'api-key': process.env.BREVO_API_KEY,
-    },
-    body: JSON.stringify(body),
+    headers: { 'Content-Type': 'application/json', 'api-key': process.env.BREVO_API_KEY },
+    body: JSON.stringify(contactBody),
   });
 
-  if(!res.ok) {
-    const err = await res.text();
-    console.error('Brevo buyer error:', err);
+  if(!contactRes.ok) {
+    console.error('Brevo buyer contact error:', await contactRes.text());
+    return;
+  }
+  console.log('Brevo buyer added to list 7:', email);
+
+  // 2. Send Post-Purchase transactional email
+  // Detect language from email domain heuristic — default EN
+  // Automations in Brevo handle the sequencing, but we also fire
+  // the immediate post-purchase email directly via template
+  const templateId = 20; // Post-Purchase EN (Brevo automation handles EN/ES split)
+
+  const emailBody = {
+    to: [{ email, name: `${firstName} ${lastName}`.trim() || email }],
+    templateId,
+    sender: { id: 2, email: 'hello@universalfanpass.com' },
+    params: {
+      FIRSTNAME:   firstName  || '',
+      CITIES:      cities     || '',
+      ORDER_VALUE: orderValue || 0,
+      GUIDE_URLS:  guideUrls  || '',
+    },
+  };
+
+  const emailRes = await fetch('https://api.brevo.com/v3/smtp/email', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', 'api-key': process.env.BREVO_API_KEY },
+    body: JSON.stringify(emailBody),
+  });
+
+  if(!emailRes.ok) {
+    console.error('Brevo post-purchase email error:', await emailRes.text());
   } else {
-    console.log('Brevo buyer added:', email);
+    console.log('Post-purchase email sent to:', email);
   }
 }
 
@@ -84,21 +111,18 @@ async function captureLeadBrevo({ email, name, cities, orderValue }) {
       ORDER_VALUE: orderValue || 0,
       SOURCE:      'USA Fan Pass — Lead',
     },
-    listIds: [parseInt(process.env.BREVO_LEADS_LIST_ID || '3')],
+    listIds: [parseInt(process.env.BREVO_LEADS_LIST_ID || '6')],
     updateEnabled: true,
   };
 
   const res = await fetch('https://api.brevo.com/v3/contacts', {
     method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'api-key': process.env.BREVO_API_KEY,
-    },
+    headers: { 'Content-Type': 'application/json', 'api-key': process.env.BREVO_API_KEY },
     body: JSON.stringify(body),
   });
 
   if(!res.ok) console.error('Brevo lead error:', await res.text());
-  else console.log('Brevo lead captured:', email);
+  else console.log('Brevo lead captured in list 6:', email);
 }
 
 // ── META CAPI HELPER ──────────────────────────────────────────────
