@@ -26,19 +26,18 @@ app.use(express.json());
 
 // ── GUIDE URL MAP (fill in after guides are published) ─────────────
 const GUIDE_URLS = {
-  'price_1TeUZHDOZDPnW2si7YRj9qhG': 'https://usafanpass.com/guides/new-york',
-  'price_1TeUaIDOZDPnW2sipYerWpA2': 'https://usafanpass.com/guides/los-angeles',
-  'price_1TeUb8DOZDPnW2siOvLfQ7RX': 'https://usafanpass.com/guides/dallas',
-  'price_1TeUdqDOZDPnW2sipYiOrfNv': 'https://usafanpass.com/guides/miami',
-  'price_1TeUeMDOZDPnW2sip35GFYKj': 'https://usafanpass.com/guides/boston',
-  'price_1TeUgxDOZDPnW2siWe11knVD': 'https://usafanpass.com/guides/east-coast',
-  'price_1TeUhhDOZDPnW2si5yoobFtz': 'https://usafanpass.com/guides/west-coast',
-  'price_1TeUigDOZDPnW2siaJlOGcbH': 'https://usafanpass.com/guides/all-5-cities',
-  'price_1TeUjgDOZDPnW2siK0DVCXCw': 'https://usafanpass.com/guides/usa-mexico',
-  'price_1TeUp8DOZDPnW2si7hiuKE0z': 'https://usafanpass.com/guides/healthcare',
-  'price_1TeUpwDOZDPnW2siFr72aDX3': 'https://usafanpass.com/guides/rights',
-  'price_1TeUqkDOZDPnW2sizJjJbRMA': 'https://usafanpass.com/guides/tipping',
-  'price_1TeUrjDOZDPnW2si2AoWa2bs': 'https://usafanpass.com/guides/esim',
+  'price_1TeUZHDOZDPnW2si7YRj9qhG': 'https://usa-fan-pass.vercel.app/nynj-worldcup-guide.html',
+  'price_1TeUaIDOZDPnW2sipYerWpA2': 'https://usa-fan-pass.vercel.app/la-fan-pass-2026.html',
+  'price_1TeUb8DOZDPnW2siOvLfQ7RX': 'https://usa-fan-pass.vercel.app/dallas-fan-pass-2026.html',
+  'price_1TeUdqDOZDPnW2sipYiOrfNv': 'https://usa-fan-pass.vercel.app/miami-fan-pass.html',
+  'price_1TeUeMDOZDPnW2sip35GFYKj': 'https://usa-fan-pass.vercel.app/boston-fan-pass-2026.html',
+  'price_1TeUp8DOZDPnW2si7hiuKE0z': 'https://usa-fan-pass.vercel.app/healthcare-survival-guide-wc2026.html',
+  'price_1TeUpwDOZDPnW2siFr72aDX3': 'https://usa-fan-pass.vercel.app/know-your-rights-worldcup2026.html',
+  'price_1TeUqkDOZDPnW2sizJjJbRMA': 'https://usa-fan-pass.vercel.app/wc2026-survival-guide.html',
+  'price_1TeUgxDOZDPnW2siWe11knVD': 'https://usa-fan-pass.vercel.app/nynj-worldcup-guide.html',
+  'price_1TeUhhDOZDPnW2si5yoobFtz': 'https://usa-fan-pass.vercel.app/la-fan-pass-2026.html',
+  'price_1TeUigDOZDPnW2siaJlOGcbH': 'https://usa-fan-pass.vercel.app/nynj-worldcup-guide.html',
+  'price_1TeUjgDOZDPnW2siK0DVCXCw': 'https://usa-fan-pass.vercel.app/nynj-worldcup-guide.html',
 };
 
 // ── BREVO HELPERS ─────────────────────────────────────────────────
