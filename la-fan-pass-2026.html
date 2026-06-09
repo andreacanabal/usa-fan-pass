@@ -1,0 +1,1287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>LA Fan Pass — FIFA World Cup 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,700;1,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --navy: #0a1628;
+  --navy-mid: #0f2044;
+  --navy-light: #1a3060;
+  --gold: #c9a227;
+  --gold-light: #f0c040;
+  --gold-pale: #fde68a22;
+  --red: #b91c1c;
+  --red-bright: #ef4444;
+  --white: #f8fafc;
+  --gray: #94a3b8;
+  --gray-dark: #334155;
+  --card-bg: #0d1f3c;
+  --card-border: rgba(201,162,39,0.18);
+  --success: #22c55e;
+  --warning: #f59e0b;
+  --danger: #ef4444;
+  --safe: #22c55e;
+}
+
+* { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--navy);
+  color: var(--white);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 15px;
+  line-height: 1.6;
+  min-height: 100vh;
+  padding-bottom: 80px;
+  overflow-x: hidden;
+}
+
+/* ── TYPOGRAPHY ── */
+.bebas { font-family: 'Bebas Neue', sans-serif; letter-spacing: 0.04em; }
+.mono  { font-family: 'DM Mono', monospace; }
+
+h2.section-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 2rem;
+  letter-spacing: 0.06em;
+  color: var(--gold-light);
+  margin-bottom: 4px;
+}
+.section-sub {
+  font-size: 0.78rem;
+  color: var(--gray);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  margin-bottom: 20px;
+}
+
+/* ── NOISE OVERLAY ── */
+body::before {
+  content:'';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.6;
+}
+
+/* ── SECTIONS ── */
+.section { display: none; padding: 0 16px 24px; animation: fadeUp 0.32s ease both; }
+.section.active { display: block; }
+
+@keyframes fadeUp {
+  from { opacity:0; transform: translateY(14px); }
+  to   { opacity:1; transform: translateY(0); }
+}
+
+/* ── HERO ── */
+#hero-section {
+  background: linear-gradient(175deg, #0f1e3a 0%, #091525 100%);
+  position: relative;
+  overflow: hidden;
+  display: none;
+  padding: 0;
+}
+#hero-section.active { display: block; }
+
+.hero-bg-lines {
+  position: absolute;
+  inset: 0;
+  background-image:
+    repeating-linear-gradient(0deg, rgba(201,162,39,0.04) 0px, transparent 1px, transparent 40px),
+    repeating-linear-gradient(90deg, rgba(201,162,39,0.04) 0px, transparent 1px, transparent 40px);
+  pointer-events: none;
+}
+
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(201,162,39,0.12);
+  border: 1px solid rgba(201,162,39,0.3);
+  border-radius: 4px;
+  padding: 5px 12px;
+  font-size: 0.7rem;
+  font-family: 'DM Mono', monospace;
+  letter-spacing: 0.12em;
+  color: var(--gold-light);
+  text-transform: uppercase;
+  margin: 24px 20px 0;
+}
+.hero-badge::before {
+  content: '';
+  width: 6px; height: 6px;
+  background: var(--gold-light);
+  border-radius: 50%;
+  animation: pulse-dot 1.8s ease-in-out infinite;
+}
+@keyframes pulse-dot {
+  0%,100% { opacity:1; transform:scale(1); }
+  50% { opacity:0.4; transform:scale(0.7); }
+}
+
+.hero-main {
+  padding: 16px 20px 0;
+}
+
+.hero-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(3.4rem, 14vw, 5.5rem);
+  line-height: 0.92;
+  letter-spacing: 0.02em;
+  background: linear-gradient(135deg, #f0c040 0%, #ffffff 45%, #c9a227 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 12px;
+}
+
+.hero-subtitle {
+  font-size: 0.88rem;
+  color: var(--gray);
+  font-style: italic;
+  border-left: 3px solid var(--gold);
+  padding-left: 12px;
+  margin-bottom: 24px;
+  line-height: 1.5;
+}
+
+/* Match dates strip */
+.match-strip {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  padding: 0 20px 0;
+  margin: 0 -20px;
+  scrollbar-width: none;
+}
+.match-strip::-webkit-scrollbar { display: none; }
+
+.match-pill {
+  flex-shrink: 0;
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 8px;
+  padding: 10px 14px;
+  text-align: center;
+  min-width: 80px;
+}
+.match-pill .mp-date {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.4rem;
+  color: var(--gold-light);
+  line-height: 1;
+}
+.match-pill .mp-month {
+  font-size: 0.65rem;
+  color: var(--gray);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+.match-pill .mp-label {
+  font-size: 0.6rem;
+  color: var(--gold);
+  margin-top: 4px;
+  font-family: 'DM Mono', monospace;
+}
+
+/* Stats bar */
+.stats-bar {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: var(--card-border);
+  border-top: 1px solid var(--card-border);
+  border-bottom: 1px solid var(--card-border);
+  margin: 20px 0 0;
+}
+.stat-item {
+  background: var(--card-bg);
+  padding: 14px 10px;
+  text-align: center;
+}
+.stat-value {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.8rem;
+  letter-spacing: 0.04em;
+  line-height: 1;
+  color: var(--white);
+}
+.stat-unit {
+  font-size: 0.65rem;
+  color: var(--gold);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+}
+
+/* Warning banner */
+.heat-banner {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: linear-gradient(90deg, rgba(185,28,28,0.25) 0%, rgba(185,28,28,0.08) 100%);
+  border: 1px solid rgba(239,68,68,0.3);
+  border-radius: 0;
+  padding: 12px 20px;
+  font-size: 0.82rem;
+}
+.heat-banner .hb-icon { font-size: 1.4rem; flex-shrink: 0; }
+.heat-banner strong { color: var(--red-bright); }
+
+/* Quick nav */
+.quick-nav {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+  padding: 20px 20px 24px;
+}
+.qn-btn {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 10px;
+  padding: 14px 12px;
+  text-align: left;
+  cursor: pointer;
+  transition: all 0.2s;
+  text-decoration: none;
+  color: var(--white);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.qn-btn:hover, .qn-btn:active { border-color: var(--gold); background: var(--navy-light); }
+.qn-icon { font-size: 1.4rem; }
+.qn-text .qn-label { font-size: 0.72rem; color: var(--gray); text-transform: uppercase; letter-spacing: 0.1em; }
+.qn-text .qn-title { font-family: 'Bebas Neue'; font-size: 1.1rem; letter-spacing: 0.04em; line-height: 1.1; }
+
+/* ── CARDS ── */
+.card {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 12px;
+  padding: 18px;
+  margin-bottom: 12px;
+  position: relative;
+  overflow: hidden;
+}
+.card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--gold), transparent);
+}
+.card-alert::before { background: linear-gradient(90deg, var(--red-bright), transparent); }
+.card-safe::before  { background: linear-gradient(90deg, var(--success), transparent); }
+.card-info::before  { background: linear-gradient(90deg, #3b82f6, transparent); }
+
+.card-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+.card-icon { font-size: 1.4rem; }
+.card-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.15rem;
+  letter-spacing: 0.04em;
+  color: var(--gold-light);
+  line-height: 1;
+}
+.card-subtitle { font-size: 0.72rem; color: var(--gray); margin-top: 2px; }
+
+/* ── LIST ITEMS ── */
+.info-list { list-style: none; }
+.info-list li {
+  display: flex;
+  gap: 10px;
+  padding: 9px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+  font-size: 0.875rem;
+  line-height: 1.5;
+}
+.info-list li:last-child { border-bottom: none; }
+.info-list .il-icon { flex-shrink: 0; font-size: 1rem; margin-top: 2px; }
+.info-list .il-text { color: var(--gray); }
+.info-list .il-text strong { color: var(--white); }
+.info-list .il-text em { color: var(--gold); font-style: normal; }
+
+/* ── TAGS ── */
+.tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 9px;
+  border-radius: 20px;
+  font-size: 0.68rem;
+  font-family: 'DM Mono', monospace;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-weight: 500;
+}
+.tag-safe    { background: rgba(34,197,94,0.15);  color: #4ade80; border: 1px solid rgba(34,197,94,0.3); }
+.tag-caution { background: rgba(245,158,11,0.15); color: #fbbf24; border: 1px solid rgba(245,158,11,0.3); }
+.tag-danger  { background: rgba(239,68,68,0.15);  color: #f87171; border: 1px solid rgba(239,68,68,0.3); }
+.tag-info    { background: rgba(59,130,246,0.15); color: #60a5fa; border: 1px solid rgba(59,130,246,0.3); }
+.tag-gold    { background: rgba(201,162,39,0.15); color: var(--gold-light); border: 1px solid rgba(201,162,39,0.3); }
+
+/* ── ALERT BOX ── */
+.alert {
+  display: flex;
+  gap: 12px;
+  padding: 13px 14px;
+  border-radius: 9px;
+  margin-bottom: 10px;
+  font-size: 0.84rem;
+  line-height: 1.5;
+}
+.alert-danger { background: rgba(185,28,28,0.18); border: 1px solid rgba(239,68,68,0.3); }
+.alert-warning { background: rgba(217,119,6,0.18); border: 1px solid rgba(245,158,11,0.3); }
+.alert-success { background: rgba(22,163,74,0.18); border: 1px solid rgba(34,197,94,0.3); }
+.alert-info    { background: rgba(37,99,235,0.18); border: 1px solid rgba(59,130,246,0.3); }
+.alert .a-icon { font-size: 1.2rem; flex-shrink: 0; margin-top: 1px; }
+
+/* ── COST TABLE ── */
+.cost-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 9px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+  font-size: 0.875rem;
+}
+.cost-row:last-child { border-bottom: none; }
+.cost-label { color: var(--gray); }
+.cost-value { font-family: 'DM Mono', monospace; color: var(--gold-light); font-weight: 500; }
+
+/* ── ZONE MAP ── */
+.zone-map {
+  position: relative;
+  background: linear-gradient(145deg, #0d1f3c, #091525);
+  border-radius: 10px;
+  padding: 16px;
+  overflow: hidden;
+  margin-bottom: 12px;
+}
+.zone-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 10px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+.zone-item:last-child { border-bottom: none; }
+.zone-dot {
+  width: 12px; height: 12px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  margin-top: 4px;
+  box-shadow: 0 0 8px currentColor;
+}
+.zone-dot.safe    { background: #22c55e; color: #22c55e; }
+.zone-dot.caution { background: #f59e0b; color: #f59e0b; }
+.zone-dot.danger  { background: #ef4444; color: #ef4444; }
+.zone-name { font-weight: 600; font-size: 0.88rem; }
+.zone-desc { font-size: 0.78rem; color: var(--gray); margin-top: 2px; }
+
+/* ── EMBASSY LIST ── */
+.embassy-grid {
+  display: grid;
+  gap: 8px;
+  margin-top: 8px;
+}
+.embassy-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: rgba(255,255,255,0.04);
+  border-radius: 8px;
+  padding: 10px 13px;
+  font-size: 0.82rem;
+}
+.emb-country { display: flex; align-items: center; gap: 8px; }
+.emb-flag { font-size: 1.2rem; }
+.emb-phone { font-family: 'DM Mono', monospace; color: var(--gold); font-size: 0.78rem; }
+.emb-phone a { color: inherit; text-decoration: none; }
+
+/* ── TIP ROW ── */
+.tip-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+.tip-row:last-child { border-bottom: none; }
+.tip-service { font-size: 0.875rem; }
+.tip-service small { display: block; font-size: 0.72rem; color: var(--gray); }
+.tip-amount { font-family: 'DM Mono', monospace; color: var(--gold-light); font-size: 0.88rem; }
+
+/* ── PHRASE BOX ── */
+.phrase-card {
+  background: rgba(201,162,39,0.08);
+  border: 1px solid rgba(201,162,39,0.2);
+  border-radius: 9px;
+  padding: 12px 14px;
+  margin-bottom: 8px;
+}
+.phrase-label { font-size: 0.68rem; color: var(--gold); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 4px; font-family: 'DM Mono'; }
+.phrase-text { font-size: 0.88rem; color: var(--white); font-style: italic; line-height: 1.5; }
+
+/* ── DEAL CARD ── */
+.deal-card {
+  background: linear-gradient(135deg, rgba(201,162,39,0.1), rgba(13,31,60,0.9));
+  border: 1px solid rgba(201,162,39,0.25);
+  border-radius: 12px;
+  padding: 18px;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.deal-badge {
+  background: var(--gold);
+  color: var(--navy);
+  font-family: 'Bebas Neue';
+  font-size: 1.3rem;
+  padding: 6px 10px;
+  border-radius: 6px;
+  flex-shrink: 0;
+  text-align: center;
+  line-height: 1.1;
+}
+.deal-info .deal-title { font-weight: 600; font-size: 0.95rem; }
+.deal-info .deal-desc  { font-size: 0.78rem; color: var(--gray); margin-top: 3px; }
+.deal-info .deal-cta   { display: inline-block; margin-top: 8px; padding: 5px 14px; background: var(--gold); color: var(--navy); border-radius: 20px; font-size: 0.75rem; font-weight: 700; text-decoration: none; }
+
+/* ── SOS ── */
+.sos-btn {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: rgba(185,28,28,0.15);
+  border: 1px solid rgba(239,68,68,0.35);
+  border-radius: 10px;
+  padding: 16px 18px;
+  margin-bottom: 10px;
+  text-decoration: none;
+  color: var(--white);
+  transition: background 0.2s;
+}
+.sos-btn:hover { background: rgba(185,28,28,0.28); }
+.sos-btn .sos-left { display: flex; align-items: center; gap: 12px; }
+.sos-btn .sos-icon { font-size: 1.6rem; }
+.sos-btn .sos-label { font-size: 0.7rem; color: var(--gray); text-transform: uppercase; letter-spacing: 0.1em; }
+.sos-btn .sos-number { font-family: 'DM Mono', monospace; font-size: 1.1rem; color: var(--red-bright); }
+.sos-btn .sos-arrow { color: var(--gray); font-size: 1.2rem; }
+
+.sos-911 {
+  background: linear-gradient(90deg, rgba(185,28,28,0.4), rgba(185,28,28,0.15));
+  border-color: rgba(239,68,68,0.6);
+}
+.sos-911 .sos-number { font-size: 2rem; }
+
+/* ── NEIGHBORHOOD CARDS ── */
+.hood-card {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 10px;
+  padding: 14px 16px;
+  margin-bottom: 10px;
+}
+.hood-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 8px; }
+.hood-name { font-family: 'Bebas Neue'; font-size: 1.2rem; letter-spacing: 0.04em; }
+.hood-meta { font-size: 0.78rem; color: var(--gray); }
+.hood-tags { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 8px; }
+.hood-desc { font-size: 0.82rem; color: var(--gray); line-height: 1.6; }
+
+/* ── BOTTOM NAV ── */
+.bottom-nav {
+  position: fixed;
+  bottom: 0; left: 0; right: 0;
+  background: rgba(9,21,37,0.97);
+  backdrop-filter: blur(12px);
+  border-top: 1px solid var(--card-border);
+  display: flex;
+  z-index: 100;
+  padding-bottom: env(safe-area-inset-bottom, 0);
+}
+.nav-btn {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 4px 8px;
+  cursor: pointer;
+  border: none;
+  background: none;
+  color: var(--gray);
+  font-size: 0.6rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  transition: color 0.2s;
+  gap: 4px;
+  font-family: 'DM Mono', monospace;
+}
+.nav-btn .nav-icon { font-size: 1.35rem; transition: transform 0.2s; }
+.nav-btn.active { color: var(--gold-light); }
+.nav-btn.active .nav-icon { transform: translateY(-2px); }
+.nav-btn.sos-nav { color: var(--red-bright) !important; }
+
+/* ── DIVIDER ── */
+.divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--card-border), transparent);
+  margin: 16px 0;
+}
+
+/* ── COLLAPSIBLE ── */
+.collapsible-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  padding: 4px 0;
+  user-select: none;
+}
+.collapsible-header .ch-title { font-weight: 600; font-size: 0.9rem; }
+.collapsible-arrow { color: var(--gold); transition: transform 0.25s; font-size: 0.9rem; }
+.collapsible-body { overflow: hidden; max-height: 0; transition: max-height 0.3s ease; }
+.collapsible-body.open { max-height: 600px; }
+.collapsible-arrow.open { transform: rotate(180deg); }
+
+/* ── PILL TOGGLE ── */
+.section-tabs {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 16px;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.section-tabs::-webkit-scrollbar { display: none; }
+.stab {
+  flex-shrink: 0;
+  padding: 6px 16px;
+  border-radius: 20px;
+  border: 1px solid var(--card-border);
+  background: transparent;
+  color: var(--gray);
+  font-size: 0.78rem;
+  cursor: pointer;
+  font-family: 'DM Sans';
+  transition: all 0.2s;
+}
+.stab.active { background: var(--gold); border-color: var(--gold); color: var(--navy); font-weight: 700; }
+
+/* ── PDF BUTTON ── */
+.pdf-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  padding: 14px;
+  background: linear-gradient(90deg, var(--gold) 0%, var(--gold-light) 100%);
+  color: var(--navy);
+  border: none;
+  border-radius: 10px;
+  font-family: 'Bebas Neue';
+  font-size: 1.15rem;
+  letter-spacing: 0.06em;
+  cursor: pointer;
+  margin: 16px 0 8px;
+  transition: opacity 0.2s;
+}
+.pdf-btn:hover { opacity: 0.9; }
+
+/* ── OFFLINE BANNER ── */
+.offline-banner {
+  background: rgba(201,162,39,0.1);
+  border: 1px dashed rgba(201,162,39,0.3);
+  border-radius: 8px;
+  padding: 10px 14px;
+  font-size: 0.78rem;
+  color: var(--gold);
+  text-align: center;
+  margin-bottom: 16px;
+}
+
+/* ── SECTION HEADER ── */
+.section-header {
+  padding: 20px 0 4px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+}
+.section-header .tag { margin-bottom: 4px; }
+
+</style>
+</head>
+<body>
+
+<!-- ═══════════════ HERO / HOME ═══════════════ -->
+<div id="home" class="section active" id="hero-section">
+  <div class="hero-bg-lines"></div>
+  
+  <div class="hero-badge">⚽ SoFi Stadium · Inglewood, CA · Summer 2026</div>
+
+  <div class="hero-main">
+    <div class="hero-title">LOS ANGELES<br>FAN PASS</div>
+    <div class="hero-subtitle">70 million square feet of entertainment —<br>and the worst traffic on earth</div>
+
+    <div class="match-strip">
+      <div class="match-pill"><div class="mp-date">11</div><div class="mp-month">JUN</div><div class="mp-label">Match 1</div></div>
+      <div class="match-pill"><div class="mp-date">17</div><div class="mp-month">JUN</div><div class="mp-label">Match 2</div></div>
+      <div class="match-pill"><div class="mp-date">21</div><div class="mp-month">JUN</div><div class="mp-label">Match 3</div></div>
+      <div class="match-pill"><div class="mp-date">27</div><div class="mp-month">JUN</div><div class="mp-label">Match 4</div></div>
+      <div class="match-pill"><div class="mp-date">02</div><div class="mp-month">JUL</div><div class="mp-label">Match 5</div></div>
+    </div>
+  </div>
+
+  <div class="stats-bar">
+    <div class="stat-item"><div class="stat-value">70,240</div><div class="stat-unit">Capacity</div></div>
+    <div class="stat-item"><div class="stat-value">5</div><div class="stat-unit">Matches</div></div>
+    <div class="stat-item"><div class="stat-value">35°C</div><div class="stat-unit">⚠ Heat</div></div>
+  </div>
+
+  <div class="heat-banner">
+    <span class="hb-icon">🌡️</span>
+    <span><strong>HEAT WARNING:</strong> June in LA averages 32–38°C with direct sun. Hydration is not optional.</span>
+  </div>
+
+  <div class="quick-nav">
+    <button class="qn-btn" onclick="showSection('transport')">
+      <span class="qn-icon">🚗</span>
+      <div class="qn-text"><div class="qn-label">Getting There</div><div class="qn-title">Transport</div></div>
+    </button>
+    <button class="qn-btn" onclick="showSection('safety')">
+      <span class="qn-icon">🛡️</span>
+      <div class="qn-text"><div class="qn-label">Stay Safe</div><div class="qn-title">Safety Map</div></div>
+    </button>
+    <button class="qn-btn" onclick="showSection('home'); scrollTo('#healthcare')">
+      <span class="qn-icon">🏥</span>
+      <div class="qn-text"><div class="qn-label">Medical</div><div class="qn-title">Healthcare</div></div>
+    </button>
+    <button class="qn-btn" onclick="showSection('sos')">
+      <span class="qn-icon">🆘</span>
+      <div class="qn-text"><div class="qn-label">Emergency</div><div class="qn-title">SOS</div></div>
+    </button>
+    <button class="qn-btn" onclick="showSection('home'); scrollTo('#neighborhoods')">
+      <span class="qn-icon">🏖️</span>
+      <div class="qn-text"><div class="qn-label">Where to Stay</div><div class="qn-title">Neighborhoods</div></div>
+    </button>
+    <button class="qn-btn" onclick="showSection('deals')">
+      <span class="qn-icon">🎟️</span>
+      <div class="qn-text"><div class="qn-label">Exclusive</div><div class="qn-title">My Deals</div></div>
+    </button>
+  </div>
+
+  <!-- HEAT PROTOCOL -->
+  <div style="padding: 0 16px">
+    <div class="section-header">
+      <div><h2 class="section-title">🌡️ Heat Protocol</h2><div class="section-sub">What you need to know to survive June in LA</div></div>
+    </div>
+
+    <div class="alert alert-danger">
+      <span class="a-icon">☀️</span>
+      <span>June in LA: <strong>32–38°C</strong>, direct sun, low humidity. The open-air seating at SoFi has limited shade. Prepare before you arrive.</span>
+    </div>
+
+    <div class="card">
+      <div class="card-header"><span class="card-icon">💧</span><div><div class="card-title">Hydration Rules</div><div class="card-subtitle">Follow these or suffer</div></div></div>
+      <ul class="info-list">
+        <li><span class="il-icon">✅</span><div class="il-text"><strong>Before entering:</strong> Drink at least <em>500ml of water</em> before you pass through the gates.</div></li>
+        <li><span class="il-icon">🧴</span><div class="il-text"><strong>Bring an empty bottle</strong> — SoFi has free water refill stations inside. Full bottles may be confiscated.</div></li>
+        <li><span class="il-icon">🧂</span><div class="il-text"><strong>Electrolytes matter:</strong> Water alone isn't enough in this heat. Get Liquid I.V., Pedialyte, or similar from CVS/Walgreens.</div></li>
+        <li><span class="il-icon">🍺</span><div class="il-text"><strong>Alcohol accelerates dehydration.</strong> Match every beer with a full glass of water.</div></li>
+        <li><span class="il-icon">🕶️</span><div class="il-text"><strong>Gear up:</strong> Hat, sunscreen SPF 50+, light-colored clothing. Apply sunscreen before leaving your hotel.</div></li>
+      </ul>
+    </div>
+
+    <div class="card card-alert">
+      <div class="card-header"><span class="card-icon">🚨</span><div><div class="card-title">Heat Exhaustion vs Heat Stroke</div><div class="card-subtitle">Know the difference — it can save a life</div></div></div>
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:10px;">
+        <div style="background:rgba(245,158,11,0.1); border:1px solid rgba(245,158,11,0.3); border-radius:8px; padding:12px;">
+          <div style="color:#fbbf24; font-family:'Bebas Neue'; font-size:1rem; margin-bottom:8px;">⚠ HEAT EXHAUSTION</div>
+          <div style="font-size:0.78rem; color:var(--gray); line-height:1.7;">
+            • Heavy sweating<br>• Weakness, fatigue<br>• Cool, pale, clammy skin<br>• Nausea<br>• Headache<br>• <strong style="color:white">→ Move to shade, cool water, rest</strong>
+          </div>
+        </div>
+        <div style="background:rgba(239,68,68,0.1); border:1px solid rgba(239,68,68,0.3); border-radius:8px; padding:12px;">
+          <div style="color:#f87171; font-family:'Bebas Neue'; font-size:1rem; margin-bottom:8px;">🆘 HEAT STROKE</div>
+          <div style="font-size:0.78rem; color:var(--gray); line-height:1.7;">
+            • Temp above 40°C<br>• No sweating<br>• Confusion / slurred speech<br>• Flushed, hot skin<br>• Loss of consciousness<br>• <strong style="color:#f87171">→ CALL 911 IMMEDIATELY</strong>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card card-info">
+      <div class="card-header"><span class="card-icon">💊</span><div><div class="card-title">Nearest Pharmacy</div><div class="card-subtitle">Inglewood/SoFi area</div></div></div>
+      <ul class="info-list">
+        <li><span class="il-icon">🏪</span><div class="il-text"><strong>CVS Pharmacy</strong> – Prairie Ave & Century Blvd (~5 min from SoFi)</div></li>
+        <li><span class="il-icon">🏪</span><div class="il-text"><strong>Walgreens</strong> – Manchester Blvd, Inglewood</div></li>
+        <li><span class="il-icon">💬</span><div class="il-text"><strong>What to tell the pharmacist:</strong> <em>"I need oral rehydration salts"</em> or ask for Pedialyte/Liquid I.V.</div></li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- HEALTHCARE -->
+  <div id="healthcare" style="padding: 0 16px">
+    <div class="section-header">
+      <div><h2 class="section-title">🏥 Healthcare</h2><div class="section-sub">Hospitals, urgent care & costs</div></div>
+    </div>
+
+    <div class="alert alert-info">
+      <span class="a-icon">💡</span>
+      <span>US healthcare is expensive without insurance. Heat-related ER visits can cost <strong>$1,500–$5,000+</strong>. Travel insurance is strongly recommended.</span>
+    </div>
+
+    <div class="card">
+      <div class="card-header"><span class="card-icon">🏨</span><div><div class="card-title">Nearest Facilities</div></div></div>
+      <ul class="info-list">
+        <li><span class="il-icon">🚑</span><div class="il-text"><strong>Cedars-Sinai Urgent Care</strong> – Multiple locations near West LA/Inglewood. Best for non-life-threatening situations.</div></li>
+        <li><span class="il-icon">🏥</span><div class="il-text"><strong>UCLA Medical Center (ER)</strong> – Westwood. Major trauma center, 24/7. ~25 min from SoFi.</div></li>
+        <li><span class="il-icon">🏥</span><div class="il-text"><strong>Centinela Hospital</strong> – Inglewood. Closest major ER to SoFi Stadium (~8 min).</div></li>
+      </ul>
+    </div>
+
+    <div class="card card-info">
+      <div class="card-header"><span class="card-icon">💬</span><div><div class="card-title">No Insurance? Say This</div></div></div>
+      <div class="phrase-card">
+        <div class="phrase-label">At reception / admissions</div>
+        <div class="phrase-text">"I am an international visitor. I do not have US insurance. I would like a cost estimate before treatment and information about financial assistance programs."</div>
+      </div>
+      <div style="font-size:0.8rem; color:var(--gray);">Hospitals are required to treat emergencies regardless. Ask about "charity care" or "financial assistance" programs if cost is a barrier.</div>
+    </div>
+
+    <div class="card">
+      <div class="card-header"><span class="card-icon">💲</span><div><div class="card-title">Average Cost Estimates</div><div class="card-subtitle">Without insurance</div></div></div>
+      <div class="cost-row"><span class="cost-label">Urgent Care visit</span><span class="cost-value">$150–$350</span></div>
+      <div class="cost-row"><span class="cost-label">ER visit (basic)</span><span class="cost-value">$800–$2,000</span></div>
+      <div class="cost-row"><span class="cost-label">ER (heat stroke/IV fluids)</span><span class="cost-value">$2,000–$6,000</span></div>
+      <div class="cost-row"><span class="cost-label">Ambulance</span><span class="cost-value">$1,200–$2,500</span></div>
+      <div class="cost-row"><span class="cost-label">Prescription (generic)</span><span class="cost-value">$15–$80</span></div>
+    </div>
+
+    <div class="card card-info">
+      <div class="card-header"><span class="card-icon">🌡️</span><div><div class="card-title">Heat: ER vs Urgent Care?</div></div></div>
+      <ul class="info-list">
+        <li><span class="il-icon">🟡</span><div class="il-text"><strong>Urgent Care:</strong> Mild dehydration, headache, fatigue, nausea without confusion. Can administer IV fluids.</div></li>
+        <li><span class="il-icon">🔴</span><div class="il-text"><strong>ER (call 911):</strong> Confusion, loss of consciousness, no sweating despite extreme heat, temp ≥40°C, seizure.</div></li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- POLICE PROTOCOL -->
+  <div style="padding: 0 16px">
+    <div class="section-header">
+      <div><h2 class="section-title">👮 Police Protocol</h2><div class="section-sub">Know your rights in California</div></div>
+    </div>
+
+    <div class="card">
+      <div class="card-header"><span class="card-icon">🗺️</span><div><div class="card-title">LAPD vs Sheriff</div></div></div>
+      <ul class="info-list">
+        <li><span class="il-icon">🔵</span><div class="il-text"><strong>LAPD (Los Angeles Police Dept)</strong> – Patrols city of LA: Hollywood, Downtown, Westside, Venice.</div></li>
+        <li><span class="il-icon">⭐</span><div class="il-text"><strong>LA County Sheriff's Dept</strong> – Patrols Inglewood, unincorporated areas, and the SoFi Stadium zone during events.</div></li>
+        <li><span class="il-icon">🟢</span><div class="il-text"><strong>FIFA Security</strong> – Private event security within the stadium perimeter. Not law enforcement.</div></li>
+      </ul>
+    </div>
+
+    <div class="card card-info">
+      <div class="card-header"><span class="card-icon">⚖️</span><div><div class="card-title">Your Rights in California</div><div class="card-subtitle">California has stronger protections than most US states</div></div></div>
+      <ul class="info-list">
+        <li><span class="il-icon">✅</span><div class="il-text"><strong>Remain silent:</strong> You have the right to remain silent. Say: <em>"I am exercising my right to remain silent."</em></div></li>
+        <li><span class="il-icon">✅</span><div class="il-text"><strong>Refuse searches:</strong> You can refuse vehicle/bag searches without a warrant. Say: <em>"I do not consent to a search."</em></div></li>
+        <li><span class="il-icon">✅</span><div class="il-text"><strong>Film police:</strong> Legal in California. Stay 8+ feet away and do not interfere. Do not narrate aggressively.</div></li>
+        <li><span class="il-icon">✅</span><div class="il-text"><strong>Ask if you're free to go:</strong> <em>"Am I being detained or am I free to go?"</em> – you must receive a clear answer.</div></li>
+        <li><span class="il-icon">✅</span><div class="il-text"><strong>Request a lawyer:</strong> If arrested, say: <em>"I want a lawyer."</em> Do not speak until one is present.</div></li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <div class="card-header"><span class="card-icon">🗣️</span><div><div class="card-title">5 Key Police Phrases</div></div></div>
+      <div class="phrase-card"><div class="phrase-label">If stopped</div><div class="phrase-text">"Officer, am I being detained or am I free to go?"</div></div>
+      <div class="phrase-card"><div class="phrase-label">Refusing a search</div><div class="phrase-text">"I do not consent to a search of my person or belongings."</div></div>
+      <div class="phrase-card"><div class="phrase-label">Staying silent</div><div class="phrase-text">"I am invoking my right to remain silent."</div></div>
+      <div class="phrase-card"><div class="phrase-label">If arrested</div><div class="phrase-text">"I want to speak to a lawyer and contact my embassy."</div></div>
+      <div class="phrase-card"><div class="phrase-label">Language barrier</div><div class="phrase-text">"I need a Spanish/French/Arabic interpreter. I do not speak English well."</div></div>
+    </div>
+  </div>
+
+  <!-- TIPPING -->
+  <div style="padding: 0 16px">
+    <div class="section-header">
+      <div><h2 class="section-title">💵 Tipping Guide</h2><div class="section-sub">LA-specific — tipping culture is strong here</div></div>
+    </div>
+
+    <div class="card">
+      <div class="tip-row"><div class="tip-service">Restaurant<small>Sit-down service</small></div><div class="tip-amount">18–22%</div></div>
+      <div class="tip-row"><div class="tip-service">Bar<small>Per drink or tab</small></div><div class="tip-amount">$1–2/drink or 15–18%</div></div>
+      <div class="tip-row"><div class="tip-service">Uber / Lyft<small>Especially surge / game day</small></div><div class="tip-amount">15–20%</div></div>
+      <div class="tip-row"><div class="tip-service">Taxi<small>Traditional cab</small></div><div class="tip-amount">15–20%</div></div>
+      <div class="tip-row"><div class="tip-service">Valet Parking<small>Everywhere in LA — budget for it</small></div><div class="tip-amount">$5–10 on pickup</div></div>
+      <div class="tip-row"><div class="tip-service">Hotel Concierge<small>For good recommendations</small></div><div class="tip-amount">$5–20</div></div>
+      <div class="tip-row"><div class="tip-service">Hotel Housekeeping<small>Per night</small></div><div class="tip-amount">$3–5/night</div></div>
+      <div class="tip-row"><div class="tip-service">Beach / Pool Service<small>Drink or towel service</small></div><div class="tip-amount">$3–5 per round</div></div>
+      <div class="tip-row"><div class="tip-service">Food Trucks<small>Tip jar — appreciated</small></div><div class="tip-amount">$1–2</div></div>
+      <div class="tip-row"><div class="tip-service">Coffee shop<small>Counter service</small></div><div class="tip-amount">$1 or 10–15%</div></div>
+    </div>
+
+    <div class="alert alert-info">
+      <span class="a-icon">💡</span>
+      <span>Many LA tablets auto-suggest 18/20/25%. <strong>It's not mandatory</strong>, but 15% minimum is social norm. Zero tip is only for terrible service.</span>
+    </div>
+  </div>
+
+  <!-- NEIGHBORHOODS -->
+  <div id="neighborhoods" style="padding: 0 16px">
+    <div class="section-header">
+      <div><h2 class="section-title">🗺️ Neighborhood Guide</h2><div class="section-sub">Where to stay, eat & explore</div></div>
+    </div>
+
+    <div class="hood-card">
+      <div class="hood-header"><div class="hood-name">🏟️ Inglewood</div><div style="font-size:0.72rem;color:var(--gold)">~5 min to SoFi</div></div>
+      <div class="hood-tags"><span class="tag tag-gold">Budget</span><span class="tag tag-safe">Stadium Access</span></div>
+      <div class="hood-desc">Closest neighborhood to SoFi. Budget-friendly. Great soul food and BBQ joints. Pre-match atmosphere will be incredible. Less glamorous than West LA but perfectly safe in the stadium corridor. Try Harold's Chicken or local BBQ spots on Manchester Blvd.</div>
+    </div>
+
+    <div class="hood-card">
+      <div class="hood-header"><div class="hood-name">🌊 Santa Monica</div><div style="font-size:0.72rem;color:var(--gold)">~30 min to SoFi</div></div>
+      <div class="hood-tags"><span class="tag tag-info">Recommended</span><span class="tag tag-safe">Very Safe</span></div>
+      <div class="hood-desc">Best base for international fans. The Third Street Promenade, beach, pier and fan zone energy. Walkable, safe at night, tons of restaurants. Hotels expensive but worth it for experience. The beach between matches is unbeatable.</div>
+    </div>
+
+    <div class="hood-card">
+      <div class="hood-header"><div class="hood-name">🏖️ Manhattan Beach</div><div style="font-size:0.72rem;color:var(--gold)">~15 min to SoFi</div></div>
+      <div class="hood-tags"><span class="tag tag-info">Best Value</span><span class="tag tag-safe">Very Safe</span></div>
+      <div class="hood-desc">Hidden gem for World Cup. Affluent beach town, very safe, strong food/bar scene, closer to SoFi than Santa Monica. Quieter but beautiful. Strong option if Santa Monica hotels are sold out.</div>
+    </div>
+
+    <div class="hood-card">
+      <div class="hood-header"><div class="hood-name">🌆 Downtown LA (DTLA)</div><div style="font-size:0.72rem;color:var(--gold)">~25 min to SoFi</div></div>
+      <div class="hood-tags"><span class="tag tag-caution">Mixed</span><span class="tag tag-gold">Fan Zones Here</span></div>
+      <div class="hood-desc">Main FIFA Fan Zone likely in DTLA. Good hotel value, Staples Center area vibrant. Avoid surrounding Skid Row area completely. Stick to the Arts District, Little Tokyo, and Financial District corridors. Great for evenings but don't wander aimlessly late at night.</div>
+    </div>
+
+    <div class="hood-card">
+      <div class="hood-header"><div class="hood-name">💎 Beverly Hills / West Hollywood</div><div style="font-size:0.72rem;color:var(--gold)">~35 min to SoFi</div></div>
+      <div class="hood-tags"><span class="tag tag-safe">Very Safe</span><span class="tag tag-gold">Premium</span></div>
+      <div class="hood-desc">Rodeo Drive shopping, celebrity hotels. Very safe. Best for premium experience and iconic LA moments. Budget: $400–$1,000+/night. Worth one dinner even if you don't stay.</div>
+    </div>
+
+    <div class="card card-info" style="margin-top:12px">
+      <div class="card-header"><span class="card-icon">🏄</span><div><div class="card-title">Beach Day Guide</div><div class="card-subtitle">Between matches — mandatory</div></div></div>
+      <ul class="info-list">
+        <li><span class="il-icon">🌊</span><div class="il-text"><strong>Santa Monica Beach</strong> – Iconic pier, bike rentals, volleyball, safe swimming. Most touristy but fun.</div></li>
+        <li><span class="il-icon">🎨</span><div class="il-text"><strong>Venice Beach</strong> – Boardwalk, street performers, Muscle Beach, wild energy. Watch your belongings.</div></li>
+        <li><span class="il-icon">🌴</span><div class="il-text"><strong>Manhattan/Hermosa Beach</strong> – Less crowded, locals' favorite, great bars right on the sand.</div></li>
+        <li><span class="il-icon">🚲</span><div class="il-text"><strong>Tip:</strong> Rent bikes on the 26-mile Marvin Braude bike path from Santa Monica to Redondo Beach.</div></li>
+      </ul>
+    </div>
+  </div>
+
+  <div style="padding: 0 16px 16px">
+    <button class="pdf-btn" onclick="window.print()">📄 Save as PDF / Print Guide</button>
+    <div class="offline-banner">📶 This guide works offline — save this page to your phone for use without internet</div>
+  </div>
+</div>
+
+<!-- ═══════════════ SAFETY ═══════════════ -->
+<div id="safety" class="section">
+  <div class="section-header">
+    <div><h2 class="section-title">🛡️ Safety Heatmap</h2><div class="section-sub">Los Angeles by zone</div></div>
+    <span class="tag tag-info">Updated 2026</span>
+  </div>
+
+  <div class="alert alert-success">
+    <span class="a-icon">✅</span>
+    <span>LA is generally <strong>safe in tourist zones</strong> during the World Cup with heavy FIFA and LAPD security presence. Use common sense.</span>
+  </div>
+
+  <div class="zone-map">
+    <div class="zone-item">
+      <div class="zone-dot safe"></div>
+      <div>
+        <div class="zone-name">🟢 SoFi Stadium Zone / Inglewood (Match Days)</div>
+        <div class="zone-desc">Heavily policed on match days. FIFA security, LAPD, and LA County Sheriff all present. The most secured area in the city during events. Stay near the official perimeter.</div>
+      </div>
+    </div>
+    <div class="zone-item">
+      <div class="zone-dot safe"></div>
+      <div>
+        <div class="zone-name">🟢 Santa Monica</div>
+        <div class="zone-desc">Very safe day and night. Tourist-friendly, high police visibility near the pier and Third Street Promenade. Normal urban awareness applies after midnight.</div>
+      </div>
+    </div>
+    <div class="zone-item">
+      <div class="zone-dot safe"></div>
+      <div>
+        <div class="zone-name">🟢 Beverly Hills</div>
+        <div class="zone-desc">Among the safest areas in LA. Private security everywhere. Extremely well-lit commercial zones. Safe day and night.</div>
+      </div>
+    </div>
+    <div class="zone-item">
+      <div class="zone-dot safe"></div>
+      <div>
+        <div class="zone-name">🟢 Hollywood Walk of Fame (Daytime)</div>
+        <div class="zone-desc">Safe during daylight hours with tourist crowds. Can be gritty late at night — head back before midnight.</div>
+      </div>
+    </div>
+    <div class="zone-item">
+      <div class="zone-dot safe"></div>
+      <div>
+        <div class="zone-name">🟢 Manhattan Beach / Hermosa Beach</div>
+        <div class="zone-desc">Affluent beach communities. Very safe at all hours. Low crime, family-oriented atmosphere.</div>
+      </div>
+    </div>
+    <div class="zone-item">
+      <div class="zone-dot caution"></div>
+      <div>
+        <div class="zone-name">🟡 Downtown LA (DTLA) — Late Night</div>
+        <div class="zone-desc">Safe in well-lit areas like the Arts District and Financial District. After midnight, stick to busy streets. Avoid wandering into poorly lit areas. Petty theft is the main risk.</div>
+      </div>
+    </div>
+    <div class="zone-item">
+      <div class="zone-dot caution"></div>
+      <div>
+        <div class="zone-name">🟡 Hollywood Blvd — After Midnight</div>
+        <div class="zone-desc">Daytime fine, late nights get rough. Panhandling, erratic behavior from homeless population. Don't flash phones or wallets. Leave before 1am if possible.</div>
+      </div>
+    </div>
+    <div class="zone-item">
+      <div class="zone-dot danger"></div>
+      <div>
+        <div class="zone-name">🔴 Skid Row (Downtown)</div>
+        <div class="zone-desc">Do NOT walk through Skid Row. Large homeless encampment, active drug use, unpredictable. Bounded by 3rd–7th St and Main St–Alameda. Your GPS might route you here — override it.</div>
+      </div>
+    </div>
+    <div class="zone-item">
+      <div class="zone-dot danger"></div>
+      <div>
+        <div class="zone-name">🔴 South Central / Compton — Alone at Night</div>
+        <div class="zone-desc">As a tourist with no local knowledge, avoid these neighborhoods at night. Some areas are fine in daytime but navigation errors and isolation are risks for visitors unfamiliar with the area.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header"><span class="card-icon">📱</span><div><div class="card-title">Universal Safety Tips</div></div></div>
+    <ul class="info-list">
+      <li><span class="il-icon">🔒</span><div class="il-text"><strong>Keep phone in front pocket or bag zipper</strong> – phone snatching is the most common crime against tourists.</div></li>
+      <li><span class="il-icon">🚗</span><div class="il-text"><strong>Lock your car always</strong> – smash-and-grab is common. Leave nothing visible: no bags, cameras, or jackets on seats.</div></li>
+      <li><span class="il-icon">💳</span><div class="il-text"><strong>Use RFID-blocking wallet</strong> – contactless card skimming exists in crowded areas.</div></li>
+      <li><span class="il-icon">🍺</span><div class="il-text"><strong>Never leave a drink unattended</strong> in a bar or club setting.</div></li>
+      <li><span class="il-icon">📍</span><div class="il-text"><strong>Share your location</strong> with a friend or family member when going out at night.</div></li>
+      <li><span class="il-icon">🚕</span><div class="il-text"><strong>Only use licensed rideshares</strong> – never accept rides from someone approaching you in the parking lot.</div></li>
+    </ul>
+  </div>
+
+  <div class="card card-alert">
+    <div class="card-header"><span class="card-icon">🚫</span><div><div class="card-title">Things NOT To Do</div></div></div>
+    <ul class="info-list">
+      <li><span class="il-icon">❌</span><div class="il-text">Do not walk through Skid Row under any circumstances</div></li>
+      <li><span class="il-icon">❌</span><div class="il-text">Do not accept rides from unlicensed drivers near the stadium</div></li>
+      <li><span class="il-icon">❌</span><div class="il-text">Do not flash expensive jewelry or cameras in crowded areas</div></li>
+      <li><span class="il-icon">❌</span><div class="il-text">Do not leave valuables visible in a parked car</div></li>
+      <li><span class="il-icon">❌</span><div class="il-text">Do not use your phone while walking and distracted at night</div></li>
+    </ul>
+  </div>
+</div>
+
+<!-- ═══════════════ TRANSPORT ═══════════════ -->
+<div id="transport" class="section">
+  <div class="section-header">
+    <div><h2 class="section-title">🚗 Getting to SoFi</h2><div class="section-sub">The truth about LA traffic</div></div>
+  </div>
+
+  <div class="alert alert-danger">
+    <span class="a-icon">🚇</span>
+    <span><strong>THERE IS NO DIRECT METRO TO SOFI STADIUM.</strong> The Crenshaw/LAX Line stops at Inglewood — a 20-minute walk or shuttle from the venue. Plan transportation early.</span>
+  </div>
+
+  <div class="card card-alert">
+    <div class="card-header"><span class="card-icon">🚦</span><div><div class="card-title">The Hard Truth About LA Traffic</div></div></div>
+    <ul class="info-list">
+      <li><span class="il-icon">⏰</span><div class="il-text">On match days, the entire Inglewood/Century Blvd corridor will be gridlocked for <strong>2–4 hours</strong> post-match.</div></li>
+      <li><span class="il-icon">🚗</span><div class="il-text">LAX to SoFi is normally ~20 minutes. On match day, expect <strong>60+ minutes</strong>.</div></li>
+      <li><span class="il-icon">📱</span><div class="il-text">Uber/Lyft surge pricing can hit <strong>4–6x normal</strong> immediately after the final whistle. Open the app 10–15 min before it ends for better rates.</div></li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <div class="card-header"><span class="card-icon">🚌</span><div><div class="card-title">Option A: Official Metro Shuttle</div><div class="card-subtitle">Recommended — Cheapest &amp; most reliable</div></div></div>
+    <ul class="info-list">
+      <li><span class="il-icon">🚆</span><div class="il-text">Take the <strong>Metro K Line (Crenshaw/LAX)</strong> to Inglewood stations (Downtown Inglewood or Fairview Heights).</div></li>
+      <li><span class="il-icon">🚌</span><div class="il-text">Board the <strong>official FIFA/Metro shuttle</strong> from the station to SoFi (approx. 10–15 min, frequent service).</div></li>
+      <li><span class="il-icon">💵</span><div class="il-text">Metro fare: ~$1.75 with TAP card. Shuttle likely free or included with match ticket — confirm at fifa.com</div></li>
+      <li><span class="il-icon">⚡</span><div class="il-text">This beats all car options post-match. Metro runs dedicated extra service on match days.</div></li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <div class="card-header"><span class="card-icon">📱</span><div><div class="card-title">Option B: Uber / Lyft</div><div class="card-subtitle">Convenient but expensive on game day</div></div></div>
+    <ul class="info-list">
+      <li><span class="il-icon">📍</span><div class="il-text">Designated <strong>rideshare drop-off</strong>: Prairie Ave & Century Blvd, north side. Do NOT be dropped in parking lots.</div></li>
+      <li><span class="il-icon">📍</span><div class="il-text">Designated <strong>rideshare pickup</strong>: Specific staging zone east of the stadium. Check FIFA/Uber in-app directions on match day.</div></li>
+      <li><span class="il-icon">⏱️</span><div class="il-text"><strong>Book return 10–15 min before final whistle</strong> to avoid 4–6x surge. Leave a few minutes early if your team isn't winning.</div></li>
+      <li><span class="il-icon">💵</span><div class="il-text">Normal fare: $20–40 from West LA. Match day surge: $80–$160+. Budget accordingly.</div></li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <div class="card-header"><span class="card-icon">🅿️</span><div><div class="card-title">Option C: Driving &amp; Parking</div><div class="card-subtitle">Only if you have no other choice</div></div></div>
+    <ul class="info-list">
+      <li><span class="il-icon">💵</span><div class="il-text">Official SoFi parking: <strong>$60–$100</strong> per vehicle. Pre-book at sofistadium.com or FIFA site. Sells out.</div></li>
+      <li><span class="il-icon">⏰</span><div class="il-text"><strong>Arrive 2+ hours early.</strong> The entire I-405, I-105, and Century Blvd clogs early.</div></li>
+      <li><span class="il-icon">🚶</span><div class="il-text">If you park in Inglewood side streets (cheaper), expect a 20–40 min walk. Wear comfortable shoes.</div></li>
+      <li><span class="il-icon">⚠️</span><div class="il-text"><strong>Post-match exit takes 60–90 minutes</strong> minimum. Pack snacks. Don't leave a full car of people frustrated.</div></li>
+    </ul>
+  </div>
+
+  <div class="card card-alert">
+    <div class="card-header"><span class="card-icon">⚠️</span><div><div class="card-title">Safety Warning: Parking Lot Rides</div></div></div>
+    <div class="alert alert-danger" style="margin-bottom:0">
+      <span class="a-icon">🚫</span>
+      <span><strong>DO NOT accept rides from people approaching you in the parking lot</strong> offering "easy rides." These are unlicensed operators and represent a safety risk. Only use official Uber/Lyft app or licensed taxis.</span>
+    </div>
+  </div>
+
+  <div class="card card-info">
+    <div class="card-header"><span class="card-icon">🗺️</span><div><div class="card-title">From Key Locations to SoFi</div></div></div>
+    <div class="cost-row"><span class="cost-label">LAX Airport</span><span class="cost-value">~15 min / $25–40</span></div>
+    <div class="cost-row"><span class="cost-label">Santa Monica</span><span class="cost-value">~30 min / $30–55</span></div>
+    <div class="cost-row"><span class="cost-label">Beverly Hills</span><span class="cost-value">~30 min / $35–55</span></div>
+    <div class="cost-row"><span class="cost-label">Downtown LA</span><span class="cost-value">~25 min / $30–50</span></div>
+    <div class="cost-row"><span class="cost-label">Hollywood</span><span class="cost-value">~35 min / $40–65</span></div>
+    <div style="font-size:0.7rem; color:var(--gray); margin-top:8px;">* Normal traffic. Double to triple on match days.</div>
+  </div>
+</div>
+
+<!-- ═══════════════ DEALS ═══════════════ -->
+<div id="deals" class="section">
+  <div class="section-header">
+    <div><h2 class="section-title">🎟️ My Deals</h2><div class="section-sub">Exclusive fan offers for World Cup 2026</div></div>
+  </div>
+
+  <div class="alert alert-info">
+    <span class="a-icon">🔓</span>
+    <span>Deals unlock with your Fan Pass. Connect your FIFA ticket to activate exclusive partner discounts.</span>
+  </div>
+
+  <div class="deal-card">
+    <div class="deal-badge">20%<br>OFF</div>
+    <div class="deal-info">
+      <div class="deal-title">Airport Express Transfer</div>
+      <div class="deal-desc">Pre-booked LAX ↔ Hotel transfers. Fixed price, no surge. Verified licensed drivers.</div>
+      <a href="#" class="deal-cta">Activate Deal →</a>
+    </div>
+  </div>
+
+  <div class="deal-card">
+    <div class="deal-badge">FREE<br>SIM</div>
+    <div class="deal-info">
+      <div class="deal-title">USA Data SIM Card</div>
+      <div class="deal-desc">7-day unlimited data SIM. Pick up at LAX Terminal arrival halls.</div>
+      <a href="#" class="deal-cta">Claim Offer →</a>
+    </div>
+  </div>
+
+  <div class="deal-card">
+    <div class="deal-badge">15%<br>OFF</div>
+    <div class="deal-info">
+      <div class="deal-title">Travel Insurance</div>
+      <div class="deal-desc">Medical coverage up to $500K. Includes trip cancellation & match-day delays.</div>
+      <a href="#" class="deal-cta">Get Quote →</a>
+    </div>
+  </div>
+
+  <div class="deal-card">
+    <div class="deal-badge">2-FOR<br>-1</div>
+    <div class="deal-info">
+      <div class="deal-title">Santa Monica Restaurant Pass</div>
+      <div class="deal-desc">Participating restaurants near the beach. Valid on non-match days.</div>
+      <a href="#" class="deal-cta">View Restaurants →</a>
+    </div>
+  </div>
+
+  <div class="deal-card">
+    <div class="deal-badge">$50<br>OFF</div>
+    <div class="deal-info">
+      <div class="deal-title">Stadium Hotel Package</div>
+      <div class="deal-desc">Select Inglewood & Manhattan Beach hotels. Shuttle service included.</div>
+      <a href="#" class="deal-cta">Book Now →</a>
+    </div>
+  </div>
+
+  <div style="text-align:center; color:var(--gray); font-size:0.8rem; padding:16px 0;">
+    More deals added as the tournament approaches.<br>Check back regularly.
+  </div>
+</div>
+
+<!-- ═══════════════ SOS ═══════════════ -->
+<div id="sos" class="section">
+  <div class="section-header">
+    <div><h2 class="section-title">🆘 Emergency SOS</h2><div class="section-sub">Save these numbers before match day</div></div>
+  </div>
+
+  <a href="tel:911" class="sos-btn sos-911">
+    <div class="sos-left">
+      <span class="sos-icon">🚨</span>
+      <div>
+        <div class="sos-label">Emergency — Police / Fire / Ambulance</div>
+        <div class="sos-number">911</div>
+      </div>
+    </div>
+    <span class="sos-arrow">📞</span>
+  </a>
+
+  <a href="tel:8772755273" class="sos-btn">
+    <div class="sos-left">
+      <span class="sos-icon">👮</span>
+      <div>
+        <div class="sos-label">LAPD Non-Emergency</div>
+        <div class="sos-number">(877) 275-5273</div>
+      </div>
+    </div>
+    <span class="sos-arrow">📞</span>
+  </a>
+
+  <a href="tel:8004278700" class="sos-btn">
+    <div class="sos-left">
+      <span class="sos-icon">🏥</span>
+      <div>
+        <div class="sos-label">LA County Public Health</div>
+        <div class="sos-number">(800) 427-8700</div>
+      </div>
+    </div>
+    <span class="sos-arrow">📞</span>
+  </a>
+
+  <a href="tel:2134771300" class="sos-btn">
+    <div class="sos-left">
+      <span class="sos-icon">🚑</span>
+      <div>
+        <div class="sos-label">Cedars-Sinai Medical Center</div>
+        <div class="sos-number">(213) 477-1300</div>
+      </div>
+    </div>
+    <span class="sos-arrow">📞</span>
+  </a>
+
+  <a href="tel:3108254321" class="sos-btn">
+    <div class="sos-left">
+      <span class="sos-icon">🏨</span>
+      <div>
+        <div class="sos-label">UCLA Medical Center (ER)</div>
+        <div class="sos-number">(310) 825-4321</div>
+      </div>
+    </div>
+    <span class="sos-arrow">📞</span>
+  </a>
+
+  <div class="divider"></div>
+
+  <h2 class="section-title" style="padding:0 0 4px">🌍 Embassy Contacts</h2>
+  <div class="section-sub">Los Angeles Consular Offices</div>
+
+  <div class="embassy-grid">
+    <div class="embassy-row"><div class="emb-country"><span class="emb-flag">🇲🇽</span><span>Mexico</span></div><div class="emb-phone"><a href="tel:2139510151">(213) 351-0151</a></div></div>
+    <div class="embassy-row"><div class="emb-country"><span class="emb-flag">🇧🇷</span><span>Brazil</span></div><div class="emb-phone"><a href="tel:3104431674">(310) 443-1674</a></div></div>
+    <div class="embassy-row"><div class="emb-country"><span class="emb-flag">🇦🇷</span><span>Argentina</span></div><div class="emb-phone"><a href="tel:2134547070">(213) 454-7070</a></div></div>
+    <div class="embassy-row"><div class="emb-country"><span class="emb-flag">🇩🇪</span><span>Germany</span></div><div class="emb-phone"><a href="tel:3233733337">(323) 373-3337</a></div></div>
+    <div class="embassy-row"><div class="emb-country"><span class="emb-flag">🇫🇷</span><span>France</span></div><div class="emb-phone"><a href="tel:3102357200">(310) 235-7200</a></div></div>
+    <div class="embassy-row"><div class="emb-country"><span class="emb-flag">🇬🇧</span><span>United Kingdom</span></div><div class="emb-phone"><a href="tel:3104817599">(310) 481-7599</a></div></div>
+    <div class="embassy-row"><div class="emb-country"><span class="emb-flag">🇪🇸</span><span>Spain</span></div><div class="emb-phone"><a href="tel:3233462175">(323) 346-2175</a></div></div>
+    <div class="embassy-row"><div class="emb-country"><span class="emb-flag">🇨🇴</span><span>Colombia</span></div><div class="emb-phone"><a href="tel:3106558765">(310) 655-8765</a></div></div>
+    <div class="embassy-row"><div class="emb-country"><span class="emb-flag">🇨🇱</span><span>Chile</span></div><div class="emb-phone"><a href="tel:2139777672">(213) 977-7672</a></div></div>
+    <div class="embassy-row"><div class="emb-country"><span class="emb-flag">🇯🇵</span><span>Japan</span></div><div class="emb-phone"><a href="tel:2134179700">(213) 417-9700</a></div></div>
+    <div class="embassy-row"><div class="emb-country"><span class="emb-flag">🇰🇷</span><span>South Korea</span></div><div class="emb-phone"><a href="tel:3132261711">(313) 226-1711</a></div></div>
+    <div class="embassy-row"><div class="emb-country"><span class="emb-flag">🇳🇬</span><span>Nigeria</span></div><div class="emb-phone"><a href="tel:2135807200">(213) 580-7200</a></div></div>
+    <div class="embassy-row"><div class="emb-country"><span class="emb-flag">🇲🇦</span><span>Morocco</span></div><div class="emb-phone"><a href="tel:3103150728">(310) 315-0728</a></div></div>
+    <div class="embassy-row"><div class="emb-country"><span class="emb-flag">🇸🇦</span><span>Saudi Arabia</span></div><div class="emb-phone"><a href="tel:3104791701">(310) 479-1701</a></div></div>
+    <div class="embassy-row"><div class="emb-country"><span class="emb-flag">🇦🇺</span><span>Australia</span></div><div class="emb-phone"><a href="tel:3102292300">(310) 229-2300</a></div></div>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="card card-info">
+    <div class="card-header"><span class="card-icon">💬</span><div><div class="card-title">If You're Arrested</div></div></div>
+    <div class="phrase-card"><div class="phrase-label">Say immediately</div><div class="phrase-text">"I am invoking my right to remain silent. I want to speak to a lawyer and I want to contact my country's consulate."</div></div>
+    <div style="font-size:0.8rem; color:var(--gray);">Under the Vienna Convention, you have the right to contact your country's consular officer when arrested in a foreign country. Demand this right.</div>
+  </div>
+
+  <div style="padding: 8px 0 16px">
+    <button class="pdf-btn" onclick="window.print()">📄 Save as PDF for Offline Use</button>
+    <div class="offline-banner">📶 Screenshot or save this page — it works fully offline</div>
+  </div>
+</div>
+
+<!-- ═══════════════ BOTTOM NAV ═══════════════ -->
+<nav class="bottom-nav">
+  <button class="nav-btn active" id="nav-home" onclick="showSection('home')">
+    <span class="nav-icon">🏟️</span>
+    <span>Home</span>
+  </button>
+  <button class="nav-btn" id="nav-safety" onclick="showSection('safety')">
+    <span class="nav-icon">🛡️</span>
+    <span>Safety</span>
+  </button>
+  <button class="nav-btn" id="nav-transport" onclick="showSection('transport')">
+    <span class="nav-icon">🚗</span>
+    <span>Transport</span>
+  </button>
+  <button class="nav-btn" id="nav-deals" onclick="showSection('deals')">
+    <span class="nav-icon">🎟️</span>
+    <span>Deals</span>
+  </button>
+  <button class="nav-btn sos-nav" id="nav-sos" onclick="showSection('sos')">
+    <span class="nav-icon">🆘</span>
+    <span>SOS</span>
+  </button>
+</nav>
+
+<script>
+function showSection(id) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+  const sec = document.getElementById(id);
+  if (sec) { sec.classList.add('active'); window.scrollTo(0,0); }
+  const nav = document.getElementById('nav-' + id);
+  if (nav) nav.classList.add('active');
+}
+
+// Collapsible sections
+document.querySelectorAll('.collapsible-header').forEach(header => {
+  header.addEventListener('click', () => {
+    const body = header.nextElementSibling;
+    const arrow = header.querySelector('.collapsible-arrow');
+    body.classList.toggle('open');
+    if(arrow) arrow.classList.toggle('open');
+  });
+});
+
+// Print styles
+const printStyle = document.createElement('style');
+printStyle.textContent = `
+  @media print {
+    .bottom-nav, .pdf-btn, .nav-btn { display: none !important; }
+    .section { display: block !important; page-break-inside: avoid; }
+    body { background: white !important; color: black !important; padding-bottom: 0; }
+    .card { border: 1px solid #ccc !important; background: #f9f9f9 !important; }
+    a { color: inherit !important; text-decoration: underline; }
+    .hero-bg-lines { display: none; }
+  }
+`;
+document.head.appendChild(printStyle);
+</script>
+</body>
+</html>

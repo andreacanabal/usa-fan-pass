@@ -1,0 +1,1601 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>NY/NJ Fan Pass — FIFA World Cup 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #0A1628;
+    --navy-mid: #112040;
+    --navy-light: #1A305A;
+    --red: #BF0A30;
+    --red-light: #E8102A;
+    --gold: #FFD700;
+    --gold-dim: #C9A227;
+    --white: #F0F4FF;
+    --gray: #8A9BB8;
+    --gray-light: #B8C5D9;
+    --green: #00C97A;
+    --yellow: #FFB300;
+    --danger: #FF4444;
+    --card-bg: #112040;
+    --card-border: rgba(255,215,0,0.12);
+    --text: #E8EEF8;
+    --text-dim: #8A9BB8;
+    --radius: 16px;
+    --radius-sm: 10px;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+  body {
+    background: var(--navy);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .app {
+    width: 100%;
+    max-width: 480px;
+    min-height: 100vh;
+    background: var(--navy);
+    position: relative;
+    padding-bottom: 80px;
+  }
+
+  /* TOP BAR */
+  .top-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 16px 10px;
+    background: var(--navy);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    border-bottom: 1px solid rgba(255,215,0,0.08);
+  }
+
+  .logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 22px;
+    letter-spacing: 2px;
+    color: var(--gold);
+    text-shadow: 0 0 20px rgba(255,215,0,0.3);
+  }
+
+  .logo span { color: var(--white); }
+
+  .top-actions { display: flex; gap: 8px; }
+
+  .btn-sm {
+    padding: 6px 12px;
+    border-radius: 8px;
+    border: none;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    cursor: pointer;
+    letter-spacing: 0.5px;
+    transition: all 0.2s;
+  }
+
+  .btn-pdf { background: var(--navy-light); color: var(--gold); border: 1px solid var(--gold-dim); }
+  .btn-deals { background: var(--gold); color: var(--navy); }
+  .btn-sos { background: var(--red); color: white; animation: pulse-red 2s infinite; }
+
+  @keyframes pulse-red {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(191,10,48,0.5); }
+    50% { box-shadow: 0 0 0 6px rgba(191,10,48,0); }
+  }
+
+  /* SECTIONS */
+  .section { display: none; padding: 0 16px; }
+  .section.active { display: block; }
+
+  /* HERO CARD */
+  .hero-card {
+    background: linear-gradient(145deg, #1A305A 0%, #0D1F3C 50%, #0A1628 100%);
+    border-radius: var(--radius);
+    padding: 20px;
+    margin: 12px 0;
+    border: 1px solid var(--card-border);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-card::before {
+    content: '';
+    position: absolute;
+    top: -60px; right: -60px;
+    width: 200px; height: 200px;
+    background: radial-gradient(circle, rgba(255,215,0,0.06) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .hero-card::after {
+    content: '⚽';
+    position: absolute;
+    bottom: -20px; right: -10px;
+    font-size: 100px;
+    opacity: 0.04;
+    pointer-events: none;
+  }
+
+  .countdown-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(191,10,48,0.2);
+    border: 1px solid rgba(191,10,48,0.4);
+    border-radius: 20px;
+    padding: 5px 12px;
+    font-size: 12px;
+    font-weight: 600;
+    color: #FF6B84;
+    margin-bottom: 12px;
+  }
+
+  .countdown-badge .dot { width: 6px; height: 6px; background: var(--red-light); border-radius: 50%; animation: blink 1s infinite; }
+  @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.3} }
+
+  .venue-label {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    color: var(--gold-dim);
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+
+  .hero-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 42px;
+    line-height: 0.95;
+    color: var(--white);
+    letter-spacing: 1px;
+    margin-bottom: 8px;
+  }
+
+  .hero-title .accent { color: var(--gold); }
+
+  .hero-subtitle {
+    font-size: 13px;
+    color: var(--gray);
+    line-height: 1.4;
+    margin-bottom: 16px;
+    font-style: italic;
+  }
+
+  .match-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 16px;
+  }
+
+  .pill {
+    background: var(--navy-light);
+    border: 1px solid var(--card-border);
+    border-radius: 20px;
+    padding: 4px 10px;
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--gray-light);
+  }
+
+  .pill.final { background: rgba(255,215,0,0.1); border-color: var(--gold-dim); color: var(--gold); }
+
+  .stats-row {
+    display: flex;
+    gap: 0;
+    border-top: 1px solid rgba(255,255,255,0.06);
+    padding-top: 14px;
+  }
+
+  .stat {
+    flex: 1;
+    text-align: center;
+    padding: 0 8px;
+    border-right: 1px solid rgba(255,255,255,0.06);
+  }
+
+  .stat:last-child { border-right: none; }
+
+  .stat-val {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 22px;
+    color: var(--gold);
+    display: block;
+    letter-spacing: 1px;
+  }
+
+  .stat-lbl {
+    font-size: 9px;
+    color: var(--gray);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    font-weight: 600;
+  }
+
+  /* SECTION HEADERS */
+  .sec-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 20px 0 12px;
+  }
+
+  .sec-icon {
+    width: 36px; height: 36px;
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px;
+    flex-shrink: 0;
+  }
+
+  .sec-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 24px;
+    letter-spacing: 1px;
+    color: var(--white);
+    line-height: 1;
+  }
+
+  .sec-sub { font-size: 11px; color: var(--gray); font-weight: 500; }
+
+  /* CARDS */
+  .card {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: var(--radius);
+    padding: 16px;
+    margin-bottom: 10px;
+  }
+
+  .card-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 18px;
+    letter-spacing: 1px;
+    color: var(--white);
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .card-body { font-size: 13px; color: var(--text-dim); line-height: 1.6; }
+
+  .highlight-box {
+    background: rgba(255,215,0,0.06);
+    border: 1px solid rgba(255,215,0,0.15);
+    border-radius: 10px;
+    padding: 12px;
+    margin: 10px 0;
+  }
+
+  .highlight-box p { font-size: 13px; color: var(--text); line-height: 1.5; }
+
+  .warning-box {
+    background: rgba(191,10,48,0.1);
+    border: 1px solid rgba(191,10,48,0.3);
+    border-radius: 10px;
+    padding: 12px;
+    margin: 10px 0;
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+  }
+
+  .warning-box .icon { font-size: 20px; flex-shrink: 0; }
+  .warning-box p { font-size: 13px; color: #FF8A9A; line-height: 1.5; }
+
+  .info-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 8px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+  }
+
+  .info-row:last-child { border-bottom: none; }
+  .info-label { font-size: 12px; color: var(--gray); font-weight: 500; }
+  .info-value { font-size: 13px; color: var(--text); font-weight: 600; text-align: right; max-width: 60%; }
+
+  .tag {
+    display: inline-block;
+    padding: 3px 8px;
+    border-radius: 6px;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+  }
+
+  .tag-green { background: rgba(0,201,122,0.15); color: var(--green); border: 1px solid rgba(0,201,122,0.25); }
+  .tag-yellow { background: rgba(255,179,0,0.15); color: var(--yellow); border: 1px solid rgba(255,179,0,0.25); }
+  .tag-red { background: rgba(255,68,68,0.15); color: var(--danger); border: 1px solid rgba(255,68,68,0.25); }
+
+  /* SAFETY ZONES */
+  .zone-card {
+    border-radius: var(--radius);
+    padding: 14px;
+    margin-bottom: 10px;
+    border: 1px solid;
+  }
+
+  .zone-safe { background: rgba(0,201,122,0.06); border-color: rgba(0,201,122,0.2); }
+  .zone-caution { background: rgba(255,179,0,0.06); border-color: rgba(255,179,0,0.2); }
+  .zone-avoid { background: rgba(255,68,68,0.06); border-color: rgba(255,68,68,0.2); }
+
+  .zone-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 8px;
+  }
+
+  .zone-name {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 17px;
+    letter-spacing: 0.5px;
+  }
+
+  .zone-safe .zone-name { color: var(--green); }
+  .zone-caution .zone-name { color: var(--yellow); }
+  .zone-avoid .zone-name { color: var(--danger); }
+
+  .rating-dots { display: flex; gap: 3px; }
+  .dot-rating {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.1);
+  }
+
+  .zone-safe .dot-rating.on { background: var(--green); }
+  .zone-caution .dot-rating.on { background: var(--yellow); }
+  .zone-avoid .dot-rating.on { background: var(--danger); }
+
+  .zone-list { list-style: none; }
+  .zone-list li { font-size: 12px; color: var(--text-dim); padding: 3px 0; display: flex; gap: 6px; align-items: flex-start; }
+  .zone-list li::before { content: '→'; font-size: 10px; flex-shrink: 0; margin-top: 2px; }
+  .zone-safe .zone-list li::before { color: var(--green); }
+  .zone-caution .zone-list li::before { color: var(--yellow); }
+  .zone-avoid .zone-list li::before { color: var(--danger); }
+
+  /* PHRASE BOX */
+  .phrase-box {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 10px;
+    padding: 12px;
+    margin: 8px 0;
+  }
+
+  .phrase-num { font-family: 'Bebas Neue', sans-serif; font-size: 24px; color: var(--gold); line-height: 1; }
+  .phrase-text { font-size: 14px; font-weight: 600; color: var(--white); margin: 2px 0; }
+  .phrase-note { font-size: 11px; color: var(--gray); }
+
+  /* EMBASSY */
+  .embassy-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+
+  .embassy-card {
+    background: var(--navy-light);
+    border: 1px solid var(--card-border);
+    border-radius: 10px;
+    padding: 10px;
+  }
+
+  .embassy-country { font-size: 11px; font-weight: 700; color: var(--white); margin-bottom: 2px; display: flex; gap: 6px; align-items: center; }
+  .embassy-phone { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--gold-dim); }
+
+  /* TIP GUIDE */
+  .tip-item {
+    display: flex;
+    align-items: center;
+    padding: 12px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+    gap: 12px;
+  }
+
+  .tip-item:last-child { border-bottom: none; }
+  .tip-emoji { font-size: 24px; width: 36px; text-align: center; flex-shrink: 0; }
+  .tip-info { flex: 1; }
+  .tip-name { font-size: 13px; font-weight: 600; color: var(--text); }
+  .tip-detail { font-size: 12px; color: var(--gray); margin-top: 2px; }
+  .tip-amount { font-family: 'Bebas Neue', sans-serif; font-size: 22px; color: var(--gold); letter-spacing: 1px; white-space: nowrap; }
+
+  /* DEALS */
+  .deal-card {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: var(--radius);
+    padding: 16px;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .deal-icon {
+    width: 50px; height: 50px;
+    border-radius: 14px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 26px;
+    flex-shrink: 0;
+    background: var(--navy-light);
+    border: 1px solid var(--card-border);
+  }
+
+  .deal-info { flex: 1; }
+  .deal-title { font-weight: 700; font-size: 14px; color: var(--text); margin-bottom: 3px; }
+  .deal-desc { font-size: 12px; color: var(--gray); margin-bottom: 8px; }
+
+  .btn-notify {
+    display: inline-block;
+    padding: 6px 14px;
+    background: transparent;
+    border: 1px solid var(--gold-dim);
+    border-radius: 8px;
+    color: var(--gold);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .btn-notify:hover { background: rgba(255,215,0,0.08); }
+  .btn-notify.notified { background: rgba(0,201,122,0.1); border-color: var(--green); color: var(--green); }
+
+  .affiliate-note {
+    text-align: center;
+    font-size: 11px;
+    color: var(--gray);
+    padding: 12px;
+    font-style: italic;
+    opacity: 0.7;
+  }
+
+  /* SOS */
+  .sos-big {
+    background: linear-gradient(135deg, rgba(191,10,48,0.2) 0%, rgba(191,10,48,0.05) 100%);
+    border: 2px solid rgba(191,10,48,0.4);
+    border-radius: var(--radius);
+    padding: 20px;
+    text-align: center;
+    margin-bottom: 12px;
+  }
+
+  .sos-number {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 72px;
+    color: var(--red-light);
+    line-height: 1;
+    letter-spacing: 4px;
+    text-shadow: 0 0 30px rgba(232,16,42,0.4);
+  }
+
+  .sos-label { font-size: 12px; font-weight: 700; letter-spacing: 2px; color: var(--gray); text-transform: uppercase; }
+
+  .emergency-row {
+    display: flex;
+    align-items: center;
+    padding: 12px;
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 12px;
+    margin-bottom: 8px;
+    gap: 12px;
+  }
+
+  .emergency-icon { font-size: 22px; width: 36px; text-align: center; flex-shrink: 0; }
+  .emergency-info { flex: 1; }
+  .emergency-name { font-size: 13px; font-weight: 600; color: var(--text); }
+  .emergency-num { font-family: 'DM Mono', monospace; font-size: 13px; color: var(--gold); margin-top: 2px; }
+
+  .call-btn {
+    background: rgba(0,201,122,0.1);
+    border: 1px solid rgba(0,201,122,0.3);
+    border-radius: 8px;
+    padding: 7px 12px;
+    color: var(--green);
+    font-size: 12px;
+    font-weight: 700;
+    text-decoration: none;
+    cursor: pointer;
+  }
+
+  /* LANGUAGES */
+  .lang-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+
+  .lang-card {
+    background: var(--navy-light);
+    border: 1px solid var(--card-border);
+    border-radius: 10px;
+    padding: 10px;
+  }
+
+  .lang-name { font-size: 10px; color: var(--gray); font-weight: 600; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 4px; }
+  .lang-phrase { font-size: 13px; color: var(--text); font-weight: 600; }
+  .lang-flag { font-size: 18px; margin-bottom: 4px; display: block; }
+
+  /* BOTTOM NAV */
+  .bottom-nav {
+    position: fixed;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    max-width: 480px;
+    background: rgba(10,22,40,0.97);
+    backdrop-filter: blur(20px);
+    border-top: 1px solid rgba(255,215,0,0.1);
+    display: flex;
+    z-index: 200;
+    padding: 6px 0 env(safe-area-inset-bottom, 6px);
+  }
+
+  .nav-tab {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 3px;
+    padding: 8px 4px;
+    cursor: pointer;
+    border: none;
+    background: none;
+    transition: all 0.2s;
+    position: relative;
+  }
+
+  .nav-tab .nav-icon { font-size: 20px; transition: transform 0.2s; }
+  .nav-tab .nav-label { font-size: 10px; font-weight: 600; letter-spacing: 0.5px; color: var(--gray); transition: color 0.2s; }
+
+  .nav-tab.active .nav-icon { transform: scale(1.15); }
+  .nav-tab.active .nav-label { color: var(--gold); }
+
+  .nav-tab.active::after {
+    content: '';
+    position: absolute;
+    top: 0; left: 20%; right: 20%;
+    height: 2px;
+    background: var(--gold);
+    border-radius: 0 0 4px 4px;
+  }
+
+  .nav-tab.sos-tab .nav-label { color: var(--red-light); }
+  .nav-tab.sos-tab .nav-icon { filter: drop-shadow(0 0 4px rgba(232,16,42,0.6)); }
+
+  /* TRANSPORT STEPS */
+  .route-step {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 0;
+    position: relative;
+  }
+
+  .route-line {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex-shrink: 0;
+  }
+
+  .step-dot {
+    width: 28px; height: 28px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 12px;
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+
+  .step-line {
+    width: 2px;
+    flex: 1;
+    min-height: 24px;
+    background: rgba(255,255,255,0.08);
+    margin: 3px 0;
+  }
+
+  .step-content { flex: 1; padding-bottom: 16px; }
+  .step-title { font-size: 13px; font-weight: 700; color: var(--text); margin-bottom: 3px; }
+  .step-detail { font-size: 12px; color: var(--gray); line-height: 1.5; }
+  .step-badge { display: inline-block; padding: 2px 8px; border-radius: 5px; font-size: 11px; font-weight: 700; margin-top: 5px; }
+
+  /* SCROLLBAR */
+  ::-webkit-scrollbar { width: 4px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 2px; }
+
+  /* PRINT STYLES */
+  @media print {
+    body { background: white; color: black; }
+    .bottom-nav, .top-bar .btn-pdf, .top-bar .btn-deals, .top-bar .btn-sos { display: none !important; }
+    .section { display: block !important; }
+    .app { padding-bottom: 0; }
+    * { color: black !important; background: none !important; border-color: #ccc !important; }
+    .hero-title, .sec-title, .card-title { color: #002868 !important; }
+  }
+
+  /* ACCORDION */
+  .accordion-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+    padding: 12px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+  }
+
+  .accordion-header h4 { font-size: 14px; font-weight: 600; color: var(--text); display: flex; align-items: center; gap: 8px; }
+  .accordion-arrow { color: var(--gray); font-size: 12px; transition: transform 0.2s; }
+  .accordion-body { display: none; padding: 10px 0; }
+  .accordion-body.open { display: block; }
+  .accordion-arrow.open { transform: rotate(180deg); }
+
+  .mono { font-family: 'DM Mono', monospace; }
+  .mb-8 { margin-bottom: 8px; }
+  .mt-8 { margin-top: 8px; }
+</style>
+</head>
+<body>
+
+<div class="app">
+
+  <!-- TOP BAR -->
+  <div class="top-bar">
+    <div class="logo">NY/NJ <span>GUIDE</span></div>
+    <div class="top-actions">
+      <button class="btn-sm btn-pdf" onclick="window.print()">⬇ PDF</button>
+      <button class="btn-sm btn-deals" onclick="switchTab('deals')">MY DEALS</button>
+      <button class="btn-sm btn-sos" onclick="switchTab('sos')">🆘 SOS</button>
+    </div>
+  </div>
+
+  <!-- HOME SECTION -->
+  <section class="section active" id="sec-home">
+
+    <!-- HERO CARD -->
+    <div class="hero-card">
+      <div class="countdown-badge">
+        <span class="dot"></span>
+        <span id="countdown-text">Loading countdown...</span>
+      </div>
+      <div class="venue-label">MetLife Stadium · East Rutherford, NJ · Summer 2026</div>
+      <div class="hero-title">NEW YORK/<br><span class="accent">NJ FAN PASS</span></div>
+      <div class="hero-subtitle">"The city that never sleeps — and never stops surprising visitors"</div>
+      <div class="match-pills">
+        <div class="pill">Jun 12</div>
+        <div class="pill">Jun 15</div>
+        <div class="pill">Jun 19</div>
+        <div class="pill">Jun 25</div>
+        <div class="pill">Jul 1</div>
+        <div class="pill final">★ FINAL</div>
+      </div>
+      <div class="stats-row">
+        <div class="stat">
+          <span class="stat-val">82,500</span>
+          <span class="stat-lbl">Capacity</span>
+        </div>
+        <div class="stat">
+          <span class="stat-val">6</span>
+          <span class="stat-lbl">Matches</span>
+        </div>
+        <div class="stat">
+          <span class="stat-val">75–95°F</span>
+          <span class="stat-lbl">Summer Heat</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- QUICK LINKS -->
+    <div class="sec-header">
+      <div class="sec-icon" style="background:rgba(255,215,0,0.1)">🗺️</div>
+      <div>
+        <div class="sec-title">QUICK GUIDE</div>
+        <div class="sec-sub">Tap any section below</div>
+      </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px">
+      <div class="card" style="cursor:pointer;text-align:center" onclick="switchTab('transport')">
+        <div style="font-size:32px;margin-bottom:6px">🚆</div>
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:16px;letter-spacing:1px">Transport</div>
+        <div style="font-size:11px;color:var(--gray);margin-top:2px">Getting to MetLife</div>
+      </div>
+      <div class="card" style="cursor:pointer;text-align:center" onclick="switchTab('safety')">
+        <div style="font-size:32px;margin-bottom:6px">🛡️</div>
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:16px;letter-spacing:1px">Safety</div>
+        <div style="font-size:11px;color:var(--gray);margin-top:2px">Zones & hospitals</div>
+      </div>
+      <div class="card" style="cursor:pointer;text-align:center" onclick="switchTab('deals')">
+        <div style="font-size:32px;margin-bottom:6px">🏷️</div>
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:16px;letter-spacing:1px">Deals</div>
+        <div style="font-size:11px;color:var(--gray);margin-top:2px">Hotels, cars, eSIM</div>
+      </div>
+      <div class="card" style="cursor:pointer;text-align:center" onclick="switchTab('sos')">
+        <div style="font-size:32px;margin-bottom:6px">🆘</div>
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:16px;letter-spacing:1px">SOS</div>
+        <div style="font-size:11px;color:var(--gray);margin-top:2px">Emergency contacts</div>
+      </div>
+    </div>
+
+    <!-- TIPPING GUIDE (HOME) -->
+    <div class="sec-header">
+      <div class="sec-icon" style="background:rgba(255,215,0,0.1)">💵</div>
+      <div>
+        <div class="sec-title">NYC TIPPING GUIDE</div>
+        <div class="sec-sub">Higher than most countries expect</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="tip-item">
+        <div class="tip-emoji">🍽️</div>
+        <div class="tip-info">
+          <div class="tip-name">Restaurant</div>
+          <div class="tip-detail">NYC standard is higher — always on pre-tax</div>
+        </div>
+        <div class="tip-amount">18–22%</div>
+      </div>
+      <div class="tip-item">
+        <div class="tip-emoji">🍺</div>
+        <div class="tip-info">
+          <div class="tip-name">Bar / Drinks</div>
+          <div class="tip-detail">Per drink at the bar</div>
+        </div>
+        <div class="tip-amount">$1–2</div>
+      </div>
+      <div class="tip-item">
+        <div class="tip-emoji">🚕</div>
+        <div class="tip-info">
+          <div class="tip-name">Taxi / Uber / Lyft</div>
+          <div class="tip-detail">Apps will prompt you automatically</div>
+        </div>
+        <div class="tip-amount">15–20%</div>
+      </div>
+      <div class="tip-item">
+        <div class="tip-emoji">🏨</div>
+        <div class="tip-info">
+          <div class="tip-name">Hotel Bellhop</div>
+          <div class="tip-detail">Per bag carried to room</div>
+        </div>
+        <div class="tip-amount">$2–5</div>
+      </div>
+      <div class="tip-item">
+        <div class="tip-emoji">🚗</div>
+        <div class="tip-info">
+          <div class="tip-name">Valet Parking</div>
+          <div class="tip-detail">When collecting your car</div>
+        </div>
+        <div class="tip-amount">$5–10</div>
+      </div>
+    </div>
+
+    <!-- NEIGHBORHOOD GUIDE -->
+    <div class="sec-header">
+      <div class="sec-icon" style="background:rgba(255,215,0,0.1)">🏙️</div>
+      <div>
+        <div class="sec-title">WHERE TO STAY</div>
+        <div class="sec-sub">Neighborhoods for every budget</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">🌟 Midtown Manhattan</div>
+      <div class="card-body">Best for convenience — walking distance to Times Square, Penn Station (for NJ Transit to MetLife), great nightlife and fan bars. Pricier but unbeatable location. Expect $200–$500/night during the tournament.</div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">🏙️ Jersey City / Hoboken</div>
+      <div class="card-body">15–20 min to MetLife on NJ Transit. Much more affordable than Manhattan ($120–$280/night). PATH train to NYC takes ~10 min. Excellent food scene, great Hudson River views.</div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">💰 Newark (Budget Option)</div>
+      <div class="card-body">Closest city to MetLife — NJ Transit takes just 15 min to the stadium. Budget hotels from $80–$150/night. Downtown Newark has improved significantly; stick to well-lit main streets at night.</div>
+      <div class="warning-box mt-8">
+        <div class="icon">⚠️</div>
+        <p>Avoid walking unfamiliar streets in Newark alone after 11pm. Stick to Ironbound neighborhood for food — it's vibrant and safe.</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">🍺 Best Fan Bars in Manhattan</div>
+      <div class="card-body">
+        <strong style="color:var(--gold)">Midtown / Hell's Kitchen</strong> — Dozens of soccer bars along 9th Ave (38th–50th St)<br><br>
+        <strong style="color:var(--gold)">Lower East Side / East Village</strong> — Younger crowd, late-night spots<br><br>
+        <strong style="color:var(--gold)">Brooklyn (Williamsburg)</strong> — More international fans, craft beer culture
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">🍔 Best Food Near MetLife</div>
+      <div class="card-body">
+        <strong style="color:var(--gold)">At the stadium:</strong> New Jersey BBQ, cheesesteak vendors, food trucks outside gates<br><br>
+        <strong style="color:var(--gold)">East Rutherford:</strong> Wood-fired restaurants on Route 3 (10 min walk)<br><br>
+        <strong style="color:var(--gold)">Newark's Ironbound district:</strong> Incredible Portuguese and Spanish food — perfect post-match (15 min on NJ Transit)
+      </div>
+    </div>
+
+  </section>
+
+  <!-- SAFETY SECTION -->
+  <section class="section" id="sec-safety">
+
+    <div class="sec-header">
+      <div class="sec-icon" style="background:rgba(0,201,122,0.1)">🛡️</div>
+      <div>
+        <div class="sec-title">SAFETY GUIDE</div>
+        <div class="sec-sub">Know before you go</div>
+      </div>
+    </div>
+
+    <!-- SAFETY HEATMAP -->
+    <div class="zone-card zone-safe">
+      <div class="zone-header">
+        <div class="zone-name">✅ SAFE ZONES</div>
+        <div class="rating-dots">
+          <div class="dot-rating on"></div><div class="dot-rating on"></div><div class="dot-rating on"></div><div class="dot-rating on"></div><div class="dot-rating on"></div>
+        </div>
+      </div>
+      <ul class="zone-list">
+        <li>MetLife Stadium & immediate surroundings (heavy police presence match days)</li>
+        <li>Midtown Manhattan — all hours, well-patrolled</li>
+        <li>Times Square area (daytime & evening)</li>
+        <li>Brooklyn Heights & DUMBO — upscale, safe at night</li>
+        <li>Hoboken & Jersey City waterfront</li>
+        <li>Grand Central Terminal area</li>
+        <li>The High Line, Chelsea Market</li>
+      </ul>
+    </div>
+
+    <div class="zone-card zone-caution">
+      <div class="zone-header">
+        <div class="zone-name">⚠️ USE CAUTION</div>
+        <div class="rating-dots">
+          <div class="dot-rating on"></div><div class="dot-rating on"></div><div class="dot-rating on"></div><div class="dot-rating"></div><div class="dot-rating"></div>
+        </div>
+      </div>
+      <ul class="zone-list">
+        <li>NJ Transit trains late night (after 1am) — stay in well-lit cars, near conductor</li>
+        <li>Penn Station area (34th St) — watch for pickpockets in crowds</li>
+        <li>Port Authority Bus Terminal late at night</li>
+        <li>Times Square after 1am (be alert for aggressive vendors)</li>
+        <li>Subway platforms — stand back from edge, keep phone in pocket</li>
+        <li>Secaucus Junction when crowd is sparse</li>
+      </ul>
+    </div>
+
+    <div class="zone-card zone-avoid">
+      <div class="zone-header">
+        <div class="zone-name">🔴 AVOID ALONE AT NIGHT</div>
+        <div class="rating-dots">
+          <div class="dot-rating on"></div><div class="dot-rating"></div><div class="dot-rating"></div><div class="dot-rating"></div><div class="dot-rating"></div>
+        </div>
+      </div>
+      <ul class="zone-list">
+        <li>Certain areas of Newark (north/west) — unfamiliar streets after dark</li>
+        <li>East New York & Brownsville in Brooklyn</li>
+        <li>South Bronx residential areas off main avenues</li>
+        <li>Harrison NJ industrial area at night</li>
+        <li>Port Authority ground floor restrooms (any time)</li>
+      </ul>
+    </div>
+
+    <!-- HEALTHCARE -->
+    <div class="sec-header">
+      <div class="sec-icon" style="background:rgba(0,150,255,0.1)">🏥</div>
+      <div>
+        <div class="sec-title">HEALTHCARE</div>
+        <div class="sec-sub">International visitor medical info</div>
+      </div>
+    </div>
+
+    <div class="highlight-box">
+      <p><strong style="color:var(--gold)">Always say this:</strong> "I am an international visitor without US health insurance. I need to pay out of pocket. Please provide an itemized bill before treatment."</p>
+    </div>
+
+    <div class="card">
+      <div class="card-title">💊 Urgent Care Near MetLife</div>
+      <div class="info-row">
+        <div class="info-label">Hackensack Meridian Urgent Care</div>
+        <div class="info-value"><span class="tag tag-green">NEAREST</span></div>
+      </div>
+      <div class="info-row">
+        <div class="info-label">Address</div>
+        <div class="info-value">255 Main Ave, Wallington, NJ</div>
+      </div>
+      <div class="info-row">
+        <div class="info-label">Est. Cost (walk-in)</div>
+        <div class="info-value">$150–$300 out of pocket</div>
+      </div>
+      <div class="info-row">
+        <div class="info-label">ER Alternative</div>
+        <div class="info-value">$800–$2,000+ (avoid if possible)</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">🚑 Nearest Emergency Rooms</div>
+      <div class="info-row">
+        <div class="info-label">Hackensack Univ. Medical Center</div>
+        <div class="info-value">30 Prospect Ave, Hackensack NJ</div>
+      </div>
+      <div class="info-row">
+        <div class="info-label">Clara Maass Medical Center</div>
+        <div class="info-value">1 Clara Maass Dr, Belleville NJ</div>
+      </div>
+      <div class="info-row">
+        <div class="info-label">NYU Langone Health</div>
+        <div class="info-value">550 1st Ave, Manhattan NY</div>
+      </div>
+      <div class="info-row">
+        <div class="info-label">Mount Sinai Hospital</div>
+        <div class="info-value">1 Gustave Levy Pl, Manhattan NY</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">🟢 CVS MinuteClinic Locations</div>
+      <div class="card-body">
+        <strong style="color:var(--white)">CVS on Route 3, Secaucus NJ</strong> — closest to MetLife (~5 min)<br>
+        Walk-in, no appointment needed. Minor illnesses, prescriptions, vaccinations.<br><br>
+        <strong style="color:var(--white)">CVS Midtown Manhattan</strong> — 489 5th Ave (open 24hrs)<br>
+        <strong style="color:var(--white)">CVS Penn Station</strong> — 2 Penn Plaza (convenient for NJ Transit users)
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">📱 Telemedicine Apps</div>
+      <div class="card-body">
+        <strong style="color:var(--gold)">Teladoc</strong> — teladoc.com · 24/7 video consultations · ~$75–$95 per visit<br><br>
+        <strong style="color:var(--gold)">MDLive</strong> — mdlive.com · Available in NJ & NY · ~$82 per visit<br><br>
+        Great for minor issues, prescriptions, avoiding ER fees. Download before you arrive.
+      </div>
+    </div>
+
+    <!-- POLICE PROTOCOL -->
+    <div class="sec-header">
+      <div class="sec-icon" style="background:rgba(0,100,255,0.1)">👮</div>
+      <div>
+        <div class="sec-title">POLICE PROTOCOL</div>
+        <div class="sec-sub">Know your rights as a visitor</div>
+      </div>
+    </div>
+
+    <div class="highlight-box">
+      <p><strong style="color:var(--gold)">"You have the right to remain silent"</strong> — This is the Miranda Warning. For foreign visitors, it means you are NOT required to answer questions beyond confirming your identity. You cannot be punished for staying silent.</p>
+    </div>
+
+    <div class="card">
+      <div class="card-title">5 EXACT PHRASES TO USE</div>
+      <div class="phrase-box">
+        <div class="phrase-num">01</div>
+        <div class="phrase-text">"I am invoking my right to remain silent."</div>
+        <div class="phrase-note">Say this calmly — stops questioning legally</div>
+      </div>
+      <div class="phrase-box">
+        <div class="phrase-num">02</div>
+        <div class="phrase-text">"Am I free to go?"</div>
+        <div class="phrase-note">If yes, calmly walk away. If no, you're being detained.</div>
+      </div>
+      <div class="phrase-box">
+        <div class="phrase-num">03</div>
+        <div class="phrase-text">"I do not consent to a search."</div>
+        <div class="phrase-note">Say this clearly — even if they search anyway, it protects you legally</div>
+      </div>
+      <div class="phrase-box">
+        <div class="phrase-num">04</div>
+        <div class="phrase-text">"I want to speak with my consulate."</div>
+        <div class="phrase-note">Under the Vienna Convention, you have this right if arrested</div>
+      </div>
+      <div class="phrase-box">
+        <div class="phrase-num">05</div>
+        <div class="phrase-text">"I need an interpreter."</div>
+        <div class="phrase-note">Police must provide one if English is not your language</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">📱 FILMING THE POLICE IN NEW YORK</div>
+      <div class="card-body">
+        <strong style="color:var(--green)">✅ It is LEGAL</strong> to film police in public spaces in New York. Stand a safe distance away, do not interfere. Keep filming even if an officer says "stop." Do not obstruct officers physically.
+      </div>
+      <div class="warning-box mt-8">
+        <div class="icon">⚠️</div>
+        <p>Never argue aggressively. Comply physically, dispute legally afterward. If you feel your rights were violated, write down the officer's badge number immediately.</p>
+      </div>
+    </div>
+
+    <!-- EMBASSY CONTACTS -->
+    <div class="sec-header">
+      <div class="sec-icon" style="background:rgba(255,215,0,0.1)">🏛️</div>
+      <div>
+        <div class="sec-title">EMBASSY CONTACTS</div>
+        <div class="sec-sub">Top 15 nationalities attending</div>
+      </div>
+    </div>
+
+    <div class="embassy-grid">
+      <div class="embassy-card">
+        <div class="embassy-country">🇬🇧 United Kingdom</div>
+        <div class="embassy-phone">+1 (212) 745-0200</div>
+      </div>
+      <div class="embassy-card">
+        <div class="embassy-country">🇩🇪 Germany</div>
+        <div class="embassy-phone">+1 (212) 610-9700</div>
+      </div>
+      <div class="embassy-card">
+        <div class="embassy-country">🇫🇷 France</div>
+        <div class="embassy-phone">+1 (212) 606-3600</div>
+      </div>
+      <div class="embassy-card">
+        <div class="embassy-country">🇧🇷 Brazil</div>
+        <div class="embassy-phone">+1 (212) 827-0976</div>
+      </div>
+      <div class="embassy-card">
+        <div class="embassy-country">🇦🇷 Argentina</div>
+        <div class="embassy-phone">+1 (212) 603-0400</div>
+      </div>
+      <div class="embassy-card">
+        <div class="embassy-country">🇲🇽 Mexico</div>
+        <div class="embassy-phone">+1 (212) 217-6400</div>
+      </div>
+      <div class="embassy-card">
+        <div class="embassy-country">🇨🇴 Colombia</div>
+        <div class="embassy-phone">+1 (212) 434-7500</div>
+      </div>
+      <div class="embassy-card">
+        <div class="embassy-country">🇯🇵 Japan</div>
+        <div class="embassy-phone">+1 (212) 371-8222</div>
+      </div>
+      <div class="embassy-card">
+        <div class="embassy-country">🇰🇷 South Korea</div>
+        <div class="embassy-phone">+1 (212) 692-9000</div>
+      </div>
+      <div class="embassy-card">
+        <div class="embassy-country">🇦🇺 Australia</div>
+        <div class="embassy-phone">+1 (212) 351-6500</div>
+      </div>
+      <div class="embassy-card">
+        <div class="embassy-country">🇳🇱 Netherlands</div>
+        <div class="embassy-phone">+1 (212) 246-1429</div>
+      </div>
+      <div class="embassy-card">
+        <div class="embassy-country">🇵🇹 Portugal</div>
+        <div class="embassy-phone">+1 (212) 246-4580</div>
+      </div>
+      <div class="embassy-card">
+        <div class="embassy-country">🇪🇸 Spain</div>
+        <div class="embassy-phone">+1 (212) 355-4080</div>
+      </div>
+      <div class="embassy-card">
+        <div class="embassy-country">🇮🇹 Italy</div>
+        <div class="embassy-phone">+1 (212) 737-9100</div>
+      </div>
+      <div class="embassy-card">
+        <div class="embassy-country">🇲🇦 Morocco</div>
+        <div class="embassy-phone">+1 (212) 758-2625</div>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- TRANSPORT SECTION -->
+  <section class="section" id="sec-transport">
+
+    <div class="sec-header">
+      <div class="sec-icon" style="background:rgba(0,150,255,0.1)">🚆</div>
+      <div>
+        <div class="sec-title">GETTING THERE</div>
+        <div class="sec-sub">Airports → MetLife Stadium</div>
+      </div>
+    </div>
+
+    <!-- FROM JFK -->
+    <div class="card">
+      <div class="card-title">✈️ FROM JFK AIRPORT</div>
+      <div class="route-step">
+        <div class="route-line">
+          <div class="step-dot" style="background:rgba(0,201,122,0.2);color:var(--green)">1</div>
+          <div class="step-line"></div>
+        </div>
+        <div class="step-content">
+          <div class="step-title">JFK AirTrain → Jamaica Station</div>
+          <div class="step-detail">$8.25 · ~15 min · Runs every 10 min</div>
+        </div>
+      </div>
+      <div class="route-step">
+        <div class="route-line">
+          <div class="step-dot" style="background:rgba(255,215,0,0.2);color:var(--gold)">2</div>
+          <div class="step-line"></div>
+        </div>
+        <div class="step-content">
+          <div class="step-title">LIRR: Jamaica → Penn Station Manhattan</div>
+          <div class="step-detail">$10–$15 · ~25 min · Take any westbound train</div>
+        </div>
+      </div>
+      <div class="route-step">
+        <div class="route-line">
+          <div class="step-dot" style="background:rgba(0,150,255,0.2);color:#4DAAFF">3</div>
+          <div class="step-line"></div>
+        </div>
+        <div class="step-content">
+          <div class="step-title">NJ Transit: Penn Station → Meadowlands</div>
+          <div class="step-detail">Match day special train · $6 round trip · ~30 min direct</div>
+          <div class="step-badge" style="background:rgba(0,201,122,0.1);color:var(--green)">RECOMMENDED ROUTE</div>
+        </div>
+      </div>
+      <div class="route-step">
+        <div class="route-line">
+          <div class="step-dot" style="background:rgba(191,10,48,0.2);color:#FF6B84">4</div>
+        </div>
+        <div class="step-content">
+          <div class="step-title">Walk from Meadowlands Station to MetLife</div>
+          <div class="step-detail">~5 min walk · Clear signage · Multiple security checkpoints</div>
+        </div>
+      </div>
+      <div class="highlight-box">
+        <p>💰 <strong>Total estimated cost:</strong> ~$24–$29 one-way · ~75 min total travel time</p>
+      </div>
+    </div>
+
+    <!-- FROM NEWARK -->
+    <div class="card">
+      <div class="card-title">✈️ FROM NEWARK AIRPORT (EWR)</div>
+      <div class="route-step">
+        <div class="route-line">
+          <div class="step-dot" style="background:rgba(0,201,122,0.2);color:var(--green)">1</div>
+          <div class="step-line"></div>
+        </div>
+        <div class="step-content">
+          <div class="step-title">AirTrain Newark → Newark Penn Station</div>
+          <div class="step-detail">$8.25 · ~10 min · Take any outbound train</div>
+        </div>
+      </div>
+      <div class="route-step">
+        <div class="route-line">
+          <div class="step-dot" style="background:rgba(255,215,0,0.2);color:var(--gold)">2</div>
+        </div>
+        <div class="step-content">
+          <div class="step-title">NJ Transit: Newark Penn → Meadowlands Station</div>
+          <div class="step-detail">Match day direct service · $3–5 · ~20 min</div>
+          <div class="step-badge" style="background:rgba(255,215,0,0.1);color:var(--gold)">FASTEST FROM NJ</div>
+        </div>
+      </div>
+      <div class="highlight-box">
+        <p>💰 <strong>Total estimated cost:</strong> ~$11–$13 one-way · ~30 min total — <strong style="color:var(--gold)">best value airport</strong></p>
+      </div>
+    </div>
+
+    <!-- FROM LAGUARDIA -->
+    <div class="card">
+      <div class="card-title">✈️ FROM LAGUARDIA (LGA)</div>
+      <div class="card-body">
+        LGA has no direct rail connection. Options:<br><br>
+        <strong style="color:var(--white)">Option A (Budget):</strong> Q70 bus to Jackson Heights, then 7 train to Manhattan, then NJ Transit to Meadowlands. ~$4–8 total, ~90 min<br><br>
+        <strong style="color:var(--white)">Option B (Easy):</strong> Uber/Lyft directly to MetLife. Surge pricing likely on match days. Budget $40–$80 depending on traffic.<br><br>
+        <strong style="color:var(--white)">Option C:</strong> Uber to Manhattan hotel first, then NJ Transit.
+      </div>
+    </div>
+
+    <!-- NJ TRANSIT GUIDE -->
+    <div class="sec-header">
+      <div class="sec-icon" style="background:rgba(0,150,255,0.1)">🚆</div>
+      <div>
+        <div class="sec-title">NJ TRANSIT TIPS</div>
+        <div class="sec-sub">The official stadium route</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">🎫 NJ TRANSIT MEADOWLANDS LINE</div>
+      <div class="info-row">
+        <div class="info-label">Service type</div>
+        <div class="info-value">Match day special trains only</div>
+      </div>
+      <div class="info-row">
+        <div class="info-label">Departs from</div>
+        <div class="info-value">New York Penn Station, Track varies</div>
+      </div>
+      <div class="info-row">
+        <div class="info-label">Round trip cost</div>
+        <div class="info-value">~$6 (add to NJ Transit app)</div>
+      </div>
+      <div class="info-row">
+        <div class="info-label">Journey time</div>
+        <div class="info-value">~30 min Penn Station → Stadium</div>
+      </div>
+      <div class="info-row">
+        <div class="info-label">Buy tickets</div>
+        <div class="info-value">NJ Transit App (download in advance!)</div>
+      </div>
+      <div class="warning-box mt-8">
+        <div class="icon">⚠️</div>
+        <p>Trains sell out on match days. Buy your ticket at least 24 hours in advance via the NJ Transit app. Do NOT rely on ticket machines on the day.</p>
+      </div>
+    </div>
+
+    <!-- UBER/LYFT STRATEGY -->
+    <div class="sec-header">
+      <div class="sec-icon" style="background:rgba(255,179,0,0.1)">🚗</div>
+      <div>
+        <div class="sec-title">UBER / LYFT TIPS</div>
+        <div class="sec-sub">Beat the surge pricing</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">⚡ SURGE AVOIDANCE STRATEGY</div>
+      <div class="phrase-box">
+        <div class="phrase-num">01</div>
+        <div class="phrase-text">Open app 8 minutes BEFORE final whistle</div>
+        <div class="phrase-note">Beat the post-match spike — prices jump 3–5x in the first 20 min after the game</div>
+      </div>
+      <div class="phrase-box">
+        <div class="phrase-num">02</div>
+        <div class="phrase-text">Use designated pickup zone, not main entrance</div>
+        <div class="phrase-note">MetLife has specific rideshare zones marked on the official app</div>
+      </div>
+      <div class="phrase-box">
+        <div class="phrase-num">03</div>
+        <div class="phrase-text">Wait 45–60 min if you can (grab food nearby)</div>
+        <div class="phrase-note">Surge usually drops significantly after 45 minutes post-game</div>
+      </div>
+      <div class="phrase-box">
+        <div class="phrase-num">04</div>
+        <div class="phrase-text">Set a destination before entering the surge zone</div>
+        <div class="phrase-note">Lock in your price estimate before traffic algorithms detect demand</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">🚕 TAXI SCAM WARNING</div>
+      <div class="warning-box" style="margin:0">
+        <div class="icon">🚨</div>
+        <p><strong>NEVER get into an unlicensed cab</strong> outside the stadium or any NYC location. Only use:<br><br>
+        ✅ Official NYC Yellow Cabs (metered)<br>
+        ✅ Uber / Lyft app (licensed drivers only)<br>
+        ✅ Via app<br><br>
+        Unlicensed drivers near major events will overcharge $100–$300 for short rides. They are illegal and uninsured. If someone approaches you offering a ride — <strong>say no and keep walking.</strong></p>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- DEALS SECTION -->
+  <section class="section" id="sec-deals">
+
+    <div class="sec-header">
+      <div class="sec-icon" style="background:rgba(255,215,0,0.1)">🏷️</div>
+      <div>
+        <div class="sec-title">MY DEALS</div>
+        <div class="sec-sub">Exclusive fan discounts coming soon</div>
+      </div>
+    </div>
+
+    <div class="deal-card">
+      <div class="deal-icon">🚗</div>
+      <div class="deal-info">
+        <div class="deal-title">Rental Car</div>
+        <div class="deal-desc">Best rates at EWR & JFK airports. Free cancellation deals.</div>
+        <button class="btn-notify" onclick="notifyMe(this)">🔔 COMING SOON — Notify Me</button>
+      </div>
+    </div>
+
+    <div class="deal-card">
+      <div class="deal-icon">🏨</div>
+      <div class="deal-info">
+        <div class="deal-title">Hotel Near MetLife</div>
+        <div class="deal-desc">Meadowlands & Jersey City partner hotels. Official World Cup rates.</div>
+        <button class="btn-notify" onclick="notifyMe(this)">🔔 COMING SOON — Notify Me</button>
+      </div>
+    </div>
+
+    <div class="deal-card">
+      <div class="deal-icon">📱</div>
+      <div class="deal-info">
+        <div class="deal-title">eSIM Data Plans</div>
+        <div class="deal-desc">Unlimited US data from $12. Works in minutes. No physical SIM.</div>
+        <button class="btn-notify" onclick="notifyMe(this)">🔔 COMING SOON — Notify Me</button>
+      </div>
+    </div>
+
+    <div class="deal-card">
+      <div class="deal-icon">🏟️</div>
+      <div class="deal-info">
+        <div class="deal-title">MetLife Stadium Tour</div>
+        <div class="deal-desc">Behind-the-scenes before or after your match. Fan exclusive pricing.</div>
+        <button class="btn-notify" onclick="notifyMe(this)">🔔 COMING SOON — Notify Me</button>
+      </div>
+    </div>
+
+    <div class="deal-card">
+      <div class="deal-icon">🗽</div>
+      <div class="deal-info">
+        <div class="deal-title">NYC Tours</div>
+        <div class="deal-desc">Skip-the-line Statue of Liberty, Empire State, Top of the Rock.</div>
+        <button class="btn-notify" onclick="notifyMe(this)">🔔 COMING SOON — Notify Me</button>
+      </div>
+    </div>
+
+    <div class="deal-card">
+      <div class="deal-icon">🛡️</div>
+      <div class="deal-info">
+        <div class="deal-title">Travel Insurance</div>
+        <div class="deal-desc">Medical cover for the USA. Covers match cancellations & delays.</div>
+        <button class="btn-notify" onclick="notifyMe(this)">🔔 COMING SOON — Notify Me</button>
+      </div>
+    </div>
+
+    <div class="affiliate-note">
+      🤝 Affiliate partnerships — we earn a small commission at no extra cost to you. All deals are vetted by our team.
+    </div>
+
+  </section>
+
+  <!-- SOS SECTION -->
+  <section class="section" id="sec-sos">
+
+    <div class="sec-header">
+      <div class="sec-icon" style="background:rgba(191,10,48,0.2)">🆘</div>
+      <div>
+        <div class="sec-title">EMERGENCY SOS</div>
+        <div class="sec-sub">Save these before you arrive</div>
+      </div>
+    </div>
+
+    <div class="sos-big">
+      <div class="sos-label">In any emergency, call</div>
+      <div class="sos-number">911</div>
+      <div class="sos-label" style="margin-top:8px">Police · Fire · Ambulance · All US cities</div>
+    </div>
+
+    <a class="emergency-row" href="tel:911" style="text-decoration:none">
+      <div class="emergency-icon">🚨</div>
+      <div class="emergency-info">
+        <div class="emergency-name">Emergency (Police/Fire/Medical)</div>
+        <div class="emergency-num">911</div>
+      </div>
+      <div class="call-btn">CALL</div>
+    </a>
+
+    <a class="emergency-row" href="tel:+12123745000" style="text-decoration:none">
+      <div class="emergency-icon">👮</div>
+      <div class="emergency-info">
+        <div class="emergency-name">NYPD Non-Emergency</div>
+        <div class="emergency-num">(212) 374-5000</div>
+      </div>
+      <div class="call-btn">CALL</div>
+    </a>
+
+    <a class="emergency-row" href="tel:18002221222" style="text-decoration:none">
+      <div class="emergency-icon">☠️</div>
+      <div class="emergency-info">
+        <div class="emergency-name">NY Poison Control Center</div>
+        <div class="emergency-num">1-800-222-1222</div>
+      </div>
+      <div class="call-btn">CALL</div>
+    </a>
+
+    <a class="emergency-row" href="tel:18003237873" style="text-decoration:none">
+      <div class="emergency-icon">🌍</div>
+      <div class="emergency-info">
+        <div class="emergency-name">US Tourist Information Helpline</div>
+        <div class="emergency-num">1-800-323-7873</div>
+      </div>
+      <div class="call-btn">CALL</div>
+    </a>
+
+    <a class="emergency-row" href="tel:988" style="text-decoration:none">
+      <div class="emergency-icon">🧠</div>
+      <div class="emergency-info">
+        <div class="emergency-name">Mental Health / Crisis Hotline</div>
+        <div class="emergency-num">988</div>
+      </div>
+      <div class="call-btn">CALL</div>
+    </a>
+
+    <!-- I NEED HELP -->
+    <div class="sec-header">
+      <div class="sec-icon" style="background:rgba(0,150,255,0.1)">🗣️</div>
+      <div>
+        <div class="sec-title">"I NEED HELP"</div>
+        <div class="sec-sub">In 10 languages</div>
+      </div>
+    </div>
+
+    <div class="lang-grid">
+      <div class="lang-card">
+        <span class="lang-flag">🇪🇸</span>
+        <div class="lang-name">Spanish</div>
+        <div class="lang-phrase">Necesito ayuda</div>
+      </div>
+      <div class="lang-card">
+        <span class="lang-flag">🇫🇷</span>
+        <div class="lang-name">French</div>
+        <div class="lang-phrase">J'ai besoin d'aide</div>
+      </div>
+      <div class="lang-card">
+        <span class="lang-flag">🇩🇪</span>
+        <div class="lang-name">German</div>
+        <div class="lang-phrase">Ich brauche Hilfe</div>
+      </div>
+      <div class="lang-card">
+        <span class="lang-flag">🇵🇹</span>
+        <div class="lang-name">Portuguese</div>
+        <div class="lang-phrase">Preciso de ajuda</div>
+      </div>
+      <div class="lang-card">
+        <span class="lang-flag">🇯🇵</span>
+        <div class="lang-name">Japanese</div>
+        <div class="lang-phrase">助けてください</div>
+      </div>
+      <div class="lang-card">
+        <span class="lang-flag">🇰🇷</span>
+        <div class="lang-name">Korean</div>
+        <div class="lang-phrase">도와주세요</div>
+      </div>
+      <div class="lang-card">
+        <span class="lang-flag">🇮🇹</span>
+        <div class="lang-name">Italian</div>
+        <div class="lang-phrase">Ho bisogno di aiuto</div>
+      </div>
+      <div class="lang-card">
+        <span class="lang-flag">🇳🇱</span>
+        <div class="lang-name">Dutch</div>
+        <div class="lang-phrase">Ik heb hulp nodig</div>
+      </div>
+      <div class="lang-card">
+        <span class="lang-flag">🇲🇦</span>
+        <div class="lang-name">Arabic</div>
+        <div class="lang-phrase">أحتاج مساعدة</div>
+      </div>
+      <div class="lang-card">
+        <span class="lang-flag">🇨🇳</span>
+        <div class="lang-name">Mandarin</div>
+        <div class="lang-phrase">我需要帮助</div>
+      </div>
+    </div>
+
+    <!-- SOS EMBASSY -->
+    <div class="sec-header">
+      <div class="sec-icon" style="background:rgba(255,215,0,0.1)">🏛️</div>
+      <div>
+        <div class="sec-title">EMBASSY SOS</div>
+        <div class="sec-sub">Your consulate in New York City</div>
+      </div>
+    </div>
+
+    <div class="embassy-grid">
+      <div class="embassy-card">
+        <div class="embassy-country">🇬🇧 UK</div>
+        <div class="embassy-phone">+1 (212) 745-0200</div>
+      </div>
+      <div class="embassy-card">
+        <div class="embassy-country">🇩🇪 Germany</div>
+        <div class="embassy-phone">+1 (212) 610-9700</div>
+      </div>
+      <div class="embassy-card">
+        <div class="embassy-country">🇫🇷 France</div>
+        <div class="embassy-phone">+1 (212) 606-3600</div>
+      </div>
+      <div class="embassy-card">
+        <div class="embassy-country">🇧🇷 Brazil</div>
+        <div class="embassy-phone">+1 (212) 827-0976</div>
+      </div>
+      <div class="embassy-card">
+        <div class="embassy-country">🇦🇷 Argentina</div>
+        <div class="embassy-phone">+1 (212) 603-0400</div>
+      </div>
+      <div class="embassy-card">
+        <div class="embassy-country">🇲🇽 Mexico</div>
+        <div class="embassy-phone">+1 (212) 217-6400</div>
+      </div>
+      <div class="embassy-card">
+        <div class="embassy-country">🇯🇵 Japan</div>
+        <div class="embassy-phone">+1 (212) 371-8222</div>
+      </div>
+      <div class="embassy-card">
+        <div class="embassy-country">🇦🇺 Australia</div>
+        <div class="embassy-phone">+1 (212) 351-6500</div>
+      </div>
+    </div>
+
+    <div style="height:20px"></div>
+
+  </section>
+
+</div>
+
+<!-- BOTTOM NAV -->
+<nav class="bottom-nav">
+  <button class="nav-tab active" id="tab-home" onclick="switchTab('home')">
+    <span class="nav-icon">🏠</span>
+    <span class="nav-label">HOME</span>
+  </button>
+  <button class="nav-tab" id="tab-safety" onclick="switchTab('safety')">
+    <span class="nav-icon">🛡️</span>
+    <span class="nav-label">SAFETY</span>
+  </button>
+  <button class="nav-tab" id="tab-transport" onclick="switchTab('transport')">
+    <span class="nav-icon">🚆</span>
+    <span class="nav-label">TRANSPORT</span>
+  </button>
+  <button class="nav-tab" id="tab-deals" onclick="switchTab('deals')">
+    <span class="nav-icon">🏷️</span>
+    <span class="nav-label">DEALS</span>
+  </button>
+  <button class="nav-tab sos-tab" id="tab-sos" onclick="switchTab('sos')">
+    <span class="nav-icon">🆘</span>
+    <span class="nav-label">SOS</span>
+  </button>
+</nav>
+
+<script>
+  // TAB SWITCHING
+  function switchTab(tab) {
+    document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+    document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+    document.getElementById('sec-' + tab).classList.add('active');
+    document.getElementById('tab-' + tab).classList.add('active');
+    window.scrollTo(0, 0);
+  }
+
+  // COUNTDOWN
+  function updateCountdown() {
+    const firstMatch = new Date('2026-06-12T19:00:00-04:00');
+    const now = new Date();
+    const diff = firstMatch - now;
+    if (diff <= 0) {
+      document.getElementById('countdown-text').textContent = '⚽ WORLD CUP IS LIVE!';
+      return;
+    }
+    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+    document.getElementById('countdown-text').textContent =
+      days + 'd ' + hours + 'h ' + mins + 'm to first match';
+  }
+
+  updateCountdown();
+  setInterval(updateCountdown, 60000);
+
+  // NOTIFY ME
+  function notifyMe(btn) {
+    btn.textContent = '✅ You\'re on the list!';
+    btn.classList.add('notified');
+    btn.disabled = true;
+  }
+
+  // ACCORDION
+  document.querySelectorAll('.accordion-header').forEach(header => {
+    header.addEventListener('click', function() {
+      const body = this.nextElementSibling;
+      const arrow = this.querySelector('.accordion-arrow');
+      body.classList.toggle('open');
+      if (arrow) arrow.classList.toggle('open');
+    });
+  });
+</script>
+
+</body>
+</html>

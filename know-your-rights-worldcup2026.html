@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Know Your Rights — USA World Cup 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #0a1628;
+    --navy2: #0f2040;
+    --navy3: #162a50;
+    --gold: #f0a500;
+    --gold2: #ffc841;
+    --white: #f0f4f8;
+    --red: #c0392b;
+    --green: #1a7a4a;
+    --muted: #7a9bbf;
+    --card-bg: #0f1e35;
+    --card-border: #1e3055;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--navy);
+    color: var(--white);
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 15px;
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+  .bebas { font-family: 'Bebas Neue', 'Arial Black', Impact, sans-serif; letter-spacing: 0.05em; }
+
+  /* LAYOUT */
+  #app { max-width: 480px; margin: 0 auto; display: flex; flex-direction: column; min-height: 100vh; }
+  .section { display: none; flex-direction: column; gap: 14px; padding: 16px 14px 90px; }
+  .section.active { display: flex; }
+
+  /* HERO */
+  .hero-card {
+    background: var(--navy3);
+    border: 1px solid #2a4070;
+    border-radius: 16px;
+    padding: 24px 20px;
+    text-align: center;
+  }
+  .hero-badge {
+    display: inline-block;
+    background: var(--gold);
+    color: #0a1628;
+    font-size: 10px;
+    font-weight: 800;
+    padding: 5px 12px;
+    border-radius: 4px;
+    letter-spacing: 0.1em;
+    margin-bottom: 12px;
+  }
+  .hero-card h1 { font-size: 48px; line-height: 0.95; color: var(--gold); margin-bottom: 12px; }
+  .hero-card .subtitle { font-size: 14px; color: #8fadc8; line-height: 1.6; margin-bottom: 16px; }
+  .warn-badge {
+    display: block;
+    background: var(--red);
+    color: white;
+    font-size: 10px;
+    font-weight: 800;
+    padding: 8px 14px;
+    border-radius: 8px;
+    letter-spacing: 0.07em;
+  }
+
+  /* CARDS */
+  .card {
+    background: var(--card-bg);
+    border: 0.5px solid var(--card-border);
+    border-radius: 14px;
+    padding: 16px 18px;
+  }
+  .card h2 { font-size: 26px; color: var(--gold); margin-bottom: 8px; }
+  .card h3 { font-size: 13px; font-weight: 700; color: var(--gold2); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 10px; }
+  .card p { font-size: 14px; color: #a0bcd6; line-height: 1.6; }
+
+  .golden-rule { background: #0d1f0a; border-color: #1e3e14; }
+  .golden-rule p { color: #b0d89a; font-size: 15px; font-style: italic; }
+
+  /* PHRASE LIST */
+  .phrase-list { list-style: none; display: flex; flex-direction: column; gap: 14px; }
+  .phrase-list li { display: flex; gap: 14px; align-items: flex-start; }
+  .phrase-num {
+    background: var(--gold);
+    color: #0a1628;
+    font-weight: 800;
+    font-size: 14px;
+    min-width: 28px; height: 28px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+  .phrase-main { font-weight: 700; font-size: 16px; color: #ffffff; line-height: 1.3; }
+  .phrase-arrow { color: var(--gold); font-size: 12px; margin: 4px 0 2px; display: block; }
+  .phrase-sub { font-size: 12px; color: var(--muted); line-height: 1.5; }
+
+  /* CAN / CANNOT */
+  .check-list { display: flex; flex-direction: column; gap: 8px; }
+  .check-item { display: flex; align-items: flex-start; gap: 10px; font-size: 13px; color: #9ab8d4; line-height: 1.5; }
+  .check-icon { font-weight: 800; flex-shrink: 0; margin-top: 2px; font-size: 14px; }
+  .check-icon.yes { color: #3de07a; }
+  .check-icon.no { color: var(--red); }
+
+  /* STATE CARDS */
+  .state-card {
+    background: var(--card-bg);
+    border: 0.5px solid var(--card-border);
+    border-radius: 12px;
+    padding: 14px 16px;
+  }
+  .state-name {
+    font-size: 14px; font-weight: 700; color: var(--gold2);
+    text-transform: uppercase; letter-spacing: 0.08em;
+    margin-bottom: 8px;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .state-list { list-style: none; display: flex; flex-direction: column; gap: 5px; }
+  .state-list li {
+    font-size: 13px; color: #8aaac4; padding-left: 14px;
+    position: relative; line-height: 1.5;
+  }
+  .state-list li::before { content: '›'; position: absolute; left: 0; color: var(--gold); font-weight: 700; }
+
+  /* STEP CARDS */
+  .step-card {
+    background: var(--card-bg);
+    border: 0.5px solid var(--card-border);
+    border-radius: 12px;
+    padding: 14px 16px;
+    display: flex; gap: 14px;
+  }
+  .step-num {
+    background: var(--navy3);
+    border: 2px solid var(--gold);
+    color: var(--gold);
+    font-weight: 800; font-size: 15px;
+    min-width: 36px; height: 36px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .step-content h4 { font-size: 14px; font-weight: 700; color: #ffffff; margin-bottom: 5px; }
+  .step-content p { font-size: 13px; color: #8aaac4; line-height: 1.5; }
+
+  /* TIP / ALERT */
+  .tip-card { background: #0a1e0e; border: 0.5px solid #1a3a22; border-radius: 12px; padding: 14px 16px; }
+  .tip-card h4 { font-size: 13px; font-weight: 700; color: #6dcc88; text-transform: uppercase; letter-spacing: 0.07em; margin-bottom: 8px; }
+  .tip-card p { font-size: 13px; color: #7aaa88; line-height: 1.6; }
+  .alert-card { background: #1a0d0d; border: 0.5px solid #3d1a1a; border-radius: 12px; padding: 14px 16px; }
+  .alert-card h4 { font-size: 13px; font-weight: 700; color: #e07070; text-transform: uppercase; letter-spacing: 0.07em; margin-bottom: 8px; }
+  .alert-card p { font-size: 13px; color: #cc9090; line-height: 1.6; }
+
+  /* SECTION LABEL */
+  .sec-label { font-size: 10px; color: var(--muted); letter-spacing: 0.12em; text-transform: uppercase; padding: 2px 0; }
+
+  /* EMBASSY */
+  .embassy-region {
+    font-size: 11px; font-weight: 700; color: var(--gold);
+    text-transform: uppercase; letter-spacing: 0.12em;
+    padding: 6px 0 8px;
+    border-bottom: 0.5px solid var(--card-border);
+    margin-bottom: 8px;
+  }
+  .embassy-item {
+    display: flex; align-items: center; gap: 12px;
+    padding: 9px 0;
+    border-bottom: 0.5px solid #0d1928;
+  }
+  .embassy-flag { font-size: 22px; width: 28px; text-align: center; flex-shrink: 0; }
+  .embassy-info { flex: 1; }
+  .embassy-name { font-size: 14px; font-weight: 600; color: var(--white); }
+  .embassy-phone { font-size: 12px; color: var(--gold2); }
+  .call-btn {
+    background: #1a2e50;
+    border: 1px solid var(--gold);
+    color: var(--gold);
+    font-size: 12px; font-weight: 700;
+    padding: 6px 14px;
+    border-radius: 8px;
+    cursor: pointer;
+    text-decoration: none;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+  .call-btn:hover { background: var(--gold); color: #0a1628; }
+
+  /* LAWS */
+  .law-item {
+    background: var(--card-bg);
+    border: 0.5px solid var(--card-border);
+    border-radius: 10px;
+    padding: 12px 14px;
+    display: flex; align-items: flex-start; gap: 12px;
+  }
+  .law-icon { font-size: 22px; flex-shrink: 0; }
+  .law-title { font-size: 14px; font-weight: 700; color: var(--white); margin-bottom: 3px; }
+  .law-desc { font-size: 13px; color: #7a9bbf; line-height: 1.5; }
+  .pill {
+    display: inline-block;
+    font-size: 11px; font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 20px;
+    margin: 2px 2px 4px 0;
+  }
+  .pill.green { background: #0d2a14; color: #6dcc88; border: 0.5px solid #1e4a28; }
+  .pill.red { background: #2a0d0d; color: #e07070; border: 0.5px solid #4a1a1a; }
+
+  /* BOTTOM NAV */
+  nav {
+    position: fixed; bottom: 0; left: 0; right: 0;
+    background: #060f1e;
+    border-top: 1px solid #1a2e50;
+    display: flex; justify-content: space-around;
+    padding: 8px 0 14px;
+    z-index: 100;
+  }
+  .nav-btn {
+    display: flex; flex-direction: column; align-items: center; gap: 4px;
+    cursor: pointer;
+    padding: 4px 10px;
+    border-radius: 8px;
+    border: none; background: none;
+    color: #4a6a8a;
+    font-size: 10px; font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    transition: color 0.15s;
+    line-height: 1;
+  }
+  .nav-btn svg { width: 22px; height: 22px; stroke: currentColor; fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+  .nav-btn.active { color: var(--gold); }
+  .nav-btn:hover { color: var(--gold2); }
+
+  /* PDF BUTTON */
+  .pdf-btn {
+    position: fixed; top: 14px; right: 14px;
+    background: var(--gold);
+    color: #0a1628;
+    font-size: 12px; font-weight: 800;
+    padding: 7px 14px;
+    border-radius: 8px;
+    border: none; cursor: pointer;
+    z-index: 200;
+    letter-spacing: 0.04em;
+  }
+  .pdf-btn:hover { background: var(--gold2); }
+
+  @media print {
+    nav, .pdf-btn { display: none; }
+    .section { display: flex !important; page-break-after: always; }
+    body { background: white; color: black; }
+  }
+</style>
+</head>
+<body>
+
+<button class="pdf-btn" onclick="window.print()">⬇ PDF</button>
+
+<div id="app">
+
+  <!-- HOME -->
+  <div id="sec-home" class="section active">
+    <div class="hero-card">
+      <div class="hero-badge">⚽ LEGAL PROTECTION FOR EVERY FAN</div>
+      <h1 class="bebas">KNOW YOUR<br>RIGHTS<br>GUIDE</h1>
+      <p class="subtitle">You have rights in the USA even as a foreign visitor.<br>Know them before you need them.</p>
+      <span class="warn-badge">⚠ DO NOT WAIT UNTIL YOU ARE STOPPED TO READ THIS</span>
+    </div>
+
+    <p class="sec-label">The 5 phrases that protect you</p>
+    <div class="card">
+      <ul class="phrase-list">
+        <li>
+          <span class="phrase-num">1</span>
+          <div>
+            <div class="phrase-main">"Am I free to go?"</div>
+            <span class="phrase-arrow">→</span>
+            <div class="phrase-sub">If yes: leave calmly. If no: you are being detained.</div>
+          </div>
+        </li>
+        <li>
+          <span class="phrase-num">2</span>
+          <div>
+            <div class="phrase-main">"I am invoking my right to remain silent."</div>
+            <span class="phrase-arrow">→</span>
+            <div class="phrase-sub">Say this clearly. Then stop talking. Protected by the 5th Amendment.</div>
+          </div>
+        </li>
+        <li>
+          <span class="phrase-num">3</span>
+          <div>
+            <div class="phrase-main">"I do not consent to a search."</div>
+            <span class="phrase-arrow">→</span>
+            <div class="phrase-sub">Say it even if they search anyway. It preserves your legal rights.</div>
+          </div>
+        </li>
+        <li>
+          <span class="phrase-num">4</span>
+          <div>
+            <div class="phrase-main">"I want to speak to a lawyer before answering questions."</div>
+            <span class="phrase-arrow">→</span>
+            <div class="phrase-sub">Once you say this, questioning must stop by law.</div>
+          </div>
+        </li>
+        <li>
+          <span class="phrase-num">5</span>
+          <div>
+            <div class="phrase-main">"I am a foreign national. I request consular notification."</div>
+            <span class="phrase-arrow">→</span>
+            <div class="phrase-sub">Under the Vienna Convention, you have the right to contact your embassy.</div>
+          </div>
+        </li>
+      </ul>
+    </div>
+
+    <div class="tip-card">
+      <h4>📋 How to use this guide</h4>
+      <p>Use the navigation below to explore: your rights with police, filming laws by state, what to do if detained, and embassy contacts for 50+ countries. Save this page offline before you travel.</p>
+    </div>
+  </div>
+
+  <!-- POLICE -->
+  <div id="sec-police" class="section">
+    <div class="card golden-rule">
+      <h2 class="bebas">The Golden Rule</h2>
+      <p>Be calm. Be polite. Do not run. Do not argue. Do not physically resist.<br><br>Your goal is to end the interaction safely — not to win an argument.</p>
+    </div>
+
+    <p class="sec-label">What police CAN do</p>
+    <div class="card">
+      <div class="check-list">
+        <div class="check-item"><span class="check-icon yes">✓</span> Ask your name (in most states you must provide it)</div>
+        <div class="check-item"><span class="check-icon yes">✓</span> Ask what you are doing</div>
+        <div class="check-item"><span class="check-icon yes">✓</span> Pat down outer clothing if they suspect a weapon</div>
+        <div class="check-item"><span class="check-icon yes">✓</span> Detain you temporarily with "reasonable suspicion"</div>
+        <div class="check-item"><span class="check-icon yes">✓</span> Arrest you if they have "probable cause"</div>
+      </div>
+    </div>
+
+    <p class="sec-label">What police CANNOT do</p>
+    <div class="card">
+      <div class="check-list">
+        <div class="check-item"><span class="check-icon no">✗</span> Search your belongings without consent or a warrant (with some exceptions)</div>
+        <div class="check-item"><span class="check-icon no">✗</span> Hold you indefinitely without charging you</div>
+        <div class="check-item"><span class="check-icon no">✗</span> Deny you consular access as a foreign national</div>
+        <div class="check-item"><span class="check-icon no">✗</span> Use excessive force</div>
+      </div>
+    </div>
+
+    <p class="sec-label">Passport & documents</p>
+    <div class="card">
+      <div class="check-list">
+        <div class="check-item"><span class="check-icon yes">✓</span> DO carry a photocopy of your passport + entry stamp (keep original in hotel safe)</div>
+        <div class="check-item"><span class="check-icon no">✗</span> DO NOT hand your passport to anyone except official immigration or police</div>
+        <div class="check-item"><span class="check-icon yes">✓</span> A photocopy is generally acceptable ID in most states</div>
+      </div>
+    </div>
+
+    <div class="alert-card">
+      <h4>🚨 If your passport is confiscated</h4>
+      <p>1. Get a receipt with officer's name and badge number.<br>2. Contact your embassy immediately (numbers in the Embassies tab).<br>3. Your embassy can issue an emergency travel document within 24–48 hours.<br>4. Do NOT leave the country on a confiscated passport — this can be a crime.</p>
+    </div>
+
+    <div class="tip-card">
+      <h4>📍 If your passport is lost or stolen</h4>
+      <p>1. File a police report — get the report number.<br>2. Contact your embassy immediately.<br>3. Go to nearest consulate in person with: police report + 2 passport photos + any ID you have.</p>
+    </div>
+  </div>
+
+  <!-- FILMING -->
+  <div id="sec-filming" class="section">
+    <div class="card">
+      <h2 class="bebas">Your Filming Rights</h2>
+      <p>Filming police in public is a <strong style="color:var(--gold2);">First Amendment right in all 50 states.</strong> However, each state has nuances — know the rules for your host city.</p>
+    </div>
+
+    <p class="sec-label">By host city / state</p>
+
+    <div class="state-card">
+      <div class="state-name">🗽 New York</div>
+      <ul class="state-list">
+        <li>Legal to film police in public spaces</li>
+        <li>Stay on public property at all times</li>
+        <li>Do not interfere with the officer's duties</li>
+        <li>If ordered to move back, comply while continuing to film</li>
+      </ul>
+    </div>
+
+    <div class="state-card">
+      <div class="state-name">🌴 California (Los Angeles)</div>
+      <ul class="state-list">
+        <li>Strong filming rights — well-established case law</li>
+        <li>Recent law: stay 8+ feet away if ordered by officer</li>
+        <li>Do not narrate loudly while filming — obstruction charges have been upheld</li>
+        <li>Back footage to cloud immediately after filming</li>
+      </ul>
+    </div>
+
+    <div class="state-card">
+      <div class="state-name">⭐ Texas (Dallas / Houston)</div>
+      <ul class="state-list">
+        <li>Legal to film police in public</li>
+        <li>Generally police-friendly state — courteous filming is smoother</li>
+        <li>Do not handle a firearm while being filmed (confusing for foreign visitors)</li>
+        <li>Stay calm and non-confrontational throughout</li>
+      </ul>
+    </div>
+
+    <div class="state-card">
+      <div class="state-name">🌊 Florida (Miami)</div>
+      <ul class="state-list">
+        <li>Legal to film police in public spaces</li>
+        <li>Two-party consent law applies to PRIVATE conversations only — not police in public</li>
+        <li>Keep distance, do not interfere with the officer</li>
+      </ul>
+    </div>
+
+    <div class="state-card">
+      <div class="state-name">🦅 Massachusetts (Boston)</div>
+      <ul class="state-list">
+        <li>Strong civil liberties state with well-established protections</li>
+        <li>Filming police in public explicitly protected since 2011 court ruling</li>
+        <li>Wiretapping law does not apply to police performing public duties</li>
+      </ul>
+    </div>
+
+    <div class="tip-card">
+      <h4>✅ Universal tips for any state</h4>
+      <p>State clearly: <em>"I am filming this interaction. I am exercising my First Amendment rights."</em><br><br>• Do not grab or touch the officer at any point<br>• Back up footage to cloud immediately<br>• If phone is seized: say "I do not consent to a search of my device"<br>• Do not delete footage if asked — this may be evidence tampering</p>
+    </div>
+  </div>
+
+  <!-- DETAINED -->
+  <div id="sec-detained" class="section">
+    <div class="card">
+      <h2 class="bebas">If You Are Detained</h2>
+      <p style="color:#7a9bbf;">Follow these steps in order. Stay calm throughout the entire interaction.</p>
+    </div>
+
+    <div class="step-card">
+      <div class="step-num">1</div>
+      <div class="step-content">
+        <h4>Stay calm — do not run</h4>
+        <p>Do not run. Do not resist physically — even if you believe the detention is unlawful. Your safety comes first.</p>
+      </div>
+    </div>
+    <div class="step-card">
+      <div class="step-num">2</div>
+      <div class="step-content">
+        <h4>Clarify your status</h4>
+        <p>Ask: <em>"Am I being detained or am I free to go?"</em> — This legally forces the officer to clarify your situation.</p>
+      </div>
+    </div>
+    <div class="step-card">
+      <div class="step-num">3</div>
+      <div class="step-content">
+        <h4>Invoke your rights</h4>
+        <p>Say clearly: <em>"I am invoking my right to remain silent and I want a lawyer."</em> Then stop talking.</p>
+      </div>
+    </div>
+    <div class="step-card">
+      <div class="step-num">4</div>
+      <div class="step-content">
+        <h4>Invoke consular rights</h4>
+        <p>Say: <em>"I am a citizen of [your country]. I request you notify my consulate per the Vienna Convention."</em></p>
+      </div>
+    </div>
+    <div class="step-card">
+      <div class="step-num">5</div>
+      <div class="step-content">
+        <h4>Use your phone call</h4>
+        <p>After arrest you have the right to a phone call. Call your embassy (see Embassies tab) or someone who can get you a lawyer.</p>
+      </div>
+    </div>
+    <div class="step-card">
+      <div class="step-num">6</div>
+      <div class="step-content">
+        <h4>Do NOT sign anything</h4>
+        <p>Do not sign documents without a lawyer present. Do not agree to voluntary deportation. Do not lie about your identity — this makes things significantly worse.</p>
+      </div>
+    </div>
+
+    <div class="alert-card">
+      <h4>⚠ If you are formally arrested</h4>
+      <p>You will be taken to a police station and "booked." Bond/bail may be set — your embassy may be able to assist. <strong style="color:#e08080;">Even minor arrests can affect future US visa applications — even if charges are dropped.</strong> Take every interaction seriously.</p>
+    </div>
+  </div>
+
+  <!-- EMBASSIES -->
+  <div id="sec-embassies" class="section">
+    <div class="card">
+      <h2 class="bebas">Embassy Contacts</h2>
+      <p style="color:#7a9bbf;font-size:13px;">Washington DC embassy numbers listed. Save your embassy number to your phone before you land.</p>
+    </div>
+
+    <div class="card" style="padding:14px 16px;">
+      <div class="embassy-region">🌍 Europe</div>
+      <div class="embassy-item"><span class="embassy-flag">🇬🇧</span><div class="embassy-info"><div class="embassy-name">United Kingdom</div><div class="embassy-phone">+1-202-588-6500 &nbsp;|&nbsp; NY: +1-212-745-0200</div></div><a class="call-btn" href="tel:+12025886500">Call</a></div>
+      <div class="embassy-item"><span class="embassy-flag">🇩🇪</span><div class="embassy-info"><div class="embassy-name">Germany</div><div class="embassy-phone">+1-202-298-4000 &nbsp;|&nbsp; NY: +1-212-610-9700</div></div><a class="call-btn" href="tel:+12022984000">Call</a></div>
+      <div class="embassy-item"><span class="embassy-flag">🇫🇷</span><div class="embassy-info"><div class="embassy-name">France</div><div class="embassy-phone">+1-202-944-6000 &nbsp;|&nbsp; NY: +1-212-606-3600</div></div><a class="call-btn" href="tel:+12029446000">Call</a></div>
+      <div class="embassy-item"><span class="embassy-flag">🇪🇸</span><div class="embassy-info"><div class="embassy-name">Spain</div><div class="embassy-phone">+1-202-452-0100 &nbsp;|&nbsp; NY: +1-212-355-4080</div></div><a class="call-btn" href="tel:+12024520100">Call</a></div>
+      <div class="embassy-item"><span class="embassy-flag">🇮🇹</span><div class="embassy-info"><div class="embassy-name">Italy</div><div class="embassy-phone">+1-202-612-4400 &nbsp;|&nbsp; NY: +1-212-737-9100</div></div><a class="call-btn" href="tel:+12026124400">Call</a></div>
+      <div class="embassy-item"><span class="embassy-flag">🇳🇱</span><div class="embassy-info"><div class="embassy-name">Netherlands</div><div class="embassy-phone">+1-202-244-5300</div></div><a class="call-btn" href="tel:+12022445300">Call</a></div>
+      <div class="embassy-item"><span class="embassy-flag">🇵🇹</span><div class="embassy-info"><div class="embassy-name">Portugal</div><div class="embassy-phone">+1-202-350-5400</div></div><a class="call-btn" href="tel:+12023505400">Call</a></div>
+      <div class="embassy-item"><span class="embassy-flag">🇧🇪</span><div class="embassy-info"><div class="embassy-name">Belgium</div><div class="embassy-phone">+1-202-333-6900</div></div><a class="call-btn" href="tel:+12023336900">Call</a></div>
+      <div class="embassy-item"><span class="embassy-flag">🇨🇭</span><div class="embassy-info"><div class="embassy-name">Switzerland</div><div class="embassy-phone">+1-202-745-7900</div></div><a class="call-btn" href="tel:+12027457900">Call</a></div>
+      <div class="embassy-item"><span class="embassy-flag">🇸🇪</span><div class="embassy-info"><div class="embassy-name">Sweden</div><div class="embassy-phone">+1-202-467-2600</div></div><a class="call-btn" href="tel:+12024672600">Call</a></div>
+      <div class="embassy-item"><span class="embassy-flag">🇳🇴</span><div class="embassy-info"><div class="embassy-name">Norway</div><div class="embassy-phone">+1-202-333-6000</div></div><a class="call-btn" href="tel:+12023336000">Call</a></div>
+      <div class="embassy-item"><span class="embassy-flag">🇩🇰</span><div class="embassy-info"><div class="embassy-name">Denmark</div><div class="embassy-phone">+1-202-234-4300</div></div><a class="call-btn" href="tel:+12022344300">Call</a></div>
+      <div class="embassy-item"><span class="embassy-flag">🇵🇱</span><div class="embassy-info"><div class="embassy-name">Poland</div><div class="embassy-phone">+1-202-234-3800</div></div><a class="call-btn" href="tel:+12022343800">Call</a></div>
+      <div class="embassy-item"><span class="embassy-flag">🇭🇷</span><div class="embassy-info"><div class="embassy-name">Croatia</div><div class="embassy-phone">+1-202-588-5899</div></div><a class="call-btn" href="tel:+12025885899">Call</a></div>
+      <div class="embassy-item"><span class="embassy-flag">🇷🇸</span><div class="embassy-info"><div class="embassy-name">Serbia</div><div class="embassy-phone">+1-202-332-0333</div></div><a class="call-btn" href="tel:+12023320333">Call</a></div>
+      <div class="embassy-item"><span class="embassy-flag">🇦🇹</span><div class="embassy-info"><div class="embassy-name">Austria</div><div class="embassy-phone">+1-202-895-6700</div></div><a class="call-btn" href="tel:+12028956700">Call</a></div>
+      <div class="embassy-item"><span class="embassy-flag">🇮🇪</span><div class="embassy-info"><div class="embassy-name">Ireland</div><div class="embassy-phone">+1-202-462-3939</div></div><a class="call-btn" href="tel:+12024623939">Call</a></div>
+      <div class="embassy-item"><span class="embassy-flag">🇬🇷</span><div class="embassy-info"><div class="embassy-name">Greece</div><div class="embassy-phone">+1-202-939-1300</div></div><a class="call-btn" href="tel:+12029391300">Call</a></div>
+      <div class="embassy-item"><span class="embassy-flag">🇹🇷</span><div class="embassy-info"><div class="embassy-name">Turkey</div><div class="embassy-phone">+1-202-612-6700</div></div><a class="call-btn" href="tel:+12026126700">Call</a></div>
+    </div>
+
+    <div class="card" style="padding:14px 16px;">
+      <div class="embassy-region">🌍 Africa</div>
+      <div class="embassy-item"><span class="embassy-flag">🇲🇦</span><div class="embassy-info"><div class="embassy-name">Morocco</div><div class="embassy-phone">+1-202-462-7979</div></div><a class="call-btn" href="tel:+12024627979">Call</a></div>
+      <div class="embassy-item"><span class="embassy-flag">🇸🇳</span><div class="embassy-info"><div class="embassy-name">Senegal</div><div class="embassy-phone">+1-202-234-0540</div></div><a class="call-btn" href="tel:+12022340540">Call</a></div>
+      <div class="embassy-item"><span class="embassy-flag">🇳🇬</span><div class="embassy-info"><div class="embassy-name">Nigeria</div><div class="embassy-phone">+1-202-986-8400</div></div><a class="call-btn" href="tel:+12029868400">Call</a></div>
+      <div class="embassy-item"><span class="embassy-flag">🇨🇲</span><div class="embassy-info"><div class="embassy-name">Cameroon</div><div class="embassy-phone">+1-202-762-5419</div></div><a class="call-btn" href="tel:+12027625419">Call</a></div>
+      <div class="embassy-item"><span class="embassy-flag">🇬🇭</span><div class="embassy-info"><div class="embassy-name">Ghana</div><div class="embassy-phone">+1-202-686-4520</div></div><a class="call-btn" href="tel:+12026864520">Call</a></div>
+      <div class="embassy-item"><span class="embassy-flag">🇿🇦</span><div class="embassy-info"><div class="embassy-name">South Africa</div><div class="embassy-phone">+1-202-232-4400</div></div><a class="call-btn" href="tel:+12022324400">Call</a></div>
+      <div class="embassy-item"><span class="embassy-flag">🇪🇬</span><div class="embassy-info"><div class="embassy-name">Egypt</div><div class="embassy-phone">+1-202-895-5400</div></div><a class="call-btn" href="tel:+12028955400">Call</a></div>
+    </div>
+
+    <div class="card" style="padding:14px 16px;">
+      <div class="embassy-region">🌎 Latin America</div>
+      <div class="embassy-item"><span class="embassy-flag">🇧🇷</span><div class="embassy-info"><div class="embassy-name">Brazil</div><div class="embassy-phone">+1-202-238-2700 &nbsp;|&nbsp; NY: +1-212-827-0976</div></div><a class="call-btn" href="tel:+12022382700">Call</a></div>
+      <div class="embassy-item"><span class="embassy-flag">🇦🇷</span><div class="embassy-info"><div class="embassy-name">Argentina</div><div class="embassy-phone">+1-202-238-0400 &nbsp;|&nbsp; NY: +1-212-603-0400</div></div><a class="call-btn" href="tel:+12022380400">Call</a></div>
+      <div class="embassy-item"><span class="embassy-flag">🇲🇽</span><div class="embassy-info"><div class="embassy-name">Mexico</div><div class="embassy-phone">+1-202-728-1600 &nbsp;|&nbsp; NY: +1-212-217-6400</div></div><a class="call-btn" href="tel:+12027281600">Call</a></div>
+      <div class="embassy-item"><span class="embassy-flag">🇨🇴</span><div class="embassy-info"><div class="embassy-name">Colombia</div><div class="embassy-phone">+1-202-387-8338 &nbsp;|&nbsp; NY: +1-212-922-9114</div></div><a class="call-btn" href="tel:+12023878338">Call</a></div>
+      <div class="embassy-item"><span class="embassy-flag">🇺🇾</span><div class="embassy-info"><div class="embassy-name">Uruguay</div><div class="embassy-phone">+1-202-331-1313</div></div><a class="call-btn" href="tel:+12023311313">Call</a></div>
+      <div class="embassy-item"><span class="embassy-flag">🇪🇨</span><div class="embassy-info"><div class="embassy-name">Ecuador</div><div class="embassy-phone">+1-202-234-7200</div></div><a class="call-btn" href="tel:+12022347200">Call</a></div>
+      <div class="embassy-item"><span class="embassy-flag">🇵🇪</span><div class="embassy-info"><div class="embassy-name">Peru</div><div class="embassy-phone">+1-202-833-9860</div></div><a class="call-btn" href="tel:+12028339860">Call</a></div>
+      <div class="embassy-item"><span class="embassy-flag">🇨🇱</span><div class="embassy-info"><div class="embassy-name">Chile</div><div class="embassy-phone">+1-202-785-1746</div></div><a class="call-btn" href="tel:+12027851746">Call</a></div>
+      <div class="embassy-item"><span class="embassy-flag">🇻🇪</span><div class="embassy-info"><div class="embassy-name">Venezuela</div><div class="embassy-phone">+1-202-342-2214</div></div><a class="call-btn" href="tel:+12023422214">Call</a></div>
+      <div class="embassy-item"><span class="embassy-flag">🇧🇴</span><div class="embassy-info"><div class="embassy-name">Bolivia</div><div class="embassy-phone">+1-202-483-4410</div></div><a class="call-btn" href="tel:+12024834410">Call</a></div>
+      <div class="embassy-item"><span class="embassy-flag">🇵🇾</span><div class="embassy-info"><div class="embassy-name">Paraguay</div><div class="embassy-phone">+1-202-483-6960</div></div><a class="call-btn" href="tel:+12024836960">Call</a></div>
+      <div class="embassy-item"><span class="embassy-flag">🇨🇷</span><div class="embassy-info"><div class="embassy-name">Costa Rica</div><div class="embassy-phone">+1-202-234-2945</div></div><a class="call-btn" href="tel:+12022342945">Call</a></div>
+      <div class="embassy-item"><span class="embassy-flag">🇵🇦</span><div class="embassy-info"><div class="embassy-name">Panama</div><div class="embassy-phone">+1-202-483-1407</div></div><a class="call-btn" href="tel:+12024831407">Call</a></div>
+      <div class="embassy-item"><span class="embassy-flag">🇭🇳</span><div class="embassy-info"><div class="embassy-name">Honduras</div><div class="embassy-phone">+1-202-966-7702</div></div><a class="call-btn" href="tel:+12029667702">Call</a></div>
+      <div class="embassy-item"><span class="embassy-flag">🇸🇻</span><div class="embassy-info"><div class="embassy-name">El Salvador</div><div class="embassy-phone">+1-202-595-7500</div></div><a class="call-btn" href="tel:+12025957500">Call</a></div>
+      <div class="embassy-item"><span class="embassy-flag">🇬🇹</span><div class="embassy-info"><div class="embassy-name">Guatemala</div><div class="embassy-phone">+1-202-745-4952</div></div><a class="call-btn" href="tel:+12027454952">Call</a></div>
+      <div class="embassy-item"><span class="embassy-flag">🇯🇲</span><div class="embassy-info"><div class="embassy-name">Jamaica</div><div class="embassy-phone">+1-202-452-0660</div></div><a class="call-btn" href="tel:+12024520660">Call</a></div>
+    </div>
+
+    <div class="card" style="padding:14px 16px;">
+      <div class="embassy-region">🌏 Asia &amp; Pacific</div>
+      <div class="embassy-item"><span class="embassy-flag">🇯🇵</span><div class="embassy-info"><div class="embassy-name">Japan</div><div class="embassy-phone">+1-202-238-6700 &nbsp;|&nbsp; NY: +1-212-371-8222</div></div><a class="call-btn" href="tel:+12022386700">Call</a></div>
+      <div class="embassy-item"><span class="embassy-flag">🇰🇷</span><div class="embassy-info"><div class="embassy-name">South Korea</div><div class="embassy-phone">+1-202-939-5600 &nbsp;|&nbsp; NY: +1-646-674-6000</div></div><a class="call-btn" href="tel:+12029395600">Call</a></div>
+      <div class="embassy-item"><span class="embassy-flag">🇦🇺</span><div class="embassy-info"><div class="embassy-name">Australia</div><div class="embassy-phone">+1-202-797-3000 &nbsp;|&nbsp; NY: +1-212-351-6500</div></div><a class="call-btn" href="tel:+12027973000">Call</a></div>
+      <div class="embassy-item"><span class="embassy-flag">🇳🇿</span><div class="embassy-info"><div class="embassy-name">New Zealand</div><div class="embassy-phone">+1-202-328-4800</div></div><a class="call-btn" href="tel:+12023284800">Call</a></div>
+      <div class="embassy-item"><span class="embassy-flag">🇨🇳</span><div class="embassy-info"><div class="embassy-name">China</div><div class="embassy-phone">+1-202-495-2000</div></div><a class="call-btn" href="tel:+12024952000">Call</a></div>
+      <div class="embassy-item"><span class="embassy-flag">🇸🇦</span><div class="embassy-info"><div class="embassy-name">Saudi Arabia</div><div class="embassy-phone">+1-202-342-3800</div></div><a class="call-btn" href="tel:+12023423800">Call</a></div>
+      <div class="embassy-item"><span class="embassy-flag">🇶🇦</span><div class="embassy-info"><div class="embassy-name">Qatar</div><div class="embassy-phone">+1-202-274-1600</div></div><a class="call-btn" href="tel:+12022741600">Call</a></div>
+      <div class="embassy-item"><span class="embassy-flag">🇦🇪</span><div class="embassy-info"><div class="embassy-name">UAE</div><div class="embassy-phone">+1-202-243-2400</div></div><a class="call-btn" href="tel:+12022432400">Call</a></div>
+    </div>
+  </div>
+
+  <!-- LAWS -->
+  <div id="sec-laws" class="section">
+    <div class="card">
+      <h2 class="bebas">Know Before You Go</h2>
+      <p style="color:#7a9bbf;">Common legal mistakes foreign fans make in the USA. Avoid all of these.</p>
+    </div>
+
+    <div class="law-item">
+      <span class="law-icon">🍺</span>
+      <div>
+        <div class="law-title">Public drinking</div>
+        <div class="law-desc">Illegal in most US cities outside licensed areas. NYC, LA, Dallas, and Miami all actively enforce this. Fines up to $250.</div>
+      </div>
+    </div>
+    <div class="law-item">
+      <span class="law-icon">🚶</span>
+      <div>
+        <div class="law-title">Jaywalking</div>
+        <div class="law-desc">Technically illegal in all states. Fines $25–$50. Rarely enforced but can escalate if you argue or resist.</div>
+      </div>
+    </div>
+    <div class="law-item">
+      <span class="law-icon">🌿</span>
+      <div>
+        <div class="law-title">Marijuana</div>
+        <div class="law-desc">
+          <span class="pill green">✓ Legal: NY, CA, MA</span>
+          <span class="pill red">✗ Illegal: TX, FL</span>
+          <br>Do NOT carry across state lines — federal crime regardless of state laws.
+        </div>
+      </div>
+    </div>
+    <div class="law-item">
+      <span class="law-icon">🎆</span>
+      <div>
+        <div class="law-title">Fireworks</div>
+        <div class="law-desc">Illegal in many cities — especially near stadiums and in residential areas. Do not bring or light fireworks.</div>
+      </div>
+    </div>
+    <div class="law-item">
+      <span class="law-icon">⚠️</span>
+      <div>
+        <div class="law-title">Weapons laws</div>
+        <div class="law-desc">Vary enormously by state. Do not bring anything that could be mistaken for a weapon. Leave multi-tools and pocket knives in checked baggage.</div>
+      </div>
+    </div>
+    <div class="law-item">
+      <span class="law-icon">🔊</span>
+      <div>
+        <div class="law-title">Noise ordinances</div>
+        <div class="law-desc">Most cities enforce quiet hours 10pm–7am. This applies to hotel rooms and Airbnbs too — neighbours do call police.</div>
+      </div>
+    </div>
+    <div class="law-item">
+      <span class="law-icon">📷</span>
+      <div>
+        <div class="law-title">Stadium photography</div>
+        <div class="law-desc">Professional cameras with detachable lenses are often prohibited at FIFA venues. Check each stadium's official policy before attending.</div>
+      </div>
+    </div>
+
+    <div class="alert-card">
+      <h4>⚠ Immigration reminder</h4>
+      <p>Any arrest — even minor, even if charges are later dropped — can affect future US visa applications. The arrest record may appear on background checks for years. Treat every police interaction with maximum seriousness.</p>
+    </div>
+  </div>
+
+</div><!-- end #app -->
+
+<nav>
+  <button class="nav-btn active" onclick="go('home',this)">
+    <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+    Home
+  </button>
+  <button class="nav-btn" onclick="go('police',this)">
+    <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+    Police
+  </button>
+  <button class="nav-btn" onclick="go('filming',this)">
+    <svg viewBox="0 0 24 24"><rect x="2" y="7" width="15" height="10" rx="2"/><path d="M17 9l5-3v12l-5-3"/></svg>
+    Filming
+  </button>
+  <button class="nav-btn" onclick="go('detained',this)">
+    <svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+    Detained
+  </button>
+  <button class="nav-btn" onclick="go('embassies',this)">
+    <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg>
+    Embassies
+  </button>
+</nav>
+
+<script>
+  function go(sec, btn) {
+    document.querySelectorAll('.section').forEach(function(s){ s.classList.remove('active'); });
+    document.querySelectorAll('.nav-btn').forEach(function(b){ b.classList.remove('active'); });
+    var target = document.getElementById('sec-' + sec);
+    if (target) target.classList.add('active');
+    if (btn) btn.classList.add('active');
+    window.scrollTo(0, 0);
+  }
+</script>
+
+</body>
+</html>

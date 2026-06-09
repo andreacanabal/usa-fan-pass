@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Miami Fan Pass – FIFA World Cup 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --navy: #0a1628;
+  --navy2: #0a1e2e;
+  --red: #c0392b;
+  --red2: #e74c3c;
+  --gold: #f39c12;
+  --teal: #00b4d8;
+  --teal2: #0096c7;
+  --white: #f0f4f8;
+  --muted: #8a9bb0;
+  --card: #0d1a26;
+  --card2: #091420;
+  --green: #27ae60;
+  --orange: #e67e22;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--navy);
+  color: var(--white);
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  line-height: 1.6;
+  padding-bottom: 70px;
+  min-height: 100vh;
+}
+.bebas { font-family: 'Bebas Neue', sans-serif; }
+
+/* HERO */
+.hero {
+  background: linear-gradient(160deg, #0a1628 0%, #00142a 50%, #001a1a 100%);
+  padding: 24px 16px 32px;
+  position: relative;
+  overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse at 80% 50%, rgba(0,180,216,0.08) 0%, transparent 60%);
+}
+.hero::after {
+  content: '';
+  position: absolute; bottom: 0; left: 0; right: 0; height: 3px;
+  background: linear-gradient(90deg, var(--teal), var(--gold), var(--red), var(--teal));
+}
+.hero-tag {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 11px; letter-spacing: 3px;
+  color: var(--teal); margin-bottom: 12px; opacity: 0.9;
+}
+.hero-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 56px; line-height: 0.9;
+  color: var(--white); letter-spacing: 2px; margin-bottom: 8px;
+}
+.hero-title span { color: var(--teal); }
+.hero-sub {
+  font-size: 12px; color: var(--muted); font-style: italic;
+  margin-bottom: 20px; line-height: 1.5;
+}
+.hero-sub strong { color: var(--gold); font-style: normal; }
+.match-dates { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 20px; }
+.match-pill {
+  background: rgba(0,180,216,0.15);
+  border: 1px solid rgba(0,180,216,0.3);
+  border-radius: 20px; padding: 4px 12px;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 13px; color: var(--teal); letter-spacing: 1px;
+}
+.hero-stats { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; }
+.stat-box {
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 12px; padding: 10px; text-align: center;
+}
+.stat-num { font-family: 'Bebas Neue', sans-serif; font-size: 22px; color: var(--teal); line-height: 1; }
+.stat-label { font-size: 9px; color: var(--muted); letter-spacing: 1px; text-transform: uppercase; margin-top: 2px; }
+.humid-badge {
+  background: var(--teal2); border-radius: 20px; padding: 4px 10px;
+  display: flex; align-items: center; gap: 4px;
+  font-family: 'Bebas Neue', sans-serif; font-size: 12px; letter-spacing: 1px;
+}
+
+/* SECTIONS */
+.section { padding: 20px 16px; border-bottom: 1px solid rgba(255,255,255,0.05); }
+.section-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 26px; letter-spacing: 1.5px;
+  margin-bottom: 4px; display: flex; align-items: center; gap: 10px;
+}
+.section-desc { font-size: 12px; color: var(--muted); margin-bottom: 16px; }
+
+.card {
+  background: var(--card); border-radius: 16px; padding: 16px;
+  margin-bottom: 12px; border: 1px solid rgba(255,255,255,0.06);
+}
+.card-title {
+  font-family: 'Bebas Neue', sans-serif; font-size: 16px; letter-spacing: 1px;
+  margin-bottom: 8px; display: flex; align-items: center; gap: 8px;
+}
+.badge { border-radius: 6px; padding: 2px 8px; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; }
+.badge-red { background: rgba(192,57,43,0.3); color: #ff6b6b; border: 1px solid rgba(192,57,43,0.5); }
+.badge-gold { background: rgba(243,156,18,0.2); color: var(--gold); border: 1px solid rgba(243,156,18,0.4); }
+.badge-teal { background: rgba(0,180,216,0.2); color: var(--teal); border: 1px solid rgba(0,180,216,0.4); }
+
+ul.tip-list { list-style: none; padding: 0; }
+ul.tip-list li {
+  padding: 6px 0; border-bottom: 1px solid rgba(255,255,255,0.04);
+  font-size: 13px; display: flex; gap: 8px; align-items: flex-start;
+}
+ul.tip-list li:last-child { border-bottom: none; }
+ul.tip-list li::before { content: attr(data-icon); flex-shrink: 0; font-size: 14px; }
+
+.alert-box {
+  border-radius: 12px; padding: 14px; margin-bottom: 12px;
+  display: flex; gap: 12px; align-items: flex-start;
+}
+.alert-red { background: rgba(192,57,43,0.15); border-left: 3px solid var(--red2); }
+.alert-gold { background: rgba(243,156,18,0.1); border-left: 3px solid var(--gold); }
+.alert-teal { background: rgba(0,180,216,0.1); border-left: 3px solid var(--teal); }
+.alert-green { background: rgba(39,174,96,0.1); border-left: 3px solid #27ae60; }
+.alert-icon { font-size: 20px; flex-shrink: 0; }
+.alert-text { font-size: 13px; }
+.alert-text strong { color: var(--gold); display: block; margin-bottom: 2px; font-size: 13px; }
+
+.zone-row {
+  display: flex; gap: 10px; align-items: flex-start;
+  padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+.zone-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; margin-top: 4px; }
+.dot-green { background: #27ae60; box-shadow: 0 0 6px #27ae60; }
+.dot-orange { background: #e67e22; box-shadow: 0 0 6px #e67e22; }
+.dot-red { background: var(--red); box-shadow: 0 0 6px var(--red); }
+
+.transport-item {
+  display: flex; gap: 12px; align-items: flex-start;
+  background: var(--card); border-radius: 12px; padding: 12px;
+  margin-bottom: 8px; border: 1px solid rgba(255,255,255,0.05);
+}
+.transport-icon { font-size: 22px; flex-shrink: 0; }
+.transport-info h4 { font-family: 'Bebas Neue', sans-serif; font-size: 15px; letter-spacing: 1px; margin-bottom: 2px; }
+.transport-info p { font-size: 12px; color: var(--muted); }
+.transport-info .price { color: var(--teal); font-weight: 600; font-size: 13px; }
+
+.phrase-item {
+  background: var(--card2); border-radius: 10px; padding: 12px;
+  margin-bottom: 8px; border-left: 3px solid var(--teal);
+}
+.phrase-en { font-weight: 600; font-size: 13px; color: var(--white); }
+.phrase-context { font-size: 11px; color: var(--muted); margin-top: 2px; }
+
+.sos-btn {
+  display: flex; gap: 12px; align-items: center;
+  background: var(--card); border-radius: 14px; padding: 14px;
+  margin-bottom: 10px; border: 1px solid rgba(255,255,255,0.07);
+  text-decoration: none; color: var(--white); cursor: pointer;
+}
+.sos-icon { font-size: 26px; flex-shrink: 0; }
+.sos-info h4 { font-family: 'Bebas Neue', sans-serif; font-size: 16px; letter-spacing: 1px; }
+.sos-info p { font-size: 12px; color: var(--muted); }
+.sos-number { margin-left: auto; font-family: 'Bebas Neue', sans-serif; font-size: 18px; color: var(--teal); }
+
+.deals-placeholder {
+  background: linear-gradient(135deg, rgba(0,180,216,0.08), rgba(192,57,43,0.08));
+  border: 1px dashed rgba(0,180,216,0.3);
+  border-radius: 16px; padding: 24px; text-align: center;
+}
+.deals-placeholder .dp-icon { font-size: 36px; margin-bottom: 12px; }
+.deals-placeholder h3 { font-family: 'Bebas Neue', sans-serif; font-size: 24px; color: var(--teal); margin-bottom: 6px; }
+.deals-placeholder p { font-size: 12px; color: var(--muted); }
+
+/* BOTTOM NAV */
+.bottom-nav {
+  position: fixed; bottom: 0; left: 0; right: 0; z-index: 100;
+  background: rgba(9,20,32,0.97);
+  backdrop-filter: blur(16px);
+  border-top: 1px solid rgba(0,180,216,0.15);
+  display: flex; padding: 6px 0 8px;
+}
+.nav-item {
+  flex: 1; display: flex; flex-direction: column; align-items: center; gap: 2px;
+  padding: 6px 4px; cursor: pointer; transition: all 0.2s; text-decoration: none;
+}
+.nav-item.active .nav-icon { color: var(--teal); }
+.nav-item.active .nav-label { color: var(--teal); }
+.nav-icon { font-size: 18px; color: var(--muted); transition: color 0.2s; }
+.nav-label { font-size: 9px; color: var(--muted); font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase; transition: color 0.2s; }
+
+.page { display: none; }
+.page.active { display: block; }
+
+.pdf-btn {
+  display: block; width: calc(100% - 32px); margin: 0 16px 16px;
+  background: linear-gradient(135deg, var(--teal2), var(--navy2));
+  border: 1px solid var(--teal);
+  color: white; border-radius: 14px; padding: 14px;
+  font-family: 'Bebas Neue', sans-serif; font-size: 18px; letter-spacing: 2px;
+  cursor: pointer; text-align: center;
+}
+
+@media print {
+  .bottom-nav, .pdf-btn { display: none !important; }
+  .page { display: block !important; }
+  body { padding-bottom: 0; }
+}
+</style>
+</head>
+<body>
+
+<!-- HOME PAGE -->
+<div id="page-home" class="page active">
+
+  <div class="hero">
+    <div class="hero-tag">⚽ HARD ROCK STADIUM · MIAMI GARDENS, FL · SUMMER 2026</div>
+    <div class="hero-title">MIAMI<br><span>FAN PASS</span></div>
+    <div class="hero-sub"><strong>Where Latin America meets the USA</strong> — the most international World Cup city</div>
+    <div class="match-dates">
+      <span class="match-pill">JUN 14</span>
+      <span class="match-pill">JUN 20</span>
+      <span class="match-pill">JUN 26</span>
+      <span class="match-pill">JUL 4</span>
+    </div>
+    <div class="hero-stats">
+      <div class="stat-box">
+        <div class="stat-num">65K</div>
+        <div class="stat-label">Capacity</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-num">4</div>
+        <div class="stat-label">Matches</div>
+      </div>
+      <div class="stat-box humid-badge">
+        <span>💧</span><span>33°C+HUM</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 1: WEATHER -->
+  <div class="section">
+    <div class="section-title"><span>⛈️</span> WEATHER & THUNDERSTORMS</div>
+    <div class="section-desc">Miami in June: heat + humidity + daily storms — know the pattern</div>
+
+    <div class="alert-box alert-teal">
+      <span class="alert-icon">🌩️</span>
+      <div class="alert-text">
+        <strong>DAILY AFTERNOON THUNDERSTORM WINDOW</strong>
+        2pm–6pm most days. Miami has the most lightning strikes per capita in the USA. Take this seriously.
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">⚡ Lightning Protocol</div>
+      <ul class="tip-list">
+        <li data-icon="🔔">If you HEAR thunder → move to covered structure immediately</li>
+        <li data-icon="🏟️">Hard Rock Stadium HAS a lightning delay protocol — matches can be delayed</li>
+        <li data-icon="🌳">NEVER shelter under trees or near water</li>
+        <li data-icon="🏨">Any major hotel lobby or shopping mall is safe</li>
+        <li data-icon="📱">Download Weather Channel app — check hourly before outdoor plans</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <div class="card-title">🎒 What to Pack Daily</div>
+      <ul class="tip-list">
+        <li data-icon="🌂">Lightweight rain poncho (not umbrella — wind will flip it)</li>
+        <li data-icon="👕">Change of shirt — you WILL get wet</li>
+        <li data-icon="📱">Waterproof bag or case for your phone</li>
+        <li data-icon="☀️">SPF 50+ sunscreen — UV index 10+ regularly. Reapply every 2 hrs</li>
+        <li data-icon="💧">Electrolyte drinks — humidity makes heat MORE dangerous than dry heat</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- SECTION 4: HURRICANE -->
+  <div class="section">
+    <div class="section-title"><span>🌀</span> HURRICANE SEASON</div>
+    <div class="section-desc">June marks the start of Atlantic hurricane season</div>
+
+    <div class="alert-box alert-red">
+      <span class="alert-icon">🌀</span>
+      <div class="alert-text">
+        <strong>JUNE = HURRICANE SEASON START</strong>
+        Probability is low but real. Monitor weather.gov or Weather Channel app during your stay.
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">📋 If a Warning is Issued</div>
+      <ul class="tip-list">
+        <li data-icon="📺">Monitor: weather.gov or local TV (WSVN Channel 7)</li>
+        <li data-icon="🏟️">Stadium events will be postponed if tropical storm warning issued</li>
+        <li data-icon="🏨">Shelter: any major concrete hotel, shopping mall (Dolphin Mall, Aventura)</li>
+        <li data-icon="🚗">Do NOT try to drive away during storm — shelter in place</li>
+        <li data-icon="🌳">NEVER shelter under trees or near water</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- SECTION 7: MIAMI EXPERIENCE -->
+  <div class="section">
+    <div class="section-title"><span>🌴</span> MIAMI EXPERIENCE</div>
+    <div class="section-desc">The most Latin city in the USA — embrace it</div>
+
+    <div class="card">
+      <div class="card-title">🏨 Where to Stay</div>
+      <ul class="tip-list">
+        <li data-icon="⭐">South Beach — iconic, pricey, nightlife capital</li>
+        <li data-icon="⭐">Brickell — safe, modern, business district</li>
+        <li data-icon="⭐">Wynwood — hip, murals, craft beer scene</li>
+        <li data-icon="⭐">Doral — closest to Hard Rock Stadium, budget-friendly</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <div class="card-title">🇧🇷🇦🇷🇨🇴 Latin Fan Hub</div>
+      <ul class="tip-list">
+        <li data-icon="🍽️">Versailles Restaurant — iconic Cuban institution on Calle Ocho</li>
+        <li data-icon="🎶">Calle Ocho (SW 8th St) — heart of Little Havana, fan atmosphere</li>
+        <li data-icon="🌃">Wynwood Walls — amazing pre/post-game murals & bars</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <div class="card-title">🗺️ Day Trips</div>
+      <ul class="tip-list">
+        <li data-icon="🐊">Everglades National Park — unique, 45 min from Miami</li>
+        <li data-icon="🐠">Key Largo — first Florida Key, 45 min south, great snorkeling</li>
+        <li data-icon="🏖️">Fort Lauderdale Beach — 30 min north, less crowded than South Beach</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <div class="card-title">💰 Tipping in Miami</div>
+      <ul class="tip-list">
+        <li data-icon="🍽️">Restaurants: 18–20% (groups of 6+ often auto-charged — check your bill)</li>
+        <li data-icon="🚗">Valet: $10–20 in South Beach (valet is everywhere)</li>
+        <li data-icon="🏖️">Beach chair attendant: $5–10 tip expected</li>
+        <li data-icon="🍹">Bar/nightclub: $2–3 per drink minimum</li>
+      </ul>
+    </div>
+  </div>
+
+  <button class="pdf-btn" onclick="window.print()">📄 SAVE AS PDF / PRINT</button>
+</div>
+
+<!-- SAFETY PAGE -->
+<div id="page-safety" class="page">
+  <div style="background:linear-gradient(135deg,var(--navy2),#001a1a);padding:20px 16px 16px;">
+    <div style="font-family:'Bebas Neue',sans-serif;font-size:32px;letter-spacing:2px;">🛡️ SAFETY GUIDE</div>
+    <div style="font-size:12px;color:var(--muted)">Know the neighborhoods — Miami has layers</div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">🗺️ SAFETY HEATMAP</div>
+    <div style="margin-top:8px">
+      <div class="zone-row">
+        <div class="zone-dot dot-green"></div>
+        <div><strong style="font-size:13px">South Beach (Ocean Drive & Collins)</strong>
+        <div style="font-size:12px;color:var(--muted)">Heavily patrolled. Safe day & night.</div></div>
+      </div>
+      <div class="zone-row">
+        <div class="zone-dot dot-green"></div>
+        <div><strong style="font-size:13px">Brickell</strong>
+        <div style="font-size:12px;color:var(--muted)">Modern, safe, corporate area. Excellent restaurants.</div></div>
+      </div>
+      <div class="zone-row">
+        <div class="zone-dot dot-green"></div>
+        <div><strong style="font-size:13px">Wynwood</strong>
+        <div style="font-size:12px;color:var(--muted)">Safe in the arts district area. Don't wander the edges late at night.</div></div>
+      </div>
+      <div class="zone-row">
+        <div class="zone-dot dot-green"></div>
+        <div><strong style="font-size:13px">Miami Beach (daytime)</strong>
+        <div style="font-size:12px;color:var(--muted)">Great. Normal beach caution — watch belongings.</div></div>
+      </div>
+      <div class="zone-row">
+        <div class="zone-dot dot-orange"></div>
+        <div><strong style="font-size:13px">Overtown</strong>
+        <div style="font-size:12px;color:var(--muted)">No tourist reason to visit. Skip.</div></div>
+      </div>
+      <div class="zone-row">
+        <div class="zone-dot dot-orange"></div>
+        <div><strong style="font-size:13px">Liberty City / Parts of Little Haiti</strong>
+        <div style="font-size:12px;color:var(--muted)">Not on tourist route. Avoid unfamiliar areas here.</div></div>
+      </div>
+      <div class="zone-row" style="border:none">
+        <div class="zone-dot dot-red"></div>
+        <div><strong style="font-size:13px">South Beach after midnight (Ocean Drive)</strong>
+        <div style="font-size:12px;color:var(--muted)">Can get rowdy. Watch your drinks. Pickpockets on Ocean Drive.</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">🚨 COMMON SCAMS</div>
+    <div class="alert-box alert-red">
+      <span class="alert-icon">⛔</span>
+      <div class="alert-text"><strong>THE CD/BRACELET GUYS ON OCEAN DRIVE</strong>
+      Men will approach you with "free" CDs or bracelets. Once it's in your hand, they demand money aggressively. Do NOT take anything. Keep walking.</div>
+    </div>
+    <div class="alert-box alert-gold">
+      <span class="alert-icon">⚠️</span>
+      <div class="alert-text"><strong>DRINK SPIKING — SOUTH BEACH BARS</strong>
+      Never leave your drink unattended. Buddy system after midnight. Stick to busy venues.</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">👮 POLICE PROTOCOL</div>
+    <div class="alert-box alert-teal">
+      <span class="alert-icon">ℹ️</span>
+      <div class="alert-text"><strong>TWO POLICE JURISDICTIONS</strong>
+      Miami-Dade Police covers the county. Miami Beach has its own police. Hard Rock Stadium is Miami Gardens PD. Know who you're talking to.</div>
+    </div>
+    <div class="card">
+      <div class="card-title">5 KEY PHRASES</div>
+      <div class="phrase-item" style="border-left-color:var(--teal)">
+        <div class="phrase-en">"I don't understand. Do you speak Spanish?"</div>
+        <div class="phrase-context">Miami is 70%+ Spanish-speaking — Spanish works here too</div>
+      </div>
+      <div class="phrase-item" style="border-left-color:var(--teal)">
+        <div class="phrase-en">"Am I free to go?"</div>
+        <div class="phrase-context">Establishes if you are being detained</div>
+      </div>
+      <div class="phrase-item" style="border-left-color:var(--teal)">
+        <div class="phrase-en">"I am invoking my right to remain silent."</div>
+        <div class="phrase-context">Your right as a visitor in the USA</div>
+      </div>
+      <div class="phrase-item" style="border-left-color:var(--teal)">
+        <div class="phrase-en">"I want to contact my consulate."</div>
+        <div class="phrase-context">International law — you have this right if detained</div>
+      </div>
+      <div class="phrase-item" style="border-left-color:var(--teal)">
+        <div class="phrase-en">"I do not consent to a search."</div>
+        <div class="phrase-context">You can state this — they may still proceed with probable cause</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">🏥 HEALTHCARE</div>
+    <div class="card">
+      <div class="card-title">Hospitals & Clinics</div>
+      <ul class="tip-list">
+        <li data-icon="🏥">Jackson Memorial Hospital — major trauma center, downtown Miami</li>
+        <li data-icon="🩺">Baptist Health Urgent Care — multiple Miami locations</li>
+        <li data-icon="🌡️">Heat + humidity = MORE dangerous than dry heat. Hydrate constantly.</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="card-title">🪼 Beach Hazards — Jellyfish</div>
+      <ul class="tip-list">
+        <li data-icon="1️⃣">Rinse with seawater (NOT fresh water — it worsens stings)</li>
+        <li data-icon="2️⃣">Carefully remove visible tentacles with a card or stick</li>
+        <li data-icon="3️⃣">Apply heat (hot water pack) to the sting area</li>
+        <li data-icon="🚑">Seek ER if you have difficulty breathing or swallowing</li>
+      </ul>
+    </div>
+    <div class="alert-box alert-gold">
+      <span class="alert-icon">💳</span>
+      <div class="alert-text"><strong>No Insurance?</strong>
+      Say: "I am an international visitor without US insurance. I need emergency care." ERs cannot turn you away.</div>
+    </div>
+  </div>
+</div>
+
+<!-- TRANSPORT PAGE -->
+<div id="page-transport" class="page">
+  <div style="background:linear-gradient(135deg,var(--navy2),#001a1a);padding:20px 16px 16px;">
+    <div style="font-family:'Bebas Neue',sans-serif;font-size:32px;letter-spacing:2px;">🚌 TRANSPORT HUB</div>
+    <div style="font-size:12px;color:var(--muted)">Getting to Hard Rock Stadium & around Miami</div>
+  </div>
+
+  <div class="section">
+    <div class="alert-box alert-red">
+      <span class="alert-icon">📍</span>
+      <div class="alert-text"><strong>HARD ROCK STADIUM ≠ MIAMI</strong>
+      The stadium is in Miami Gardens, ~30 min north of Downtown Miami / South Beach. Plan accordingly.</div>
+    </div>
+
+    <div class="section-title" style="margin-top:16px">✈️ FROM AIRPORTS</div>
+    <div class="transport-item">
+      <span class="transport-icon">✈️</span>
+      <div class="transport-info">
+        <h4>Miami International (MIA)</h4>
+        <p>~25 min to Hard Rock Stadium</p>
+        <span class="price">$35–55 Uber/Lyft</span>
+      </div>
+    </div>
+    <div class="transport-item">
+      <span class="transport-icon">✈️</span>
+      <div class="transport-info">
+        <h4>Fort Lauderdale (FLL)</h4>
+        <p>~20 min to Hard Rock — often cheaper flights</p>
+        <span class="price">$30–45 Uber/Lyft</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">🚇 PUBLIC TRANSPORT</div>
+    <div class="transport-item">
+      <span class="transport-icon">🚇</span>
+      <div class="transport-info">
+        <h4>Metrorail + Official Shuttle</h4>
+        <p>Metrorail to Palmetto or Opa-locka, then shuttle. Limited but affordable. Check FIFA app for match-day shuttles.</p>
+        <span class="price">Most affordable</span>
+      </div>
+    </div>
+    <div class="transport-item">
+      <span class="transport-icon">🚌</span>
+      <div class="transport-info">
+        <h4>Official FIFA Shuttles</h4>
+        <p>Expected from key points in Miami on match days. Check official FIFA app for schedule.</p>
+        <span class="price">Confirm on FIFA app</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">🌴 GETTING AROUND MIAMI</div>
+    <div class="transport-item">
+      <span class="transport-icon">⛵</span>
+      <div class="transport-info">
+        <h4>Water Taxi</h4>
+        <p>Fun way to get around Miami Beach and Brickell waterways — NOT to stadium</p>
+        <span class="price">~$15–25 per trip</span>
+      </div>
+    </div>
+    <div class="transport-item">
+      <span class="transport-icon">🛴</span>
+      <div class="transport-info">
+        <h4>Scooter / E-Bike</h4>
+        <p>Great for South Beach and Wynwood intra-neighborhood travel — NOT for stadium</p>
+        <span class="price">Lime / Bird apps</span>
+      </div>
+    </div>
+    <div class="transport-item">
+      <span class="transport-icon">🚗</span>
+      <div class="transport-info">
+        <h4>Uber / Lyft</h4>
+        <p>Best option for stadium. Request 10 min before whistle. Or walk 10 min out and request.</p>
+        <span class="price">Surge expected on match days</span>
+      </div>
+    </div>
+    <div class="alert-box alert-red">
+      <span class="alert-icon">🚫</span>
+      <div class="alert-text"><strong>NO UNLICENSED RIDES</strong>
+      Only official Uber/Lyft via app. Do not accept rides from strangers near the stadium.</div>
+    </div>
+  </div>
+</div>
+
+<!-- DEALS PAGE -->
+<div id="page-deals" class="page">
+  <div style="background:linear-gradient(135deg,#001a1a,var(--navy));padding:20px 16px 16px;">
+    <div style="font-family:'Bebas Neue',sans-serif;font-size:32px;letter-spacing:2px;color:var(--teal)">🎟️ EXCLUSIVE DEALS</div>
+    <div style="font-size:12px;color:var(--muted)">Special offers for Miami Fan Pass holders</div>
+  </div>
+
+  <div class="section">
+    <div class="deals-placeholder">
+      <div class="dp-icon">🔐</div>
+      <h3>MEMBER DEALS COMING SOON</h3>
+      <p>Exclusive discounts on hotels, transport, experiences and merchandise for Miami World Cup fans will appear here.</p>
+      <br>
+      <p style="color:var(--teal);font-family:'Bebas Neue',sans-serif;font-size:16px;letter-spacing:1px">HOTELS · TOURS · NIGHTLIFE · GEAR</p>
+    </div>
+
+    <div class="card" style="margin-top:16px">
+      <div class="card-title">🏨 Hotel Deal Categories</div>
+      <ul class="tip-list">
+        <li data-icon="⭐">South Beach — Fan package specials</li>
+        <li data-icon="⭐">Doral (Stadium area) — Match day convenience deals</li>
+        <li data-icon="⭐">Brickell — Business district, safe and central</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <div class="card-title">🌴 Experience Deals</div>
+      <ul class="tip-list">
+        <li data-icon="🐊">Everglades airboat tours</li>
+        <li data-icon="🤿">Key Largo snorkeling packages</li>
+        <li data-icon="🌮">Calle Ocho restaurant passes</li>
+        <li data-icon="🎶">Wynwood bar crawl discounts</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- SOS PAGE -->
+<div id="page-sos" class="page">
+  <div style="background:linear-gradient(135deg,#1a0808,var(--navy));padding:20px 16px 16px;">
+    <div style="font-family:'Bebas Neue',sans-serif;font-size:32px;letter-spacing:2px;color:var(--red2)">🆘 SOS — EMERGENCY</div>
+    <div style="font-size:12px;color:var(--muted)">Save these before you leave home</div>
+  </div>
+
+  <div class="section">
+    <div class="alert-box alert-red">
+      <span class="alert-icon">📞</span>
+      <div class="alert-text"><strong>EMERGENCY: CALL 911</strong>
+      Fire · Police · Ambulance. Works from any phone.</div>
+    </div>
+
+    <a class="sos-btn" href="tel:911">
+      <span class="sos-icon">🚨</span>
+      <div class="sos-info"><h4>EMERGENCY — 911</h4><p>Police, Fire, Ambulance</p></div>
+      <span class="sos-number">911</span>
+    </a>
+    <a class="sos-btn" href="tel:3054765423">
+      <span class="sos-icon">👮</span>
+      <div class="sos-info"><h4>Miami-Dade PD Non-Emergency</h4><p>Non-urgent police matters</p></div>
+      <span class="sos-number">(305) 476-5423</span>
+    </a>
+    <a class="sos-btn" href="tel:18002221222">
+      <span class="sos-icon">☠️</span>
+      <div class="sos-info"><h4>Poison Control</h4><p>Poisoning, overdose, toxic exposure</p></div>
+      <span class="sos-number">1-800-222-1222</span>
+    </a>
+    <a class="sos-btn" href="tel:3054855555">
+      <span class="sos-icon">🏥</span>
+      <div class="sos-info"><h4>Jackson Memorial Hospital</h4><p>Major trauma center, Miami</p></div>
+      <span class="sos-number">(305) 585-1111</span>
+    </a>
+  </div>
+
+  <div class="section">
+    <div class="section-title">🏛️ EMBASSIES — LATIN FOCUS</div>
+    <div class="card">
+      <ul class="tip-list">
+        <li data-icon="🇧🇷">Brazil Consulate Miami: (305) 285-6200</li>
+        <li data-icon="🇦🇷">Argentina Consulate Miami: (305) 373-1889</li>
+        <li data-icon="🇨🇴">Colombia Consulate Miami: (305) 448-5558</li>
+        <li data-icon="🇻🇪">Venezuela Consulate Miami: (786) 409-1717</li>
+        <li data-icon="🇲🇽">Mexico Consulate Miami: (786) 268-4900</li>
+        <li data-icon="🇨🇺">Cuba (interests via Switzerland): (202) 797-8518</li>
+        <li data-icon="🇬🇧">UK Consulate Miami: (305) 374-1522</li>
+        <li data-icon="🇩🇪">Germany Consulate Miami: (305) 358-0290</li>
+        <li data-icon="🌍">Find your embassy: travel.state.gov</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">🏥 NEAREST HOSPITALS</div>
+    <div class="card">
+      <ul class="tip-list">
+        <li data-icon="🏥">Jackson Memorial — major trauma, downtown Miami</li>
+        <li data-icon="🏥">Baptist Health South Florida — multiple locations</li>
+        <li data-icon="🩺">Baptist Health Urgent Care — for non-emergencies</li>
+        <li data-icon="🌡️">Heat + humidity: seek shade and AC immediately if dizzy</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- BOTTOM NAV -->
+<nav class="bottom-nav">
+  <a class="nav-item active" onclick="showPage('home',this)" href="#">
+    <span class="nav-icon">🏟️</span>
+    <span class="nav-label">Home</span>
+  </a>
+  <a class="nav-item" onclick="showPage('safety',this)" href="#">
+    <span class="nav-icon">🛡️</span>
+    <span class="nav-label">Safety</span>
+  </a>
+  <a class="nav-item" onclick="showPage('transport',this)" href="#">
+    <span class="nav-icon">🚌</span>
+    <span class="nav-label">Transport</span>
+  </a>
+  <a class="nav-item" onclick="showPage('deals',this)" href="#">
+    <span class="nav-icon">🎟️</span>
+    <span class="nav-label">Deals</span>
+  </a>
+  <a class="nav-item" onclick="showPage('sos',this)" href="#">
+    <span class="nav-icon">🆘</span>
+    <span class="nav-label">SOS</span>
+  </a>
+</nav>
+
+<script>
+function showPage(id, el) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  document.getElementById('page-' + id).classList.add('active');
+  el.classList.add('active');
+  window.scrollTo(0,0);
+  return false;
+}
+</script>
+</body>
+</html>

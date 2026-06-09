@@ -1,0 +1,1299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>BOSTON FAN PASS · FIFA World Cup 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@300;400;500;600;700&family=Barlow:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #0a1628;
+    --navy-mid: #0f2040;
+    --navy-light: #1a3258;
+    --red: #c8102e;
+    --red-bright: #e8152f;
+    --gold: #f0a500;
+    --gold-light: #ffd060;
+    --white: #f5f5f0;
+    --grey: #8a95a0;
+    --grey-light: #bdc5cc;
+    --green-safe: #2ecc71;
+    --yellow-caution: #f39c12;
+    --red-danger: #e74c3c;
+    --card-bg: #0d1e35;
+    --card-border: rgba(240,165,0,0.15);
+  }
+  * { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+  html { scroll-behavior:smooth; }
+  body {
+    background: var(--navy);
+    color: var(--white);
+    font-family: 'Barlow', sans-serif;
+    font-weight: 400;
+    min-height: 100vh;
+    padding-bottom: 80px;
+    overflow-x: hidden;
+  }
+  /* Noise texture overlay */
+  body::before {
+    content:'';
+    position:fixed;
+    inset:0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events:none; z-index:0; opacity:.4;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    overflow: hidden;
+    padding: 24px 20px 100px;
+  }
+  .hero-bg {
+    position: absolute; inset: 0;
+    background: 
+      radial-gradient(ellipse 80% 60% at 50% 0%, rgba(200,16,46,0.2) 0%, transparent 60%),
+      radial-gradient(ellipse 60% 80% at 100% 100%, rgba(240,165,0,0.12) 0%, transparent 50%),
+      linear-gradient(180deg, #050d1a 0%, var(--navy) 50%, var(--navy-mid) 100%);
+    z-index: 0;
+  }
+  .hero-grid {
+    position: absolute; inset: 0; z-index: 0;
+    background-image: 
+      linear-gradient(rgba(240,165,0,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(240,165,0,0.04) 1px, transparent 1px);
+    background-size: 40px 40px;
+    mask-image: linear-gradient(180deg, transparent 0%, black 30%, black 70%, transparent 100%);
+  }
+  /* Stadium silhouette */
+  .hero-stadium {
+    position: absolute;
+    bottom: 60px; left: 0; right: 0;
+    height: 220px;
+    z-index: 1;
+    opacity: 0.06;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 200'%3E%3Cellipse cx='400' cy='200' rx='380' ry='80' fill='%23f5f5f0'/%3E%3Cellipse cx='400' cy='200' rx='300' ry='60' fill='%230a1628'/%3E%3Crect x='20' y='60' width='760' height='140' rx='10' fill='%23f5f5f0'/%3E%3Crect x='60' y='60' width='680' height='130' rx='8' fill='%230a1628'/%3E%3C/svg%3E") center/cover no-repeat;
+  }
+  .hero-content { position:relative; z-index:2; }
+  .hero-eyebrow {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 11px; font-weight: 600;
+    letter-spacing: 0.3em;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 12px;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .hero-eyebrow::before {
+    content: '';
+    display: inline-block;
+    width: 24px; height: 2px;
+    background: var(--gold);
+  }
+  .hero-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(64px, 18vw, 96px);
+    line-height: 0.9;
+    color: var(--white);
+    letter-spacing: 0.02em;
+  }
+  .hero-title span { color: var(--red); }
+  .hero-subtitle {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 14px; font-weight: 300;
+    color: var(--grey-light);
+    line-height: 1.5;
+    margin: 16px 0 28px;
+    max-width: 320px;
+    font-style: italic;
+  }
+  .hero-stats {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 2px; margin-bottom: 24px;
+  }
+  .stat-pill {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid var(--card-border);
+    border-radius: 4px;
+    padding: 10px 8px; text-align: center;
+    backdrop-filter: blur(10px);
+  }
+  .stat-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 22px; color: var(--gold);
+    display: block; line-height: 1;
+  }
+  .stat-label {
+    font-size: 9px; font-weight: 500;
+    letter-spacing: 0.1em;
+    color: var(--grey);
+    text-transform: uppercase;
+  }
+  .match-dates {
+    display: flex; gap: 8px; flex-wrap: wrap;
+    margin-bottom: 20px;
+  }
+  .match-date {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 13px; font-weight: 600;
+    background: var(--red);
+    color: white;
+    padding: 5px 12px; border-radius: 3px;
+    letter-spacing: 0.05em;
+  }
+  .fifa-badge {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: rgba(240,165,0,0.1);
+    border: 1px solid rgba(240,165,0,0.3);
+    border-radius: 20px;
+    padding: 6px 14px;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 11px; font-weight: 600;
+    color: var(--gold); letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+  .scroll-hint {
+    display: flex; align-items: center; gap: 8px;
+    font-size: 11px; color: var(--grey);
+    letter-spacing: 0.15em; text-transform: uppercase;
+    animation: bounce 2s infinite;
+  }
+  @keyframes bounce {
+    0%,100%{ transform:translateY(0); } 50%{ transform:translateY(4px); }
+  }
+
+  /* ── SECTIONS ── */
+  .section {
+    padding: 40px 20px;
+    display: none;
+    animation: fadeIn 0.3s ease;
+  }
+  .section.active { display: block; }
+  @keyframes fadeIn { from{opacity:0;transform:translateY(8px)} to{opacity:1;transform:translateY(0)} }
+
+  .section-header {
+    display: flex; align-items: flex-start; gap: 12px;
+    margin-bottom: 28px;
+  }
+  .section-icon {
+    width: 44px; height: 44px; border-radius: 8px;
+    background: var(--red);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 20px; flex-shrink: 0;
+  }
+  .section-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 36px; line-height: 1;
+    color: var(--white);
+  }
+  .section-sub {
+    font-size: 13px; color: var(--grey);
+    font-weight: 300; margin-top: 4px;
+  }
+
+  /* ── CARDS ── */
+  .card {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 16px;
+    position: relative; overflow: hidden;
+  }
+  .card::before {
+    content:''; position:absolute;
+    top:0; left:0; right:0; height:2px;
+    background: linear-gradient(90deg, var(--gold), transparent);
+  }
+  .card-accent-red::before { background: linear-gradient(90deg, var(--red), transparent); }
+  .card-accent-green::before { background: linear-gradient(90deg, var(--green-safe), transparent); }
+  .card-title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 18px; font-weight: 700;
+    color: var(--gold);
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .card-title.red { color: var(--red); }
+  .card-title.white { color: var(--white); }
+  .card p {
+    font-size: 14px; line-height: 1.6;
+    color: var(--grey-light);
+    margin-bottom: 8px;
+  }
+  .card p:last-child { margin-bottom: 0; }
+
+  /* PRO TIP */
+  .pro-tip {
+    background: rgba(240,165,0,0.08);
+    border: 1px solid rgba(240,165,0,0.25);
+    border-radius: 8px; padding: 14px;
+    margin-top: 12px;
+  }
+  .pro-tip-label {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 11px; font-weight: 700;
+    color: var(--gold); letter-spacing: 0.2em;
+    text-transform: uppercase; margin-bottom: 6px;
+    display: flex; align-items: center; gap: 6px;
+  }
+  .pro-tip p { font-size: 13px; color: var(--white); }
+
+  /* ALERT */
+  .alert {
+    background: rgba(200,16,46,0.1);
+    border: 1px solid rgba(200,16,46,0.3);
+    border-radius: 8px; padding: 14px;
+    margin: 12px 0;
+  }
+  .alert p { font-size: 13px; color: #ff8a9a; }
+  .alert-label {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 11px; font-weight: 700;
+    color: var(--red); letter-spacing: 0.2em;
+    text-transform: uppercase; margin-bottom: 6px;
+    display: flex; align-items: center; gap: 6px;
+  }
+
+  /* LIST */
+  .info-list { list-style: none; padding: 0; }
+  .info-list li {
+    font-size: 14px; line-height: 1.5;
+    color: var(--grey-light);
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+    display: flex; gap: 10px;
+  }
+  .info-list li:last-child { border-bottom: none; }
+  .info-list li .bullet {
+    color: var(--gold); flex-shrink: 0;
+    font-size: 18px; line-height: 1.2;
+  }
+
+  /* HEATMAP */
+  .heat-zone {
+    display: flex; align-items: center; gap: 12px;
+    padding: 12px 14px; border-radius: 8px;
+    margin-bottom: 8px;
+  }
+  .heat-zone.safe { background: rgba(46,204,113,0.1); border:1px solid rgba(46,204,113,0.2); }
+  .heat-zone.caution { background: rgba(243,156,18,0.1); border:1px solid rgba(243,156,18,0.2); }
+  .heat-zone.watch { background: rgba(231,76,60,0.1); border:1px solid rgba(231,76,60,0.2); }
+  .heat-dot {
+    width: 12px; height: 12px; border-radius: 50%; flex-shrink: 0;
+    box-shadow: 0 0 8px currentColor;
+  }
+  .heat-zone.safe .heat-dot { background: var(--green-safe); color: var(--green-safe); }
+  .heat-zone.caution .heat-dot { background: var(--yellow-caution); color: var(--yellow-caution); }
+  .heat-zone.watch .heat-dot { background: var(--red-danger); color: var(--red-danger); }
+  .heat-zone-text { flex: 1; }
+  .heat-zone-name {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 15px; font-weight: 700;
+    color: var(--white);
+  }
+  .heat-zone-desc { font-size: 12px; color: var(--grey); margin-top: 2px; }
+
+  /* TRANSPORT MODE */
+  .transport-mode {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 10px; padding: 16px;
+    margin-bottom: 12px; display: flex; gap: 14px;
+  }
+  .transport-icon {
+    width: 40px; height: 40px; border-radius: 8px;
+    background: var(--navy-light);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px; flex-shrink: 0;
+  }
+  .transport-info { flex: 1; }
+  .transport-name {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 16px; font-weight: 700;
+    color: var(--white); text-transform: uppercase;
+  }
+  .transport-detail { font-size: 13px; color: var(--grey-light); margin-top: 4px; line-height: 1.5; }
+  .transport-badge {
+    font-size: 11px; font-weight: 600;
+    padding: 3px 8px; border-radius: 3px;
+    display: inline-block; margin-top: 6px;
+  }
+  .badge-gold { background: rgba(240,165,0,0.2); color: var(--gold); }
+  .badge-red { background: rgba(200,16,46,0.2); color: #ff6680; }
+  .badge-green { background: rgba(46,204,113,0.15); color: var(--green-safe); }
+
+  /* WEATHER DIAL */
+  .weather-bar {
+    margin: 16px 0;
+    display: flex; align-items: center; gap: 12px;
+  }
+  .weather-label { font-size: 13px; color: var(--grey); width: 80px; flex-shrink:0; }
+  .weather-track {
+    flex: 1; height: 6px; background: rgba(255,255,255,0.08);
+    border-radius: 3px; position: relative;
+  }
+  .weather-fill {
+    position: absolute; left: 0; top: 0; height: 100%;
+    border-radius: 3px;
+    background: linear-gradient(90deg, #4fc3f7, #81c784, var(--gold));
+  }
+  .weather-val {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 16px; font-weight: 700;
+    color: var(--gold); width: 40px; text-align: right;
+  }
+
+  /* TIPPING TABLE */
+  .tip-row {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 12px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+  }
+  .tip-row:last-child { border: none; }
+  .tip-service { font-size: 14px; color: var(--white); }
+  .tip-service-sub { font-size: 12px; color: var(--grey); }
+  .tip-amount {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 22px; font-weight: 700;
+    color: var(--gold);
+  }
+
+  /* PHRASE CARD */
+  .phrase-item {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 8px; padding: 14px;
+    margin-bottom: 8px;
+  }
+  .phrase-english {
+    font-size: 14px; color: var(--white);
+    margin-bottom: 4px;
+  }
+  .phrase-context { font-size: 12px; color: var(--grey); }
+
+  /* EMBASSY */
+  .embassy-card {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 10px; padding: 14px;
+    margin-bottom: 10px;
+    display: flex; align-items: center; gap: 12px;
+  }
+  .embassy-flag { font-size: 28px; }
+  .embassy-name {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 16px; font-weight: 700;
+    color: var(--white);
+  }
+  .embassy-phone { font-size: 13px; color: var(--gold); margin-top: 2px; }
+  .embassy-address { font-size: 11px; color: var(--grey); margin-top: 2px; }
+
+  /* SOS */
+  .sos-number {
+    background: var(--red);
+    border-radius: 12px; padding: 20px;
+    text-align: center; margin-bottom: 12px;
+  }
+  .sos-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 64px; line-height: 1; color: white;
+    display: block;
+  }
+  .sos-label {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 13px; font-weight: 600;
+    color: rgba(255,255,255,0.8);
+    text-transform: uppercase; letter-spacing: 0.15em;
+  }
+
+  /* DEALS SECTION */
+  .deals-coming {
+    text-align: center; padding: 60px 20px;
+  }
+  .deals-icon { font-size: 64px; margin-bottom: 20px; display: block; }
+  .deals-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 40px; color: var(--gold); margin-bottom: 12px;
+  }
+  .deals-sub { font-size: 14px; color: var(--grey); line-height: 1.6; }
+  .deals-cta {
+    display: inline-block; margin-top: 24px;
+    background: var(--red); color: white;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 16px; font-weight: 700;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    padding: 14px 32px; border-radius: 8px;
+    text-decoration: none;
+  }
+
+  /* PUB GUIDE */
+  .pub-card {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 10px; padding: 16px;
+    margin-bottom: 12px;
+  }
+  .pub-name {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 18px; font-weight: 700; color: var(--white);
+  }
+  .pub-type { font-size: 11px; color: var(--gold); text-transform: uppercase;
+    letter-spacing: 0.1em; margin: 4px 0; }
+  .pub-desc { font-size: 13px; color: var(--grey-light); line-height: 1.5; }
+
+  /* BOTTOM NAV */
+  .bottom-nav {
+    position: fixed; bottom: 0; left: 0; right: 0;
+    background: rgba(5,12,24,0.95);
+    backdrop-filter: blur(20px);
+    border-top: 1px solid rgba(240,165,0,0.15);
+    display: flex; z-index: 100;
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+  .nav-item {
+    flex: 1; display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    padding: 10px 4px 8px;
+    cursor: pointer; border: none; background: transparent;
+    color: var(--grey); transition: color 0.2s;
+    position: relative;
+  }
+  .nav-item.active { color: var(--gold); }
+  .nav-item.active::before {
+    content:''; position:absolute;
+    top:0; left:20%; right:20%; height:2px;
+    background: var(--gold);
+    border-radius: 0 0 2px 2px;
+  }
+  .nav-icon { font-size: 18px; margin-bottom: 3px; line-height: 1; }
+  .nav-label {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 10px; font-weight: 600;
+    letter-spacing: 0.05em; text-transform: uppercase;
+  }
+  .nav-sos { color: var(--red) !important; }
+  .nav-sos.active::before { background: var(--red); }
+  .nav-sos .nav-icon { animation: pulse-red 1.5s infinite; }
+  @keyframes pulse-red {
+    0%,100%{ opacity:1; } 50%{ opacity:0.6; }
+  }
+
+  /* PDF BUTTON */
+  .pdf-btn {
+    position: fixed; top: 16px; right: 16px; z-index: 200;
+    background: rgba(240,165,0,0.15);
+    border: 1px solid rgba(240,165,0,0.3);
+    border-radius: 24px;
+    padding: 8px 16px;
+    color: var(--gold);
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 13px; font-weight: 600;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    cursor: pointer; display: flex; align-items: center; gap: 6px;
+    backdrop-filter: blur(10px);
+    transition: all 0.2s;
+  }
+  .pdf-btn:hover { background: rgba(240,165,0,0.25); }
+
+  /* DIVIDER */
+  .divider {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(240,165,0,0.2), transparent);
+    margin: 24px 0;
+  }
+
+  /* FOOD ITEM */
+  .food-item {
+    display: flex; gap: 12px; align-items: flex-start;
+    padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.05);
+  }
+  .food-item:last-child { border: none; }
+  .food-emoji { font-size: 28px; line-height: 1; flex-shrink: 0; }
+  .food-name {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 16px; font-weight: 700; color: var(--white);
+  }
+  .food-desc { font-size: 12px; color: var(--grey); margin-top: 3px; }
+
+  /* ACCORDION */
+  .accordion-item {
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+  }
+  .accordion-header {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 14px 0; cursor: pointer;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 16px; font-weight: 600;
+    color: var(--white); text-transform: uppercase; letter-spacing: 0.05em;
+  }
+  .accordion-arrow { color: var(--gold); transition: transform 0.2s; font-size: 12px; }
+  .accordion-body {
+    display: none; padding: 0 0 16px;
+    font-size: 14px; color: var(--grey-light); line-height: 1.6;
+  }
+  .accordion-body.open { display: block; }
+  .accordion-arrow.open { transform: rotate(180deg); }
+
+  /* COST BADGE */
+  .cost-item {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.05);
+  }
+  .cost-item:last-child { border: none; }
+  .cost-service { font-size: 14px; color: var(--grey-light); }
+  .cost-price {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 16px; font-weight: 700; color: var(--white);
+  }
+
+  /* STAY CARD */
+  .stay-card {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 10px; padding: 16px;
+    margin-bottom: 12px;
+  }
+  .stay-neighborhood {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 24px; color: var(--white); letter-spacing: 0.05em;
+  }
+  .stay-badge {
+    display: inline-block;
+    font-size: 11px; font-weight: 600;
+    padding: 3px 10px; border-radius: 3px;
+    margin-left: 8px;
+    vertical-align: middle;
+  }
+  .stay-desc { font-size: 13px; color: var(--grey-light); margin-top: 8px; line-height: 1.5; }
+  .stay-dist { font-size: 12px; color: var(--gold); margin-top: 6px; }
+
+  /* ── PRINT STYLES ── */
+  @media print {
+    .bottom-nav, .pdf-btn { display: none !important; }
+    .section { display: block !important; page-break-before: always; }
+    body { padding-bottom: 0; background: white; color: black; }
+  }
+</style>
+</head>
+<body>
+
+<!-- PDF Button -->
+<button class="pdf-btn" onclick="window.print()">
+  <span>⬇</span> Save PDF
+</button>
+
+<!-- ══════════════════════════════════════
+     HOME / HERO
+═══════════════════════════════════════ -->
+<section class="hero section active" id="sec-home">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-stadium"></div>
+  <div class="hero-content">
+    <div class="fifa-badge">⚽ FIFA WORLD CUP 2026 · OFFICIAL FAN GUIDE</div>
+    <div class="hero-eyebrow">GILLETTE STADIUM · FOXBOROUGH, MA · SUMMER 2026</div>
+    <h1 class="hero-title">BOSTON<br><span>FAN</span><br>PASS</h1>
+    <p class="hero-subtitle">"The most European city in America — home of the most passionate sports fans on earth"</p>
+    <div class="match-dates">
+      <span class="match-date">JUN 16</span>
+      <span class="match-date">JUN 23</span>
+      <span class="match-date">JUN 29</span>
+      <span class="match-date">JUL 5</span>
+    </div>
+    <div class="hero-stats">
+      <div class="stat-pill">
+        <span class="stat-num">65,878</span>
+        <span class="stat-label">Capacity</span>
+      </div>
+      <div class="stat-pill">
+        <span class="stat-num">4</span>
+        <span class="stat-label">Matches</span>
+      </div>
+      <div class="stat-pill">
+        <span class="stat-num">25°C</span>
+        <span class="stat-label">Perfect</span>
+      </div>
+    </div>
+
+    <!-- Quick nav cards -->
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:24px;">
+      <div class="card" style="cursor:pointer;margin:0" onclick="navTo('transport')">
+        <div style="font-size:28px;margin-bottom:6px;">🚆</div>
+        <div style="font-family:'Barlow Condensed',sans-serif;font-size:15px;font-weight:700;color:var(--white);text-transform:uppercase;">Transport</div>
+        <div style="font-size:12px;color:var(--grey);">Train, Uber & Parking</div>
+      </div>
+      <div class="card" style="cursor:pointer;margin:0" onclick="navTo('safety')">
+        <div style="font-size:28px;margin-bottom:6px;">🛡</div>
+        <div style="font-family:'Barlow Condensed',sans-serif;font-size:15px;font-weight:700;color:var(--white);text-transform:uppercase;">Safety</div>
+        <div style="font-size:12px;color:var(--grey);">Heatmap & Tips</div>
+      </div>
+      <div class="card" style="cursor:pointer;margin:0" onclick="navTo('deals')">
+        <div style="font-size:28px;margin-bottom:6px;">🎟</div>
+        <div style="font-family:'Barlow Condensed',sans-serif;font-size:15px;font-weight:700;color:var(--white);text-transform:uppercase;">Deals</div>
+        <div style="font-size:12px;color:var(--grey);">Hotels, Tours & More</div>
+      </div>
+      <div class="card" style="cursor:pointer;margin:0" onclick="navTo('sos')">
+        <div style="font-size:28px;margin-bottom:6px;">🆘</div>
+        <div style="font-family:'Barlow Condensed',sans-serif;font-size:15px;font-weight:700;color:var(--white);text-transform:uppercase;">SOS</div>
+        <div style="font-size:12px;color:var(--grey);">Emergency Contacts</div>
+      </div>
+    </div>
+
+    <!-- Weather teaser -->
+    <div class="card card-accent-green" style="margin-bottom:20px;">
+      <div class="card-title" style="color:var(--green-safe);">🌤 BEST WEATHER OF ALL 5 HOST CITIES</div>
+      <p>Boston in June: 22–27°C, low humidity, refreshing evening breeze. You won the climate lottery.</p>
+    </div>
+
+    <div class="scroll-hint">↓ &nbsp;Scroll to explore</div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     SAFETY SECTION
+═══════════════════════════════════════ -->
+<section class="section" id="sec-safety">
+  <div class="section-header">
+    <div class="section-icon">🛡</div>
+    <div>
+      <div class="section-title">SAFETY</div>
+      <div class="section-sub">Neighbourhood guide & police protocol</div>
+    </div>
+  </div>
+
+  <!-- Heatmap -->
+  <div class="card">
+    <div class="card-title">📍 SAFETY HEATMAP</div>
+    <div class="heat-zone safe">
+      <div class="heat-dot"></div>
+      <div class="heat-zone-text">
+        <div class="heat-zone-name">Beacon Hill, Back Bay, South End</div>
+        <div class="heat-zone-desc">Tourist core — extremely safe, walkable</div>
+      </div>
+    </div>
+    <div class="heat-zone safe">
+      <div class="heat-dot"></div>
+      <div class="heat-zone-text">
+        <div class="heat-zone-name">Cambridge, Fenway, North End</div>
+        <div class="heat-zone-desc">Safe day & night, heavy foot traffic</div>
+      </div>
+    </div>
+    <div class="heat-zone safe">
+      <div class="heat-dot"></div>
+      <div class="heat-zone-text">
+        <div class="heat-zone-name">Foxborough Stadium Zone</div>
+        <div class="heat-zone-desc">Heavily policed on match days</div>
+      </div>
+    </div>
+    <div class="heat-zone caution">
+      <div class="heat-dot"></div>
+      <div class="heat-zone-text">
+        <div class="heat-zone-name">Roxbury, parts of Dorchester</div>
+        <div class="heat-zone-desc">Late night — tourists rarely visit here</div>
+      </div>
+    </div>
+    <div class="heat-zone watch">
+      <div class="heat-dot"></div>
+      <div class="heat-zone-text">
+        <div class="heat-zone-name">The T (Subway) — Rush Hour</div>
+        <div class="heat-zone-desc">Watch for pickpockets on crowded trains</div>
+      </div>
+    </div>
+    <div class="pro-tip">
+      <div class="pro-tip-label">⚽ FOR EUROPEAN FANS</div>
+      <p>Boston is incredibly safe by international standards. You will feel very at home here — more so than any other US host city.</p>
+    </div>
+  </div>
+
+  <!-- Police Protocol -->
+  <div class="card">
+    <div class="card-title">👮 POLICE PROTOCOL</div>
+    <ul class="info-list">
+      <li><span class="bullet">→</span><span>Boston Police are generally professional, experienced with tourists and international events</span></li>
+      <li><span class="bullet">→</span><span>Massachusetts has strong civil liberties protections — know your rights</span></li>
+      <li><span class="bullet">→</span><span><strong style="color:var(--green-safe)">LEGAL IN MA:</strong> Filming police officers in public is fully permitted</span></li>
+      <li><span class="bullet">→</span><span>Always remain calm and polite — Bostonians respect directness</span></li>
+      <li><span class="bullet">→</span><span>If stopped: state your nationality clearly, carry your passport copy</span></li>
+    </ul>
+    <div class="divider"></div>
+    <div style="font-family:'Barlow Condensed',sans-serif;font-size:14px;font-weight:700;color:var(--gold);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:12px;">5 KEY PHRASES</div>
+    <div class="phrase-item">
+      <div class="phrase-english">"I am a tourist here for the FIFA World Cup."</div>
+      <div class="phrase-context">Use when stopped or questioned</div>
+    </div>
+    <div class="phrase-item">
+      <div class="phrase-english">"I would like to contact my embassy."</div>
+      <div class="phrase-context">Your legal right if detained</div>
+    </div>
+    <div class="phrase-item">
+      <div class="phrase-english">"Am I free to go, or am I being detained?"</div>
+      <div class="phrase-context">Establishes your legal status clearly</div>
+    </div>
+    <div class="phrase-item">
+      <div class="phrase-english">"I do not consent to a search."</div>
+      <div class="phrase-context">Stay calm when saying this</div>
+    </div>
+    <div class="phrase-item">
+      <div class="phrase-english">"I need a translator / interpreter."</div>
+      <div class="phrase-context">Right available to foreign nationals</div>
+    </div>
+  </div>
+
+  <!-- Embassies -->
+  <div class="card">
+    <div class="card-title">🌐 EMBASSY CONTACTS</div>
+    <div style="font-size:12px;color:var(--grey);margin-bottom:14px;">Boston & Washington DC emergency lines</div>
+    <div class="embassy-card">
+      <div class="embassy-flag">🇬🇧</div>
+      <div>
+        <div class="embassy-name">United Kingdom</div>
+        <div class="embassy-phone">+1 (617) 245-4500</div>
+        <div class="embassy-address">British Consulate, One Broadway, Cambridge MA</div>
+      </div>
+    </div>
+    <div class="embassy-card">
+      <div class="embassy-flag">🇮🇪</div>
+      <div>
+        <div class="embassy-name">Ireland</div>
+        <div class="embassy-phone">+1 (617) 267-9330</div>
+        <div class="embassy-address">535 Boylston St, Boston MA · Large Irish diaspora city</div>
+      </div>
+    </div>
+    <div class="embassy-card">
+      <div class="embassy-flag">🇮🇹</div>
+      <div>
+        <div class="embassy-name">Italy</div>
+        <div class="embassy-phone">+1 (617) 722-9201</div>
+        <div class="embassy-address">Italian Consulate, 600 Atlantic Ave, Boston</div>
+      </div>
+    </div>
+    <div class="embassy-card">
+      <div class="embassy-flag">🇵🇹</div>
+      <div>
+        <div class="embassy-name">Portugal</div>
+        <div class="embassy-phone">+1 (617) 536-8740</div>
+        <div class="embassy-address">Portuguese Consulate, 699 Boylston St, Boston</div>
+      </div>
+    </div>
+    <div class="embassy-card">
+      <div class="embassy-flag">🇩🇪</div>
+      <div>
+        <div class="embassy-name">Germany</div>
+        <div class="embassy-phone">+1 (617) 369-4900</div>
+        <div class="embassy-address">German Consulate, 3 Copley Place, Boston</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Healthcare -->
+  <div class="card">
+    <div class="card-title card-title red">🏥 HEALTHCARE</div>
+    <ul class="info-list">
+      <li><span class="bullet">★</span><span><strong style="color:var(--white)">Massachusetts General Hospital</strong> — One of the top hospitals in the USA. 55 Fruit St, Boston.</span></li>
+      <li><span class="bullet">★</span><span><strong style="color:var(--white)">Tufts Medical Center</strong> — Downtown Boston. 800 Washington St.</span></li>
+      <li><span class="bullet">★</span><span><strong style="color:var(--white)">CVS MinuteClinic</strong> — Multiple Boston locations. Walk-in urgent care, no appointment needed.</span></li>
+    </ul>
+    <div class="divider"></div>
+    <div style="font-family:'Barlow Condensed',sans-serif;font-size:14px;font-weight:700;color:var(--gold);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:10px;">AVERAGE COSTS (without insurance)</div>
+    <div class="cost-item"><span class="cost-service">Emergency room visit</span><span class="cost-price">$500–$3,000</span></div>
+    <div class="cost-item"><span class="cost-service">MinuteClinic visit</span><span class="cost-price">$99–$150</span></div>
+    <div class="cost-item"><span class="cost-service">Basic prescription</span><span class="cost-price">$15–$80</span></div>
+    <div class="cost-item"><span class="cost-service">Ambulance</span><span class="cost-price">$500–$2,000</span></div>
+    <div class="alert">
+      <div class="alert-label">⚠ CRITICAL</div>
+      <p>Travel insurance covering US medical costs is ESSENTIAL. US healthcare without insurance is extremely expensive. Purchase before travel.</p>
+    </div>
+    <div style="font-family:'Barlow Condensed',sans-serif;font-size:14px;font-weight:700;color:var(--gold);letter-spacing:0.1em;text-transform:uppercase;margin:14px 0 10px;">KEY PHRASES</div>
+    <div class="phrase-item"><div class="phrase-english">"I need emergency medical assistance."</div></div>
+    <div class="phrase-item"><div class="phrase-english">"I have travel insurance — here are my documents."</div></div>
+    <div class="phrase-item"><div class="phrase-english">"I am allergic to ___. Please note this."</div></div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     TRANSPORT SECTION
+═══════════════════════════════════════ -->
+<section class="section" id="sec-transport">
+  <div class="section-header">
+    <div class="section-icon">🚆</div>
+    <div>
+      <div class="section-title">TRANSPORT</div>
+      <div class="section-sub">Gillette is 45 min from Boston</div>
+    </div>
+  </div>
+
+  <div class="alert">
+    <div class="alert-label">📍 KEY FACT</div>
+    <p>Gillette Stadium is in Foxborough — a small town 30 miles south of Boston. Plan your transport BEFORE match day.</p>
+  </div>
+
+  <!-- MBTA Train -->
+  <div class="transport-mode">
+    <div class="transport-icon">🚉</div>
+    <div class="transport-info">
+      <div class="transport-name">MBTA Commuter Rail</div>
+      <div class="transport-detail">Providence/Stoughton Line → Foxboro Station<br>
+        <strong style="color:var(--white)">BEST OPTION</strong> — 45 min from Boston South Station
+      </div>
+      <span class="transport-badge badge-gold">⚠ MATCH DAYS ONLY</span>
+      <span class="transport-badge badge-red" style="margin-left:4px;">BUY IN ADVANCE</span>
+    </div>
+  </div>
+  <div class="card" style="margin-top:-4px;border-radius:0 0 12px 12px;border-top:none;">
+    <ul class="info-list">
+      <li><span class="bullet">→</span><span>Special match day service only — does not run on normal days</span></li>
+      <li><span class="bullet">→</span><span>Buy your return ticket <strong style="color:var(--gold)">before</strong> boarding — queues are extreme post-match</span></li>
+      <li><span class="bullet">→</span><span>Last train back fills immediately — position near stadium exit <strong style="color:var(--gold)">20 min before final whistle</strong></span></li>
+      <li><span class="bullet">→</span><span>Book at mbta.com or the MBTA app</span></li>
+    </ul>
+    <div class="pro-tip">
+      <div class="pro-tip-label">⚡ PRO TIP</div>
+      <p>Get your return seat position confirmed before kick-off. Missing the last train means a $100+ surge Uber or being stranded in Foxborough.</p>
+    </div>
+  </div>
+
+  <!-- Uber/Lyft -->
+  <div class="transport-mode" style="margin-top:16px;">
+    <div class="transport-icon">🚗</div>
+    <div class="transport-info">
+      <div class="transport-name">Uber / Lyft</div>
+      <div class="transport-detail">Surge pricing is EXTREME post-match in Foxborough</div>
+      <span class="transport-badge badge-red">SURGE: $80–$150</span>
+    </div>
+  </div>
+  <div class="card" style="margin-top:-4px;border-radius:0 0 12px 12px;border-top:none;">
+    <ul class="info-list">
+      <li><span class="bullet">→</span><span>Foxborough is a small town — very few drivers available after a 65,000-person match</span></li>
+      <li><span class="bullet">→</span><span>Pre-match rides: normal pricing ~$40–60 from Boston</span></li>
+      <li><span class="bullet">→</span><span>Post-match surge: $80–150 from stadium pickup zone</span></li>
+    </ul>
+    <div class="pro-tip">
+      <div class="pro-tip-label">💰 SAVE 40%</div>
+      <p>Walk <strong style="color:var(--gold)">15 min</strong> from the stadium to Route 1 — then hail Uber. You'll save 40% vs stadium pickup zone surge pricing.</p>
+    </div>
+  </div>
+
+  <!-- Logan Airport -->
+  <div class="transport-mode" style="margin-top:16px;">
+    <div class="transport-icon">✈️</div>
+    <div class="transport-info">
+      <div class="transport-name">Logan Airport → City</div>
+      <div class="transport-detail">Free Silver Line bus to South Station</div>
+      <span class="transport-badge badge-green">FREE</span>
+    </div>
+  </div>
+  <div class="card" style="margin-top:-4px;border-radius:0 0 12px 12px;border-top:none;">
+    <ul class="info-list">
+      <li><span class="bullet">→</span><span><strong style="color:var(--white)">Silver Line SL1</strong> from any terminal → South Station (FREE from airport)</span></li>
+      <li><span class="bullet">→</span><span>From South Station: catch Commuter Rail to Foxboro on match day</span></li>
+      <li><span class="bullet">→</span><span>Total journey: Airport → Stadium ≈ 90 minutes on match day</span></li>
+      <li><span class="bullet">→</span><span>Taxi/Rideshare: Logan → Boston hotels ≈ $25–40</span></li>
+    </ul>
+  </div>
+
+  <!-- Parking -->
+  <div class="transport-mode" style="margin-top:16px;">
+    <div class="transport-icon">🅿️</div>
+    <div class="transport-info">
+      <div class="transport-name">Driving & Parking</div>
+      <div class="transport-detail">I-95 South → Route 1 → Gillette</div>
+      <span class="transport-badge badge-gold">$40–60/match</span>
+    </div>
+  </div>
+  <div class="card" style="margin-top:-4px;border-radius:0 0 12px 12px;border-top:none;">
+    <ul class="info-list">
+      <li><span class="bullet">→</span><span>Arrive <strong style="color:var(--gold)">2.5 hours</strong> before kickoff — traffic backs up significantly</span></li>
+      <li><span class="bullet">→</span><span>Pre-purchase parking pass online — lot sales can sell out</span></li>
+      <li><span class="bullet">→</span><span>Expect 45–90 min post-match traffic exit</span></li>
+      <li><span class="bullet">→</span><span>Wrentham Village Premium Outlets nearby — park & tailgate</span></li>
+    </ul>
+  </div>
+
+  <!-- Distance Reference -->
+  <div class="card" style="margin-top:16px;">
+    <div class="card-title">📍 KEY DISTANCES</div>
+    <div class="cost-item"><span class="cost-service">Boston South Station → Gillette</span><span class="cost-price" style="color:var(--gold)">45 min 🚆</span></div>
+    <div class="cost-item"><span class="cost-service">Logan Airport → Boston Hotels</span><span class="cost-price" style="color:var(--gold)">20–30 min 🚌</span></div>
+    <div class="cost-item"><span class="cost-service">Back Bay → South Station</span><span class="cost-price" style="color:var(--gold)">10 min 🚶</span></div>
+    <div class="cost-item"><span class="cost-service">Boston → Cape Cod</span><span class="cost-price" style="color:var(--gold)">1.5 hr 🚗</span></div>
+    <div class="cost-item"><span class="cost-service">Boston → Salem</span><span class="cost-price" style="color:var(--gold)">30 min 🚆</span></div>
+    <div class="cost-item"><span class="cost-service">Boston → Newport, RI</span><span class="cost-price" style="color:var(--gold)">1 hr 🚗</span></div>
+  </div>
+
+  <!-- Weather -->
+  <div class="card" style="margin-top:4px;">
+    <div class="card-title" style="color:var(--green-safe);">🌤 WEATHER — JUNE BOSTON</div>
+    <p style="margin-bottom:16px;">Best weather of all 5 World Cup host cities. You chose well.</p>
+    <div class="weather-bar">
+      <span class="weather-label">Temperature</span>
+      <div class="weather-track"><div class="weather-fill" style="width:72%"></div></div>
+      <span class="weather-val">22–27°C</span>
+    </div>
+    <div class="weather-bar">
+      <span class="weather-label">Humidity</span>
+      <div class="weather-track"><div class="weather-fill" style="width:35%;background:linear-gradient(90deg,#4fc3f7,#81c784)"></div></div>
+      <span class="weather-val">Low</span>
+    </div>
+    <div class="weather-bar">
+      <span class="weather-label">Rain risk</span>
+      <div class="weather-track"><div class="weather-fill" style="width:25%;background:linear-gradient(90deg,#4fc3f7,#29b6f6)"></div></div>
+      <span class="weather-val">25%</span>
+    </div>
+    <div class="pro-tip">
+      <div class="pro-tip-label">👕 PACK SMART</div>
+      <p>A light jacket doubles as both a cool-evening layer AND rain protection. Essential for night matches.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     DEALS SECTION
+═══════════════════════════════════════ -->
+<section class="section" id="sec-deals">
+  <div class="section-header">
+    <div class="section-icon" style="background:var(--gold);color:var(--navy);">🎟</div>
+    <div>
+      <div class="section-title">DEALS</div>
+      <div class="section-sub">Hotels, experiences & fan offers</div>
+    </div>
+  </div>
+
+  <!-- WHERE TO STAY -->
+  <div class="card">
+    <div class="card-title">🏨 WHERE TO STAY</div>
+    <div class="stay-card">
+      <div><span class="stay-neighborhood">BACK BAY</span><span class="stay-badge badge-gold">BEST LOCATION</span></div>
+      <div class="stay-desc">The heart of Boston. Walkable to everything — Fenway, Newbury St shops, restaurants. Direct T to South Station for match day.</div>
+      <div class="stay-dist">⚽ 50 min to Gillette · 🚶 10 min to South Station</div>
+    </div>
+    <div class="stay-card">
+      <div><span class="stay-neighborhood">CAMBRIDGE</span><span class="stay-badge badge-green">BEST VALUE</span></div>
+      <div class="stay-desc">Harvard Square area — great pubs, cafés, slightly cheaper hotels. Red Line straight to downtown Boston.</div>
+      <div class="stay-dist">⚽ 55 min to Gillette · 🚇 20 min to South Station</div>
+    </div>
+    <div class="stay-card">
+      <div><span class="stay-neighborhood">SOUTH BOSTON</span><span class="stay-badge" style="background:rgba(200,16,46,0.2);color:var(--red);">GAME DAY VIBE</span></div>
+      <div class="stay-desc">Strong Irish & sports bar culture. Closer to South Station. Great for post-match energy.</div>
+      <div class="stay-dist">⚽ 48 min to Gillette · 🚶 15 min to South Station</div>
+    </div>
+    <div class="stay-card">
+      <div><span class="stay-neighborhood">FOXBOROUGH</span><span class="stay-badge" style="background:rgba(255,255,255,0.1);color:var(--grey-light);">MATCH DAY ONLY</span></div>
+      <div class="stay-desc">Limited hotel options. Only useful if you're attending back-to-back matches. Book months in advance.</div>
+      <div class="stay-dist">⚽ 5 min walk to Gillette · 🚗 45 min to Boston</div>
+    </div>
+  </div>
+
+  <!-- Tipping Guide -->
+  <div class="card">
+    <div class="card-title">💵 TIPPING GUIDE — BOSTON</div>
+    <p style="margin-bottom:14px;font-size:13px;color:var(--grey);">Boston tips similar to New York. It's cultural — always expected at sit-down venues.</p>
+    <div class="tip-row">
+      <div><div class="tip-service">Restaurants</div><div class="tip-service-sub">Sit-down, full service</div></div>
+      <div class="tip-amount">18–20%</div>
+    </div>
+    <div class="tip-row">
+      <div><div class="tip-service">Irish Pubs — Drinks</div><div class="tip-service-sub">Boylston St & Southie bars</div></div>
+      <div class="tip-amount">$1–2/drink</div>
+    </div>
+    <div class="tip-row">
+      <div><div class="tip-service">Clam Chowder Spots</div><div class="tip-service-sub">Faneuil Hall, Legal Sea Foods</div></div>
+      <div class="tip-amount">18%</div>
+    </div>
+    <div class="tip-row">
+      <div><div class="tip-service">Coffee / Takeaway</div><div class="tip-service-sub">Counter service</div></div>
+      <div class="tip-amount">10–15%</div>
+    </div>
+    <div class="tip-row">
+      <div><div class="tip-service">Taxi / Rideshare</div><div class="tip-service-sub">Uber, Lyft, cab</div></div>
+      <div class="tip-amount">15%</div>
+    </div>
+    <div class="tip-row">
+      <div><div class="tip-service">Hotel Bellhop</div><div class="tip-service-sub">Per bag</div></div>
+      <div class="tip-amount">$2–3</div>
+    </div>
+  </div>
+
+  <!-- Boston Experience -->
+  <div class="card">
+    <div class="card-title">🦞 THE BOSTON EXPERIENCE</div>
+    <p style="margin-bottom:12px;">Boston is the most European city in America. Here's what you can't miss.</p>
+    <div class="food-item">
+      <div class="food-emoji">🦞</div>
+      <div><div class="food-name">Lobster Roll</div><div class="food-desc">Luke's Lobster in Back Bay. A New England icon. ~$24</div></div>
+    </div>
+    <div class="food-item">
+      <div class="food-emoji">🍲</div>
+      <div><div class="food-name">New England Clam Chowder</div><div class="food-desc">Faneuil Hall Marketplace. The original. ~$10</div></div>
+    </div>
+    <div class="food-item">
+      <div class="food-emoji">🥐</div>
+      <div><div class="food-name">Mike's Pastry Cannoli</div><div class="food-desc">North End (Boston's Little Italy). Queue expected. ~$5</div></div>
+    </div>
+    <div class="food-item">
+      <div class="food-emoji">☕</div>
+      <div><div class="food-name">Dunkin' — Boston Style</div><div class="food-desc">Say "Dunks" and order a "regulah" (cream & sugar). Cultural ritual.</div></div>
+    </div>
+    <div class="divider"></div>
+    <div style="font-family:'Barlow Condensed',sans-serif;font-size:14px;font-weight:700;color:var(--gold);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:12px;">🗺 CAN'T-MISS EXPERIENCES</div>
+    <ul class="info-list">
+      <li><span class="bullet">★</span><span><strong style="color:var(--white)">Freedom Trail</strong> — 3km self-guided walk, free, through 400 years of American history</span></li>
+      <li><span class="bullet">★</span><span><strong style="color:var(--white)">Fenway Park Tour</strong> — Oldest MLB ballpark (1912). Iconic. Book in advance.</span></li>
+      <li><span class="bullet">★</span><span><strong style="color:var(--white)">Day Trip: Cape Cod</strong> — 1.5 hrs south. Beaches, seafood shacks, quintessentially New England</span></li>
+      <li><span class="bullet">★</span><span><strong style="color:var(--white)">Day Trip: Salem</strong> — 30 min north. The witch trials city. Fascinating history year-round</span></li>
+      <li><span class="bullet">★</span><span><strong style="color:var(--white)">Day Trip: Newport, RI</strong> — 1 hr south. Gilded Age mansions, harbor views, Cliff Walk</span></li>
+      <li><span class="bullet">★</span><span><strong style="color:var(--white)">North End</strong> — Boston's Italian quarter. Best cannoli, espresso, pasta in New England</span></li>
+    </ul>
+  </div>
+
+  <!-- Pub Guide -->
+  <div class="card">
+    <div class="card-title">🍺 PUB & SPORTS BAR GUIDE</div>
+    <div style="font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:700;color:var(--grey);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:10px;">NEAR GILLETTE STADIUM</div>
+    <div class="pub-card">
+      <div class="pub-name">Patriot Place Plaza</div>
+      <div class="pub-type">Stadium Complex · Foxborough</div>
+      <div class="pub-desc">Multiple bars and restaurants adjacent to Gillette. Heavy pre/post-match atmosphere. Book in advance.</div>
+    </div>
+    <div class="pub-card">
+      <div class="pub-name">Wrentham Village Outlets Area</div>
+      <div class="pub-type">10 min from Gillette</div>
+      <div class="pub-desc">Several sports bars and restaurants. Good for pre-match gathering with larger groups.</div>
+    </div>
+    <div class="divider"></div>
+    <div style="font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:700;color:var(--grey);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:10px;">BEST BARS IN BOSTON</div>
+    <div class="pub-card">
+      <div class="pub-name">Game On! at Fenway</div>
+      <div class="pub-type">Sports Bar · Fenway Park</div>
+      <div class="pub-desc">Inside Fenway Park. 100+ TVs. The definitive Boston sports bar experience. Will have match viewings.</div>
+    </div>
+    <div class="pub-card">
+      <div class="pub-name">Cask 'n Flagon</div>
+      <div class="pub-type">Sports Bar / Irish Pub · Fenway</div>
+      <div class="pub-desc">Right next to Fenway. Classic Bostonians bar with football (soccer) support. Huge international crowd during WC.</div>
+    </div>
+    <div class="pub-card">
+      <div class="pub-name">Bleacher Bar</div>
+      <div class="pub-type">Unique Bar · Inside Fenway Park</div>
+      <div class="pub-desc">Bar inside Fenway's center-field wall. Iconic. Book ahead — only ~50 people capacity. Once-in-a-lifetime.</div>
+    </div>
+    <div class="pub-card">
+      <div class="pub-name">Irish Bars on Boylston St</div>
+      <div class="pub-type">Irish Pub District · Back Bay</div>
+      <div class="pub-desc">Multiple Irish pubs in a row — The Kinsale, Lir, McGreevy's. European fans will feel right at home.</div>
+    </div>
+    <div class="pro-tip">
+      <div class="pro-tip-label">⏰ LAST CALL — IMPORTANT</div>
+      <p>Massachusetts last call is <strong style="color:var(--gold)">2am</strong> — earlier than NYC. Many bars stop serving at 1:45am. Plan your evening accordingly.</p>
+    </div>
+    <div class="pro-tip" style="margin-top:8px;background:rgba(46,204,113,0.08);border-color:rgba(46,204,113,0.25);">
+      <div class="pro-tip-label" style="color:var(--green-safe);">👔 DRESS CODE</div>
+      <p>Boston bars are <strong style="color:var(--white)">casual</strong>. No dress code issues for football fans. Clean trainers (sneakers) are fine everywhere except upscale hotel bars.</p>
+    </div>
+  </div>
+
+  <!-- Coming deals placeholder -->
+  <div class="deals-coming">
+    <span class="deals-icon">🎁</span>
+    <div class="deals-title">EXCLUSIVE DEALS COMING</div>
+    <p class="deals-sub">We're negotiating exclusive packages for World Cup fans:<br><br>
+    Accommodation bundles · Match day transfers · Guided city tours · Fenway Park exclusive events · Restaurant pre-bookings<br><br>
+    Bookmark this page and check back.</p>
+    <a href="mailto:info@bostonfanpass.com" class="deals-cta">NOTIFY ME OF DEALS</a>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     SOS SECTION
+═══════════════════════════════════════ -->
+<section class="section" id="sec-sos">
+  <div class="section-header">
+    <div class="section-icon" style="background:var(--red);">🆘</div>
+    <div>
+      <div class="section-title">SOS</div>
+      <div class="section-sub">Emergency contacts — keep this page accessible</div>
+    </div>
+  </div>
+
+  <div class="sos-number">
+    <span class="sos-num">911</span>
+    <span class="sos-label">Police · Fire · Ambulance — All Emergencies</span>
+  </div>
+
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px;">
+    <div style="background:var(--card-bg);border:1px solid var(--card-border);border-radius:10px;padding:16px;text-align:center;">
+      <div style="font-size:24px;margin-bottom:6px;">👮</div>
+      <div style="font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:700;color:var(--white);text-transform:uppercase;">Boston Police</div>
+      <div style="font-size:12px;color:var(--gold);margin-top:4px;">(617) 343-4633</div>
+      <div style="font-size:10px;color:var(--grey);margin-top:2px;">Non-emergency</div>
+    </div>
+    <div style="background:var(--card-bg);border:1px solid var(--card-border);border-radius:10px;padding:16px;text-align:center;">
+      <div style="font-size:24px;margin-bottom:6px;">☠️</div>
+      <div style="font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:700;color:var(--white);text-transform:uppercase;">Poison Control</div>
+      <div style="font-size:12px;color:var(--gold);margin-top:4px;">1-800-222-1222</div>
+      <div style="font-size:10px;color:var(--grey);margin-top:2px;">MA Poison Control</div>
+    </div>
+  </div>
+
+  <div class="card card-accent-red">
+    <div class="card-title red">🏥 NEAREST HOSPITALS</div>
+    <div class="cost-item">
+      <span class="cost-service">Massachusetts General Hospital</span>
+      <span class="cost-price" style="font-size:12px;color:var(--gold);">617-726-2000</span>
+    </div>
+    <div class="cost-item">
+      <span class="cost-service">Brigham and Women's Hospital</span>
+      <span class="cost-price" style="font-size:12px;color:var(--gold);">617-732-5500</span>
+    </div>
+    <div class="cost-item">
+      <span class="cost-service">Tufts Medical Center</span>
+      <span class="cost-price" style="font-size:12px;color:var(--gold);">617-636-5000</span>
+    </div>
+    <div class="cost-item">
+      <span class="cost-service">Boston Children's Hospital</span>
+      <span class="cost-price" style="font-size:12px;color:var(--gold);">617-355-6000</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">🌐 EMBASSY EMERGENCY LINES</div>
+    <div class="embassy-card" style="background:rgba(200,16,46,0.08);">
+      <div class="embassy-flag">🇬🇧</div>
+      <div><div class="embassy-name">UK — British Consulate Boston</div><div class="embassy-phone">+1 (617) 245-4500</div></div>
+    </div>
+    <div class="embassy-card">
+      <div class="embassy-flag">🇮🇪</div>
+      <div><div class="embassy-name">Ireland — Consulate Boston</div><div class="embassy-phone">+1 (617) 267-9330</div></div>
+    </div>
+    <div class="embassy-card">
+      <div class="embassy-flag">🇮🇹</div>
+      <div><div class="embassy-name">Italy — Consulate Boston</div><div class="embassy-phone">+1 (617) 722-9201</div></div>
+    </div>
+    <div class="embassy-card">
+      <div class="embassy-flag">🇵🇹</div>
+      <div><div class="embassy-name">Portugal — Consulate Boston</div><div class="embassy-phone">+1 (617) 536-8740</div></div>
+    </div>
+    <div class="embassy-card">
+      <div class="embassy-flag">🇩🇪</div>
+      <div><div class="embassy-name">Germany — Consulate Boston</div><div class="embassy-phone">+1 (617) 369-4900</div></div>
+    </div>
+    <div class="embassy-card">
+      <div class="embassy-flag">🇫🇷</div>
+      <div><div class="embassy-name">France — Consulate Boston</div><div class="embassy-phone">+1 (617) 832-4400</div></div>
+    </div>
+    <div class="embassy-card">
+      <div class="embassy-flag">🇧🇷</div>
+      <div><div class="embassy-name">Brazil — Consulate Boston</div><div class="embassy-phone">+1 (617) 542-4000</div></div>
+    </div>
+    <div class="embassy-card">
+      <div class="embassy-flag">🇲🇽</div>
+      <div><div class="embassy-name">Mexico — Consulate Boston</div><div class="embassy-phone">+1 (617) 426-4181</div></div>
+    </div>
+  </div>
+
+  <!-- Lost & Found -->
+  <div class="card">
+    <div class="card-title" style="color:var(--grey-light);">🔑 USEFUL CONTACTS</div>
+    <div class="cost-item">
+      <span class="cost-service">Logan Airport Lost & Found</span>
+      <span class="cost-price" style="font-size:13px;color:var(--grey-light);">(617) 561-1800</span>
+    </div>
+    <div class="cost-item">
+      <span class="cost-service">MBTA Lost & Found</span>
+      <span class="cost-price" style="font-size:13px;color:var(--grey-light);">(617) 222-3200</span>
+    </div>
+    <div class="cost-item">
+      <span class="cost-service">US State Dept (24hr)</span>
+      <span class="cost-price" style="font-size:13px;color:var(--grey-light);">1-888-407-4747</span>
+    </div>
+    <div class="cost-item">
+      <span class="cost-service">FIFA Fan Helpline</span>
+      <span class="cost-price" style="font-size:13px;color:var(--grey-light);">fifa.com/worldcup</span>
+    </div>
+  </div>
+
+  <!-- Emergency checklist -->
+  <div class="card card-accent-green">
+    <div class="card-title" style="color:var(--green-safe);">✅ BEFORE YOU GO — CHECKLIST</div>
+    <ul class="info-list">
+      <li><span class="bullet" style="color:var(--green-safe);">✓</span><span>Travel insurance purchased with US medical coverage</span></li>
+      <li><span class="bullet" style="color:var(--green-safe);">✓</span><span>Passport copy stored in phone AND email (not just physical)</span></li>
+      <li><span class="bullet" style="color:var(--green-safe);">✓</span><span>Embassy phone number saved in contacts</span></li>
+      <li><span class="bullet" style="color:var(--green-safe);">✓</span><span>Match day train tickets purchased in advance</span></li>
+      <li><span class="bullet" style="color:var(--green-safe);">✓</span><span>Hotel address written down (in case phone dies)</span></li>
+      <li><span class="bullet" style="color:var(--green-safe);">✓</span><span>This page saved offline (bookmark or PDF)</span></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     BOTTOM NAVIGATION
+═══════════════════════════════════════ -->
+<nav class="bottom-nav">
+  <button class="nav-item active" id="nav-home" onclick="navTo('home')">
+    <span class="nav-icon">⚽</span>
+    <span class="nav-label">Home</span>
+  </button>
+  <button class="nav-item" id="nav-safety" onclick="navTo('safety')">
+    <span class="nav-icon">🛡</span>
+    <span class="nav-label">Safety</span>
+  </button>
+  <button class="nav-item" id="nav-transport" onclick="navTo('transport')">
+    <span class="nav-icon">🚆</span>
+    <span class="nav-label">Transport</span>
+  </button>
+  <button class="nav-item" id="nav-deals" onclick="navTo('deals')">
+    <span class="nav-icon">🎟</span>
+    <span class="nav-label">Deals</span>
+  </button>
+  <button class="nav-item nav-sos" id="nav-sos" onclick="navTo('sos')">
+    <span class="nav-icon">🆘</span>
+    <span class="nav-label">SOS</span>
+  </button>
+</nav>
+
+<script>
+  const sections = {
+    home: document.getElementById('sec-home'),
+    safety: document.getElementById('sec-safety'),
+    transport: document.getElementById('sec-transport'),
+    deals: document.getElementById('sec-deals'),
+    sos: document.getElementById('sec-sos')
+  };
+  const navItems = {
+    home: document.getElementById('nav-home'),
+    safety: document.getElementById('nav-safety'),
+    transport: document.getElementById('nav-transport'),
+    deals: document.getElementById('nav-deals'),
+    sos: document.getElementById('nav-sos')
+  };
+  let current = 'home';
+
+  function navTo(id) {
+    sections[current].classList.remove('active');
+    navItems[current].classList.remove('active');
+    current = id;
+    sections[current].classList.add('active');
+    navItems[current].classList.add('active');
+    window.scrollTo(0, 0);
+  }
+
+  // Accordion
+  document.querySelectorAll('.accordion-header').forEach(header => {
+    header.addEventListener('click', () => {
+      const body = header.nextElementSibling;
+      const arrow = header.querySelector('.accordion-arrow');
+      body.classList.toggle('open');
+      if (arrow) arrow.classList.toggle('open');
+    });
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,829 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Dallas Fan Pass — FIFA World Cup 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@400;600;700&family=Barlow:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy:     #0a0e1a;
+    --navy-mid: #0f1623;
+    --navy-lt:  #1a2540;
+    --card:     #16202f;
+    --card2:    #1e2d42;
+    --red:      #e02020;
+    --gold:     #f5a623;
+    --safe:     #22c55e;
+    --caution:  #f59e0b;
+    --danger:   #ef4444;
+    --blue:     #4a90d9;
+    --txt:      #d4dff5;
+    --txt2:     #a0b0cc;
+    --nav-h:    64px;
+  }
+
+  *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+  html { scroll-behavior:smooth; }
+
+  /* FORCE dark background on everything */
+  html, body {
+    background:#0a0e1a !important;
+    color:#d4dff5 !important;
+    font-family:'Barlow', sans-serif;
+    font-size:15px; line-height:1.6;
+    padding-bottom:calc(var(--nav-h) + 12px);
+    overflow-x:hidden;
+    -webkit-text-size-adjust:100%;
+    color-scheme: dark;
+  }
+
+  .page { display:none; }
+  .page.active { display:block; animation:fadeIn .25s ease; }
+  @keyframes fadeIn { from{opacity:0;transform:translateY(6px)} to{opacity:1} }
+
+  /* ─── HERO ─── */
+  .hero {
+    background: #0a0e1a;
+    background: linear-gradient(160deg,#0a0e1a 0%,#0d1525 55%,#180a0a 100%);
+    padding:0 0 28px; overflow:hidden; position:relative;
+  }
+  .hero::before {
+    content:''; position:absolute; inset:0; pointer-events:none;
+    background:
+      radial-gradient(ellipse 140% 60% at 85% 10%, rgba(220,30,30,.22) 0%, transparent 55%),
+      radial-gradient(ellipse 80% 80% at 5% 90%,  rgba(245,166,35,.15) 0%, transparent 55%);
+  }
+  .flag-strip { height:4px; background:linear-gradient(90deg,#e02020 33%,#d8dff0 33% 66%,#f5a623 66%); }
+
+  .hero-top { display:flex; align-items:center; justify-content:space-between; padding:14px 18px 10px; }
+  .venue-label { font-family:'Barlow Condensed',sans-serif; font-size:10px; font-weight:600; letter-spacing:.16em; color:#f5a623; text-transform:uppercase; }
+  .heat-badge {
+    background:#e02020; color:#fff;
+    font-family:'Barlow Condensed',sans-serif; font-size:10px; font-weight:700; letter-spacing:.1em;
+    padding:3px 11px; border-radius:20px; text-transform:uppercase;
+    animation:blink 1.6s ease-in-out infinite;
+  }
+  @keyframes blink { 0%,100%{opacity:1} 50%{opacity:.5} }
+
+  .hero-title { font-family:'Bebas Neue',sans-serif; font-size:clamp(64px,18vw,96px); line-height:.88; letter-spacing:.02em; padding:8px 18px 0; }
+  .hero-title .l1 { color:#f0f4ff; display:block; }
+  .hero-title .l2 { display:block; color:transparent; -webkit-text-stroke:1.5px #f5a623; }
+  .hero-sub { font-family:'Barlow Condensed',sans-serif; font-size:13px; color:rgba(210,220,245,.65); padding:6px 18px 0; font-style:italic; letter-spacing:.04em; }
+  .hero-bar { width:40px; height:2px; background:#f5a623; margin:14px 18px; }
+
+  .match-dates { padding:0 18px; display:flex; flex-wrap:wrap; gap:8px; }
+  .pill { background:#1a2540; border:1px solid rgba(245,166,35,.3); border-radius:6px; padding:6px 12px; font-family:'Barlow Condensed',sans-serif; font-size:12px; font-weight:600; letter-spacing:.08em; color:#f5a623; }
+  .pill span { color:rgba(200,215,240,.5); font-weight:400; margin-left:4px; }
+
+  .stats-row { display:flex; margin:18px 18px 0; background:#16202f; border-radius:12px; border:1px solid rgba(255,255,255,.08); overflow:hidden; }
+  .stat { flex:1; padding:14px 8px; text-align:center; border-right:1px solid rgba(255,255,255,.08); }
+  .stat:last-child { border-right:none; }
+  .stat-n { font-family:'Bebas Neue',sans-serif; font-size:26px; line-height:1; color:#f5a623; display:block; }
+  .stat-l { font-family:'Barlow Condensed',sans-serif; font-size:9px; font-weight:600; letter-spacing:.12em; text-transform:uppercase; color:#7a8fa8; display:block; margin-top:2px; }
+
+  /* ─── LAYOUT ─── */
+  .sec-wrap { padding:24px 0 8px; }
+  .sec-lbl { font-family:'Barlow Condensed',sans-serif; font-size:10px; font-weight:700; letter-spacing:.2em; text-transform:uppercase; color:#f5a623; padding:0 18px; margin-bottom:4px; opacity:.85; }
+  .sec-title { font-family:'Bebas Neue',sans-serif; font-size:32px; letter-spacing:.03em; line-height:1; padding:0 18px 16px; color:#f0f4ff; display:flex; align-items:center; gap:10px; }
+
+  .pg-header { background:#0f1623; padding:16px 18px 10px; border-bottom:1px solid rgba(255,255,255,.07); }
+  .pg-header .sec-lbl { padding:0; margin-bottom:3px; }
+  .pg-header .sec-title { padding:0; font-size:28px; }
+
+  /* ─── CARDS ─── */
+  .card {
+    margin:0 18px 12px; background:#16202f;
+    border-radius:12px; border:1px solid rgba(255,255,255,.09);
+    padding:16px; position:relative; overflow:hidden;
+  }
+  .card::before { content:''; position:absolute; left:0; top:0; bottom:0; width:3px; }
+  .card.c-red::before   { background:#e02020; }
+  .card.c-gold::before  { background:#f5a623; }
+  .card.c-safe::before  { background:#22c55e; }
+  .card.c-blue::before  { background:#4a90d9; }
+
+  .ctitle { font-family:'Barlow Condensed',sans-serif; font-size:13px; font-weight:700; letter-spacing:.07em; text-transform:uppercase; margin-bottom:10px; display:flex; align-items:center; gap:7px; }
+  .ctitle.red  { color:#f07070; }
+  .ctitle.gold { color:#f5a623; }
+  .ctitle.safe { color:#4ade80; }
+  .ctitle.blue { color:#7ab8f5; }
+
+  .card p  { font-size:14px; color:#c0d0e8; line-height:1.6; margin-bottom:8px; }
+  .card p:last-child { margin-bottom:0; }
+  .card strong { color:#e8eeff; font-weight:600; }
+
+  .blist { list-style:none; }
+  .blist li { font-size:14px; color:#c0d0e8; padding:6px 0 6px 18px; position:relative; border-bottom:1px solid rgba(255,255,255,.05); }
+  .blist li:last-child { border-bottom:none; }
+  .blist li::before { content:'›'; position:absolute; left:0; color:#f5a623; font-weight:700; }
+  .blist li strong { color:#e8eeff; }
+
+  /* ─── ALERTS ─── */
+  .alert { margin:0 18px 12px; border-radius:10px; padding:14px 16px; display:flex; gap:12px; align-items:flex-start; }
+  .alert.a-red  { background:#2a1010; border:1px solid rgba(224,32,32,.4); }
+  .alert.a-gold { background:#211a08; border:1px solid rgba(245,166,35,.35); }
+  .alert.a-safe { background:#0d2018; border:1px solid rgba(34,197,94,.35); }
+  .alert-ico { flex-shrink:0; margin-top:2px; }
+  .atitle { font-family:'Barlow Condensed',sans-serif; font-size:13px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; margin-bottom:4px; }
+  .alert.a-red  .atitle { color:#f07070; }
+  .alert.a-gold .atitle { color:#f5a623; }
+  .alert.a-safe .atitle { color:#4ade80; }
+  .atext { font-size:13px; color:#b0c0d8; line-height:1.55; }
+  .atext strong { color:#e8eeff; }
+
+  /* ─── HEATMAP ─── */
+  .hmap-grid { display:grid; grid-template-columns:1fr 1fr; gap:10px; padding:0 18px 12px; }
+  .hmap-cell { border-radius:10px; padding:13px 14px; }
+  .hmap-cell.safe   { background:#0d2018; border:1px solid rgba(34,197,94,.3); }
+  .hmap-cell.caut   { background:#211808; border:1px solid rgba(245,158,11,.3); }
+  .hmap-cell.dang   { background:#2a1010; border:1px solid rgba(239,68,68,.3); }
+  .hmap-ttl { font-family:'Barlow Condensed',sans-serif; font-size:11px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; margin-bottom:8px; display:flex; align-items:center; gap:6px; }
+  .hmap-cell.safe .hmap-ttl { color:#4ade80; }
+  .hmap-cell.caut .hmap-ttl { color:#fbbf24; }
+  .hmap-cell.dang .hmap-ttl { color:#f87171; }
+  .hmap-cell ul { list-style:none; }
+  .hmap-cell ul li { font-size:12px; color:#b0c0d8; padding:3px 0; }
+
+  /* ─── TEMP GAUGE ─── */
+  .tgauge { margin:0 18px 12px; background:#16202f; border-radius:12px; border:1px solid rgba(255,255,255,.09); padding:18px; }
+  .tgauge-top { display:flex; align-items:flex-end; gap:10px; margin-bottom:12px; }
+  .tbig { font-family:'Bebas Neue',sans-serif; font-size:70px; line-height:1; color:#e02020; }
+  .tinfo .feels { font-family:'Barlow Condensed',sans-serif; font-size:12px; font-weight:600; letter-spacing:.1em; text-transform:uppercase; color:#f59e0b; }
+  .tinfo .range { font-size:13px; color:#7a8fa8; margin-top:2px; }
+  .hbar { height:8px; border-radius:4px; background:rgba(255,255,255,.08); overflow:hidden; margin-bottom:6px; }
+  .hbar-fill { height:100%; border-radius:4px; background:linear-gradient(90deg,#22c55e,#f59e0b,#ef4444); }
+  .hbar-lbls { display:flex; justify-content:space-between; }
+  .hbar-lbl { font-size:10px; color:#7a8fa8; font-family:'Barlow Condensed',sans-serif; font-weight:600; letter-spacing:.08em; }
+
+  /* ─── TIME WINDOW ─── */
+  .twind { margin:0 18px 12px; background:#20100a; border:1px solid rgba(224,32,32,.3); border-radius:12px; padding:16px; }
+  .twind-ttl { font-family:'Barlow Condensed',sans-serif; font-size:11px; font-weight:700; letter-spacing:.15em; text-transform:uppercase; color:#f07070; margin-bottom:12px; }
+  .trow { display:flex; gap:4px; margin-bottom:6px; }
+  .tblk { flex:1; height:28px; border-radius:4px; display:flex; align-items:center; justify-content:center; font-family:'Barlow Condensed',sans-serif; font-size:9px; font-weight:700; text-transform:uppercase; }
+  .tblk.ok   { background:#0d2018; color:#4ade80; border:1px solid rgba(34,197,94,.25); }
+  .tblk.warm { background:#211808; color:#fbbf24; border:1px solid rgba(245,158,11,.25); }
+  .tblk.hot  { background:#2a1010; color:#f87171; border:1px solid rgba(239,68,68,.3); }
+  .tlbls { display:flex; gap:4px; }
+  .tlbl { flex:1; text-align:center; font-size:8px; color:#6a7f98; font-family:'Barlow Condensed',sans-serif; }
+
+  /* ─── TRANSPORT ─── */
+  .tcard { margin:0 18px 10px; background:#16202f; border-radius:12px; border:1px solid rgba(255,255,255,.09); overflow:hidden; }
+  .thead { background:#1a2540; padding:12px 16px; display:flex; align-items:center; gap:10px; }
+  .tname { font-family:'Barlow Condensed',sans-serif; font-size:14px; font-weight:700; letter-spacing:.06em; text-transform:uppercase; color:#e8eeff; flex:1; }
+  .ttag { font-family:'Barlow Condensed',sans-serif; font-size:10px; font-weight:700; letter-spacing:.08em; padding:3px 8px; border-radius:12px; }
+  .ttag.best  { background:#0d2018; color:#4ade80; border:1px solid rgba(34,197,94,.35); }
+  .ttag.surge { background:#211808; color:#fbbf24; border:1px solid rgba(245,158,11,.35); }
+  .ttag.note  { background:rgba(255,255,255,.06); color:#7a8fa8; border:1px solid rgba(255,255,255,.1); }
+  .tbody { padding:14px 16px; }
+  .tbody p { font-size:13px; color:#b0c0d8; line-height:1.55; }
+  .tprice { display:inline-block; font-family:'Bebas Neue',sans-serif; font-size:22px; color:#f5a623; margin-top:4px; }
+  .tprice-lbl { font-size:11px; color:#7a8fa8; margin-left:4px; font-family:'Barlow Condensed',sans-serif; }
+
+  /* ─── TIP ROW ─── */
+  .tip-row { display:flex; align-items:center; justify-content:space-between; padding:10px 0; border-bottom:1px solid rgba(255,255,255,.06); }
+  .tip-row:last-child { border-bottom:none; }
+  .tip-v { font-size:14px; color:#c0d0e8; }
+  .tip-p { font-family:'Bebas Neue',sans-serif; font-size:24px; color:#f5a623; }
+
+  /* ─── EXPERIENCE ─── */
+  .exp-grid { display:grid; grid-template-columns:1fr 1fr; gap:10px; padding:0 18px 12px; }
+  .exp-card { background:#16202f; border:1px solid rgba(255,255,255,.09); border-radius:10px; padding:14px 12px; }
+  .exp-ico { color:#f5a623; margin-bottom:7px; }
+  .exp-n { font-family:'Barlow Condensed',sans-serif; font-size:13px; font-weight:700; letter-spacing:.05em; text-transform:uppercase; color:#e8eeff; margin-bottom:4px; }
+  .exp-d { font-size:11px; color:#7a8fa8; line-height:1.45; }
+
+  /* ─── DEALS ─── */
+  .deals-ph { margin:0 18px; border:2px dashed rgba(245,166,35,.3); border-radius:12px; padding:32px 20px; text-align:center; background:#16202f; }
+  .deals-ico { color:#f5a623; display:flex; justify-content:center; margin-bottom:12px; }
+  .deals-ttl { font-family:'Bebas Neue',sans-serif; font-size:28px; color:#f5a623; margin-bottom:6px; }
+  .deals-sub { font-size:13px; color:#7a8fa8; line-height:1.6; }
+
+  /* ─── PHRASE ─── */
+  .phrase { margin-bottom:10px; background:#1e2d42; border-radius:8px; padding:12px 14px; border-left:3px solid #f5a623; }
+  .phrase p { font-size:15px; color:#e8eeff; font-weight:500; margin:0; }
+
+  /* ─── SOS ─── */
+  .sos-btn {
+    display:flex; align-items:center; justify-content:center; gap:10px;
+    margin:0 18px 12px; background:#e02020; color:#fff;
+    font-family:'Bebas Neue',sans-serif; font-size:22px; letter-spacing:.1em;
+    padding:16px; border-radius:12px; border:none; cursor:pointer;
+    text-decoration:none; width:calc(100% - 36px); transition:transform .1s;
+  }
+  .sos-btn:active { transform:scale(.97); }
+
+  /* ─── CONTACTS ─── */
+  .cgrid { display:grid; grid-template-columns:1fr 1fr; gap:10px; padding:0 18px 12px; }
+  .citem { background:#16202f; border:1px solid rgba(255,255,255,.09); border-radius:10px; padding:14px; text-align:center; text-decoration:none; display:flex; flex-direction:column; align-items:center; gap:6px; }
+  .citem:active { background:#1e2d42; }
+  .cico { color:#f5a623; }
+  .cname { font-family:'Barlow Condensed',sans-serif; font-size:11px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:#7a8fa8; }
+  .cnum { font-family:'Barlow Condensed',sans-serif; font-size:14px; font-weight:600; color:#f5a623; }
+
+  /* ─── PDF ─── */
+  .pdf-btn {
+    display:flex; align-items:center; justify-content:center; gap:8px;
+    margin:8px 18px 20px; background:transparent;
+    border:1px solid rgba(245,166,35,.4); color:#f5a623;
+    font-family:'Barlow Condensed',sans-serif; font-size:13px; font-weight:700; letter-spacing:.1em;
+    text-transform:uppercase; padding:13px; border-radius:10px; cursor:pointer;
+    width:calc(100% - 36px); transition:background .2s;
+  }
+  .pdf-btn:active { background:rgba(245,166,35,.12); }
+
+  /* ─── DIVIDER ─── */
+  .div { height:1px; background:rgba(255,255,255,.07); margin:8px 18px 20px; }
+
+  /* ─── NAV ─── */
+  .bnav {
+    position:fixed; bottom:0; left:0; right:0; height:var(--nav-h);
+    background:#090d18; border-top:1px solid rgba(255,255,255,.1);
+    display:flex; z-index:1000;
+  }
+  .ni { flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:4px; cursor:pointer; border:none; background:none; color:#5a6a84; padding:0; position:relative; transition:color .2s; }
+  .ni.active { color:#f5a623; }
+  .ni.ni-sos { color:#c04040; }
+  .ni.ni-sos.active { color:#ff4444; }
+  .nlbl { font-family:'Barlow Condensed',sans-serif; font-size:9px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; }
+  .ndot { position:absolute; top:8px; right:50%; transform:translateX(10px); width:6px; height:6px; background:#e02020; border-radius:50%; }
+
+  @media print {
+    .bnav, .pdf-btn { display:none !important; }
+    .page { display:block !important; }
+    body { padding-bottom:0; }
+  }
+</style>
+</head>
+<body>
+
+<svg style="display:none" xmlns="http://www.w3.org/2000/svg">
+  <symbol id="i-home" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9.5L12 3l9 6.5V20a1 1 0 01-1 1H4a1 1 0 01-1-1V9.5z"/><polyline points="9 21 9 12 15 12 15 21"/></symbol>
+  <symbol id="i-shield" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></symbol>
+  <symbol id="i-train" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="16" height="14" rx="2"/><path d="M8 17l-2 4M16 17l2 4M9 17h6"/><circle cx="9" cy="11" r="1"/><circle cx="15" cy="11" r="1"/><path d="M4 9h16"/></symbol>
+  <symbol id="i-tag" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.59 13.41l-7.17 7.17a2 2 0 01-2.83 0L2 12V2h10l8.59 8.59a2 2 0 010 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></symbol>
+  <symbol id="i-sos" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></symbol>
+  <symbol id="i-fire" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2c0 6-6 8-6 14a6 6 0 0012 0c0-6-6-8-6-14z"/><path d="M12 12c0 2-2 3-2 5a2 2 0 004 0c0-2-2-3-2-5z"/></symbol>
+  <symbol id="i-drop" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.69l5.66 5.66a8 8 0 11-11.31 0z"/></symbol>
+  <symbol id="i-alert" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></symbol>
+  <symbol id="i-pin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></symbol>
+  <symbol id="i-hosp" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 12h6M12 9v6"/></symbol>
+  <symbol id="i-badge" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></symbol>
+  <symbol id="i-dollar" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></symbol>
+  <symbol id="i-car" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 17H3v-5l2-5h14l2 5v5h-2"/><path d="M5 17h14"/><circle cx="7" cy="17" r="2"/><circle cx="17" cy="17" r="2"/></symbol>
+  <symbol id="i-plane" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16v-2l-8-5V3.5a1.5 1.5 0 00-3 0V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z"/></symbol>
+  <symbol id="i-park" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v16"/></symbol>
+  <symbol id="i-phone" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 10.8 19.79 19.79 0 01.002 2.18 2 2 0 012 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 14.92z"/></symbol>
+  <symbol id="i-globe" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></symbol>
+  <symbol id="i-star" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></symbol>
+  <symbol id="i-music" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></symbol>
+  <symbol id="i-map" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"/><line x1="8" y1="2" x2="8" y2="18"/><line x1="16" y1="6" x2="16" y2="22"/></symbol>
+  <symbol id="i-bed" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4v16M2 8h18a2 2 0 012 2v6H2"/><path d="M2 20h20"/></symbol>
+  <symbol id="i-gift" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 12 20 22 4 22 4 12"/><rect x="2" y="7" width="20" height="5"/><line x1="12" y1="22" x2="12" y2="7"/><path d="M12 7H7.5a2.5 2.5 0 010-5C11 2 12 7 12 7z"/><path d="M12 7h4.5a2.5 2.5 0 000-5C13 2 12 7 12 7z"/></symbol>
+  <symbol id="i-pdf" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><line x1="9" y1="15" x2="15" y2="15"/></symbol>
+  <symbol id="i-id" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="8" y1="10" x2="8" y2="14"/><line x1="12" y1="9" x2="12" y2="15"/><line x1="16" y1="10" x2="16" y2="14"/></symbol>
+  <symbol id="i-app" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></symbol>
+  <symbol id="i-cool" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="2" x2="12" y2="22"/><path d="M17 5l-5 5-5-5"/><path d="M17 19l-5-5-5 5"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M5 7l5 5-5 5"/><path d="M19 7l-5 5 5 5"/></symbol>
+  <symbol id="i-gun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h13l2-4h3v4h-3l1 4H6l-3-4z"/></symbol>
+</svg>
+
+<!-- ══════════════ HOME ══════════════ -->
+<div id="page-home" class="page active">
+  <div class="hero">
+    <div class="flag-strip"></div>
+    <div class="hero-top">
+      <span class="venue-label">⚽ AT&amp;T STADIUM · ARLINGTON, TX · SUMMER 2026</span>
+      <span class="heat-badge">40°C WARNING</span>
+    </div>
+    <div class="hero-title">
+      <span class="l1">DALLAS</span>
+      <span class="l2">FAN PASS</span>
+    </div>
+    <div class="hero-sub">Bigger than everything — including the heat</div>
+    <div class="hero-bar"></div>
+    <div class="match-dates">
+      <div class="pill">JUN 13 <span>GRP</span></div>
+      <div class="pill">JUN 18 <span>GRP</span></div>
+      <div class="pill">JUN 22 <span>GRP</span></div>
+      <div class="pill">JUN 28 <span>R16</span></div>
+      <div class="pill">JUL 3  <span>QF</span></div>
+    </div>
+    <div class="stats-row">
+      <div class="stat"><span class="stat-n">80K</span><span class="stat-l">Capacity</span></div>
+      <div class="stat"><span class="stat-n">5</span><span class="stat-l">Matches</span></div>
+      <div class="stat"><span class="stat-n" style="color:#e02020">42°C</span><span class="stat-l">Peak Heat</span></div>
+    </div>
+  </div>
+
+  <div class="sec-wrap">
+    <div class="sec-lbl">Section 01</div>
+    <div class="sec-title"><svg width="26" height="26"><use href="#i-fire"/></svg> HEAT IS THE #1 DANGER</div>
+
+    <div class="tgauge">
+      <div class="tgauge-top">
+        <div class="tbig">42°C</div>
+        <div class="tinfo" style="padding-bottom:8px">
+          <div class="feels">Feels like 45°C</div>
+          <div class="range">Daily range: 38–42°C · Humid</div>
+        </div>
+      </div>
+      <div class="hbar"><div class="hbar-fill" style="width:88%"></div></div>
+      <div class="hbar-lbls">
+        <span class="hbar-lbl">OK</span>
+        <span class="hbar-lbl">WARM</span>
+        <span class="hbar-lbl" style="color:#f87171">DANGER</span>
+      </div>
+    </div>
+
+    <div class="alert a-red">
+      <div class="alert-ico"><svg width="20" height="20" style="color:#f07070"><use href="#i-alert"/></svg></div>
+      <div>
+        <div class="atitle">Hottest World Cup City in the USA</div>
+        <div class="atext">Dallas in June is brutally hot. This is not European summer. Plan every outdoor activity around the heat.</div>
+      </div>
+    </div>
+
+    <div class="twind">
+      <div class="twind-ttl">Daily Danger Window — Avoid Direct Sun</div>
+      <div class="trow">
+        <div class="tblk ok">6AM</div><div class="tblk ok">8AM</div>
+        <div class="tblk warm">10AM</div><div class="tblk hot">12PM</div>
+        <div class="tblk hot">2PM</div><div class="tblk hot">4PM</div>
+        <div class="tblk warm">6PM</div><div class="tblk ok">8PM</div>
+      </div>
+      <div class="tlbls">
+        <span class="tlbl" style="color:#4ade80">Safe</span>
+        <span class="tlbl" style="color:#4ade80">Safe</span>
+        <span class="tlbl" style="color:#fbbf24">Warm</span>
+        <span class="tlbl" style="color:#f87171">Danger</span>
+        <span class="tlbl" style="color:#f87171">PEAK</span>
+        <span class="tlbl" style="color:#f87171">Danger</span>
+        <span class="tlbl" style="color:#fbbf24">Warm</span>
+        <span class="tlbl" style="color:#4ade80">OK</span>
+      </div>
+    </div>
+
+    <div class="card c-gold">
+      <div class="ctitle gold"><svg width="15" height="15"><use href="#i-drop"/></svg> Hydration Protocol</div>
+      <ul class="blist">
+        <li><strong>1 litre per hour</strong> in direct sunlight</li>
+        <li>Add <strong>electrolytes</strong> — water alone isn't enough</li>
+        <li><strong>Pedialyte / Liquid IV</strong> at Walgreens &amp; CVS near stadium</li>
+        <li>Avoid alcohol in open sun — accelerates dehydration</li>
+        <li>Light-colored clothing, <strong>hat is mandatory</strong></li>
+        <li>Apply SPF 50+ sunscreen every 90 minutes</li>
+      </ul>
+    </div>
+
+    <div class="card c-red">
+      <div class="ctitle red"><svg width="15" height="15"><use href="#i-alert"/></svg> Heat Emergencies — Know the Difference</div>
+      <p style="color:#fbbf24;font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;margin-bottom:8px">Heat Exhaustion — Act Fast</p>
+      <ul class="blist" style="margin-bottom:14px">
+        <li>Heavy sweating, weakness, nausea</li>
+        <li>Cold, pale, clammy skin · weak pulse</li>
+        <li>Move to shade, hydrate, call for help</li>
+      </ul>
+      <p style="color:#f87171;font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;margin-bottom:8px">Heat Stroke — CALL 911 IMMEDIATELY</p>
+      <ul class="blist">
+        <li>Hot, <strong>dry</strong> skin (no sweating)</li>
+        <li>Confusion, slurred speech</li>
+        <li>Unconsciousness — <strong>life-threatening, do not wait</strong></li>
+      </ul>
+    </div>
+
+    <div class="alert a-safe">
+      <div class="alert-ico"><svg width="20" height="20" style="color:#4ade80"><use href="#i-cool"/></svg></div>
+      <div>
+        <div class="atitle">Cooling Stations Near AT&amp;T Stadium</div>
+        <div class="atext">AT&amp;T Stadium interior is fully air-conditioned. Fan zones near the stadium have cooling areas with misting fans. Globe Life Field (adjacent) also provides shade.</div>
+      </div>
+    </div>
+  </div>
+
+  <button class="pdf-btn" onclick="window.print()">
+    <svg width="16" height="16"><use href="#i-pdf"/></svg> Save as PDF / Print Guide
+  </button>
+</div>
+
+<!-- ══════════════ SAFETY ══════════════ -->
+<div id="page-safety" class="page">
+  <div class="pg-header">
+    <div class="sec-lbl">Safety Guide</div>
+    <div class="sec-title"><svg width="24" height="24"><use href="#i-shield"/></svg> STAY SAFE IN DALLAS</div>
+  </div>
+
+  <div class="sec-wrap">
+    <div class="sec-lbl">Section 03</div>
+    <div class="sec-title"><svg width="24" height="24"><use href="#i-pin"/></svg> SAFETY HEATMAP</div>
+    <div class="hmap-grid">
+      <div class="hmap-cell safe" style="grid-column:1/-1">
+        <div class="hmap-ttl"><svg width="13" height="13"><use href="#i-shield"/></svg> Safe Zones</div>
+        <ul>
+          <li>AT&amp;T Stadium zone (Arlington)</li>
+          <li>Uptown Dallas</li>
+          <li>Deep Ellum (early evening)</li>
+          <li>Bishop Arts District</li>
+          <li>Fort Worth Stockyards</li>
+        </ul>
+      </div>
+      <div class="hmap-cell caut">
+        <div class="hmap-ttl"><svg width="13" height="13"><use href="#i-alert"/></svg> Caution</div>
+        <ul>
+          <li>Downtown Dallas late night</li>
+          <li>Fair Park after dark</li>
+        </ul>
+      </div>
+      <div class="hmap-cell dang">
+        <div class="hmap-ttl"><svg width="13" height="13"><use href="#i-sos"/></svg> Avoid</div>
+        <ul>
+          <li>Parts of South Dallas alone at night</li>
+          <li>Unlicensed taxi touts</li>
+        </ul>
+      </div>
+    </div>
+    <div class="alert a-gold">
+      <div class="alert-ico"><svg width="20" height="20" style="color:#f5a623"><use href="#i-badge"/></svg></div>
+      <div>
+        <div class="atitle">Arlington Is Heavily Policed During Events</div>
+        <div class="atext">Arlington PD significantly increases presence during major stadium events. The Entertainment District around AT&amp;T Stadium is very safe on match days.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sec-wrap">
+    <div class="sec-lbl">Section 05</div>
+    <div class="sec-title"><svg width="24" height="24"><use href="#i-badge"/></svg> POLICE PROTOCOL</div>
+    <div class="alert a-red">
+      <div class="alert-ico"><svg width="20" height="20" style="color:#f07070"><use href="#i-gun"/></svg></div>
+      <div>
+        <div class="atitle">Open Carry State — Remain Calm</div>
+        <div class="atext">Texas allows open carry of firearms. You may see civilians legally carrying visible weapons. <strong>Do not touch, approach, or react aggressively.</strong> This is legal and normal here.</div>
+      </div>
+    </div>
+    <div class="card c-blue">
+      <div class="ctitle blue"><svg width="15" height="15"><use href="#i-id"/></svg> Your Rights as a Foreign Visitor</div>
+      <ul class="blist">
+        <li>You have the right to <strong>remain silent</strong></li>
+        <li>You have the right to <strong>contact your embassy/consulate</strong></li>
+        <li>You do <strong>not</strong> have to answer beyond identifying yourself</li>
+        <li>Ask <strong>"Am I free to go?"</strong> — if yes, leave calmly</li>
+        <li>Do not resist arrest even if you believe it's unjust</li>
+        <li>Always carry a copy of your <strong>passport + visa</strong></li>
+      </ul>
+    </div>
+    <div class="card c-gold">
+      <div class="ctitle gold"><svg width="15" height="15"><use href="#i-id"/></svg> 5 Key Phrases</div>
+      <div class="phrase"><p>"I do not consent to a search."</p></div>
+      <div class="phrase"><p>"I am invoking my right to remain silent."</p></div>
+      <div class="phrase"><p>"I want to speak to my consul."</p></div>
+      <div class="phrase"><p>"Am I being detained or am I free to go?"</p></div>
+      <div class="phrase"><p>"I need a lawyer / attorney."</p></div>
+    </div>
+  </div>
+
+  <div class="sec-wrap">
+    <div class="sec-lbl">Section 04</div>
+    <div class="sec-title"><svg width="24" height="24"><use href="#i-hosp"/></svg> HEALTHCARE</div>
+    <div class="card c-safe">
+      <div class="ctitle safe"><svg width="15" height="15"><use href="#i-hosp"/></svg> Nearest Major Hospital</div>
+      <p><strong>Medical City Arlington</strong><br>3301 Matlock Rd, Arlington, TX 76015<br>~10 min from AT&amp;T Stadium</p>
+    </div>
+    <div class="card c-blue">
+      <div class="ctitle blue"><svg width="15" height="15"><use href="#i-hosp"/></svg> Urgent Care (Non-Emergency)</div>
+      <ul class="blist">
+        <li><strong>CareNow Urgent Care</strong> — multiple locations near stadium, open 7 days</li>
+        <li><strong>FastMed Urgent Care</strong> — Arlington locations</li>
+        <li>Use for: sprains, dehydration, minor injuries</li>
+      </ul>
+    </div>
+    <div class="card c-gold">
+      <div class="ctitle gold"><svg width="15" height="15"><use href="#i-phone"/></svg> If You Have No Insurance</div>
+      <div class="phrase"><p>"I do not have US health insurance. What will this cost?"</p></div>
+      <div class="phrase"><p>"Can I pay out of pocket? Do you offer a cash discount?"</p></div>
+      <div class="phrase"><p>"I need an itemized bill for my travel insurance claim."</p></div>
+      <p style="margin-top:10px;font-size:13px;color:#7a8fa8">Always carry your travel insurance documents. US medical costs can be very high — get treatment, then sort billing later.</p>
+    </div>
+  </div>
+
+  <div class="sec-wrap">
+    <div class="sec-lbl">Section 06</div>
+    <div class="sec-title"><svg width="24" height="24"><use href="#i-dollar"/></svg> TIPPING IN TEXAS</div>
+    <div class="card c-gold">
+      <div class="ctitle gold"><svg width="15" height="15"><use href="#i-dollar"/></svg> Texas Tip Guide</div>
+      <div class="tip-row"><span class="tip-v">BBQ Restaurants</span><span class="tip-p">15–18%</span></div>
+      <div class="tip-row"><span class="tip-v">Bars / Drinks</span><span class="tip-p">$1–2 / drink</span></div>
+      <div class="tip-row"><span class="tip-v">Uber / Lyft</span><span class="tip-p">10–15%</span></div>
+      <div class="tip-row"><span class="tip-v">Entertainment Venues</span><span class="tip-p">$2–3</span></div>
+      <div class="tip-row"><span class="tip-v">Hotel Housekeeping</span><span class="tip-p">$2–5/night</span></div>
+    </div>
+    <div class="alert a-gold">
+      <div class="alert-ico"><svg width="20" height="20" style="color:#f5a623"><use href="#i-sos"/></svg></div>
+      <div>
+        <div class="atitle">Texas vs NYC / LA</div>
+        <div class="atext">Texas tipping culture is slightly more modest than NYC or LA. 15–18% is standard and appreciated. 20%+ signals exceptional service.</div>
+      </div>
+    </div>
+  </div>
+
+  <button class="pdf-btn" onclick="window.print()">
+    <svg width="16" height="16"><use href="#i-pdf"/></svg> Save as PDF / Print Guide
+  </button>
+</div>
+
+<!-- ══════════════ TRANSPORT ══════════════ -->
+<div id="page-transport" class="page">
+  <div class="pg-header">
+    <div class="sec-lbl">Getting Around</div>
+    <div class="sec-title"><svg width="24" height="24"><use href="#i-train"/></svg> TRANSPORT GUIDE</div>
+  </div>
+
+  <div class="sec-wrap">
+    <div class="sec-lbl">Section 02</div>
+    <div class="sec-title" style="font-size:28px"><svg width="22" height="22"><use href="#i-train"/></svg> GETTING TO AT&amp;T STADIUM</div>
+
+    <div class="alert a-red">
+      <div class="alert-ico"><svg width="20" height="20" style="color:#f07070"><use href="#i-alert"/></svg></div>
+      <div>
+        <div class="atitle">No Metro to AT&amp;T Stadium</div>
+        <div class="atext">Unlike other World Cup host cities, Dallas has no direct metro link to AT&amp;T Stadium. Plan your transport in advance.</div>
+      </div>
+    </div>
+
+    <div class="tcard">
+      <div class="thead">
+        <svg width="20" height="20" style="color:#f5a623"><use href="#i-train"/></svg>
+        <span class="tname">Trinity Railway Express (TRE)</span>
+        <span class="ttag best">Best Option</span>
+      </div>
+      <div class="tbody">
+        <p>Runs from <strong style="color:#e8eeff">Dallas Union Station</strong> and <strong style="color:#e8eeff">Fort Worth T&amp;P Station</strong>. Closest stop: <strong style="color:#e8eeff">CentrePort/DFW Airport</strong> — then short rideshare to stadium.</p>
+        <p style="margin-top:8px">Use the <strong style="color:#e8eeff">GoPass app</strong> for real-time TRE schedules on match days.</p>
+        <span class="tprice">~$2.50<span class="tprice-lbl"> per trip</span></span>
+      </div>
+    </div>
+
+    <div class="tcard">
+      <div class="thead">
+        <svg width="20" height="20" style="color:#f5a623"><use href="#i-car"/></svg>
+        <span class="tname">Uber / Lyft</span>
+        <span class="ttag surge">Surge Warning</span>
+      </div>
+      <div class="tbody">
+        <p><strong style="color:#e8eeff">Pro tip:</strong> Order your Uber <strong style="color:#e8eeff">10 min BEFORE the final whistle</strong> — post-match surge can reach 3–5× base fare as 80,000 fans exit simultaneously.</p>
+        <p style="margin-top:8px">Rideshare pickup zones are ~0.5 mile from stadium. Walk to them — drivers cannot enter the immediate perimeter.</p>
+        <span class="tprice">$15–35<span class="tprice-lbl"> typical (surge varies)</span></span>
+      </div>
+    </div>
+
+    <div class="tcard">
+      <div class="thead">
+        <svg width="20" height="20" style="color:#f5a623"><use href="#i-plane"/></svg>
+        <span class="tname">DFW Airport → AT&amp;T</span>
+        <span class="ttag note">~30 min</span>
+      </div>
+      <div class="tbody">
+        <p>Direct Uber/Lyft from DFW International Airport. No transfers needed.</p>
+        <span class="tprice">$40–60<span class="tprice-lbl"> USD approx.</span></span>
+      </div>
+    </div>
+
+    <div class="tcard">
+      <div class="thead">
+        <svg width="20" height="20" style="color:#f5a623"><use href="#i-plane"/></svg>
+        <span class="tname">Love Field (DAL) → AT&amp;T</span>
+        <span class="ttag note">~25 min</span>
+      </div>
+      <div class="tbody">
+        <p>Dallas Love Field (Southwest Airlines hub). Slightly closer to stadium than DFW.</p>
+        <span class="tprice">$35–50<span class="tprice-lbl"> USD approx.</span></span>
+      </div>
+    </div>
+
+    <div class="tcard">
+      <div class="thead">
+        <svg width="20" height="20" style="color:#f5a623"><use href="#i-park"/></svg>
+        <span class="tname">Parking at AT&amp;T Stadium</span>
+        <span class="ttag note">Tailgate Culture</span>
+      </div>
+      <div class="tbody">
+        <p>Massive parking lots. <strong style="color:#e8eeff">Arrive 3 hours early</strong> — the pregame BBQ tailgate culture in the lots is legendary.</p>
+        <span class="tprice">$50–80<span class="tprice-lbl"> per vehicle (match day)</span></span>
+      </div>
+    </div>
+
+    <div class="alert a-red">
+      <div class="alert-ico"><svg width="20" height="20" style="color:#f07070"><use href="#i-alert"/></svg></div>
+      <div>
+        <div class="atitle">No Unlicensed Rides</div>
+        <div class="atext">Never accept rides from people approaching you near the stadium. Only use official Uber, Lyft, or licensed taxis through official apps.</div>
+      </div>
+    </div>
+  </div>
+
+  <button class="pdf-btn" onclick="window.print()">
+    <svg width="16" height="16"><use href="#i-pdf"/></svg> Save as PDF / Print Guide
+  </button>
+</div>
+
+<!-- ══════════════ DEALS ══════════════ -->
+<div id="page-deals" class="page">
+  <div class="pg-header">
+    <div class="sec-lbl">Exclusive Offers</div>
+    <div class="sec-title"><svg width="24" height="24"><use href="#i-tag"/></svg> FAN DEALS</div>
+  </div>
+
+  <div class="sec-wrap">
+    <div class="sec-lbl">Section 07</div>
+    <div class="sec-title"><svg width="24" height="24"><use href="#i-map"/></svg> DALLAS EXPERIENCE</div>
+
+    <div class="card c-gold">
+      <div class="ctitle gold"><svg width="15" height="15"><use href="#i-bed"/></svg> Where to Stay</div>
+      <ul class="blist">
+        <li><strong>Arlington</strong> — Closest to stadium, event atmosphere, hotels book out fast</li>
+        <li><strong>Uptown Dallas</strong> — Best restaurants, nightlife, walkable, ~20 min to stadium</li>
+        <li><strong>Downtown Dallas</strong> — Budget options, DART rail access</li>
+      </ul>
+    </div>
+
+    <div class="exp-grid">
+      <div class="exp-card">
+        <div class="exp-ico"><svg width="22" height="22"><use href="#i-music"/></svg></div>
+        <div class="exp-n">Deep Ellum</div>
+        <div class="exp-d">Live music &amp; bars. Best fan atmosphere. Go after 6pm.</div>
+      </div>
+      <div class="exp-card">
+        <div class="exp-ico"><svg width="22" height="22"><use href="#i-star"/></svg></div>
+        <div class="exp-n">Fort Worth Stockyards</div>
+        <div class="exp-d">30 min from Dallas. Authentic Texas. Daily cattle drive.</div>
+      </div>
+      <div class="exp-card">
+        <div class="exp-ico"><svg width="22" height="22"><use href="#i-fire"/></svg></div>
+        <div class="exp-n">Texas BBQ</div>
+        <div class="exp-d">Brisket is religion. Pecan Lodge in Deep Ellum. Arrive early.</div>
+      </div>
+      <div class="exp-card">
+        <div class="exp-ico"><svg width="22" height="22"><use href="#i-map"/></svg></div>
+        <div class="exp-n">Tex-Mex</div>
+        <div class="exp-d">Best anywhere. Order queso, enchiladas, margaritas.</div>
+      </div>
+      <div class="exp-card">
+        <div class="exp-ico"><svg width="22" height="22"><use href="#i-star"/></svg></div>
+        <div class="exp-n">Chicken Fried Steak</div>
+        <div class="exp-d">Texas staple. Order it at any diner.</div>
+      </div>
+      <div class="exp-card">
+        <div class="exp-ico"><svg width="22" height="22"><use href="#i-pin"/></svg></div>
+        <div class="exp-n">Bishop Arts</div>
+        <div class="exp-d">Indie shops, coffee, galleries. Safe &amp; walkable.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sec-wrap">
+    <div class="sec-lbl">Section 08</div>
+    <div class="sec-title"><svg width="24" height="24"><use href="#i-gift"/></svg> MY DEALS</div>
+
+    <div class="deals-ph">
+      <div class="deals-ico"><svg width="44" height="44"><use href="#i-gift"/></svg></div>
+      <div class="deals-ttl">Exclusive Fan Offers</div>
+      <div class="deals-sub">Partner deals, discounts and exclusive experiences for World Cup 2026 fans will appear here.<br><br>Hotels · Tours · Transport · BBQ Joints · Fan Packages</div>
+    </div>
+
+    <div class="card c-gold" style="margin-top:12px">
+      <div class="ctitle gold"><svg width="15" height="15"><use href="#i-star"/></svg> Coming Soon</div>
+      <ul class="blist">
+        <li>Pre-booked Uber packages (flat rate, no surge)</li>
+        <li>Stadium hotel bundles with shuttle</li>
+        <li>BBQ restaurant reservations (sell out fast)</li>
+        <li>Fort Worth Stockyards private tours</li>
+        <li>FIFA fan zone fast-track access</li>
+        <li>Official merchandise discounts</li>
+      </ul>
+    </div>
+  </div>
+
+  <button class="pdf-btn" onclick="window.print()">
+    <svg width="16" height="16"><use href="#i-pdf"/></svg> Save as PDF / Print Guide
+  </button>
+</div>
+
+<!-- ══════════════ SOS ══════════════ -->
+<div id="page-sos" class="page">
+  <div class="pg-header" style="background:#1a0a0a;border-bottom:1px solid rgba(224,32,32,.25)">
+    <div class="sec-lbl" style="color:#f07070">Emergency</div>
+    <div class="sec-title" style="color:#f07070"><svg width="24" height="24"><use href="#i-sos"/></svg> SOS — EMERGENCY</div>
+  </div>
+
+  <div class="sec-wrap">
+    <a href="tel:911" class="sos-btn">
+      <svg width="22" height="22"><use href="#i-phone"/></svg> CALL 911 — EMERGENCIES
+    </a>
+
+    <div class="cgrid">
+      <a href="tel:8174595900" class="citem">
+        <div class="cico"><svg width="26" height="26"><use href="#i-badge"/></svg></div>
+        <div class="cname">Arlington PD Non-Emergency</div>
+        <div class="cnum">(817) 459-5900</div>
+      </a>
+      <a href="tel:18002221222" class="citem">
+        <div class="cico"><svg width="26" height="26"><use href="#i-alert"/></svg></div>
+        <div class="cname">Texas Poison Control</div>
+        <div class="cnum">1-800-222-1222</div>
+      </a>
+      <a href="https://maps.google.com/?q=Medical+City+Arlington" class="citem" style="grid-column:1/-1">
+        <div class="cico"><svg width="26" height="26"><use href="#i-hosp"/></svg></div>
+        <div class="cname">Medical City Arlington — Nearest Hospital</div>
+        <div class="cnum">3301 Matlock Rd, Arlington TX</div>
+      </a>
+    </div>
+
+    <div class="div"></div>
+    <div class="sec-lbl">Embassy Contacts</div>
+    <div class="card c-blue">
+      <div class="ctitle blue"><svg width="15" height="15"><use href="#i-globe"/></svg> Key Embassy Numbers (Dallas Area)</div>
+      <ul class="blist">
+        <li><strong>🇲🇽 Mexican Consulate Dallas:</strong> (214) 932-8900</li>
+        <li><strong>🇬🇧 British Consulate Houston:</strong> +1 (713) 659-6270</li>
+        <li><strong>🇩🇪 German Consulate Houston:</strong> +1 (713) 627-7770</li>
+        <li><strong>🇫🇷 French Consulate Houston:</strong> +1 (713) 572-2799</li>
+        <li><strong>🇧🇷 Brazilian Consulate Houston:</strong> +1 (713) 961-3063</li>
+        <li><strong>🇦🇷 Argentine Consulate Houston:</strong> +1 (713) 871-8935</li>
+        <li><strong>🇪🇸 Spanish Consulate Houston:</strong> +1 (713) 783-6200</li>
+        <li><strong>🇮🇹 Italian Consulate Houston:</strong> +1 (713) 850-7520</li>
+        <li style="color:#6a7f98;font-size:12px">Most embassies serving Dallas are in Houston (3hr drive) — call ahead and they can arrange consular assistance in Dallas.</li>
+      </ul>
+    </div>
+
+    <div class="div"></div>
+    <div class="sec-lbl">Heat Emergency Reminder</div>
+    <div class="alert a-red">
+      <div class="alert-ico"><svg width="20" height="20" style="color:#f07070"><use href="#i-fire"/></svg></div>
+      <div>
+        <div class="atitle">Heat Stroke = 911, No Exceptions</div>
+        <div class="atext">Hot dry skin + confusion + unconsciousness = Heat Stroke. Fatal without immediate care. Call 911 and move the person to shade/AC.</div>
+      </div>
+    </div>
+
+    <div class="card c-gold">
+      <div class="ctitle gold"><svg width="15" height="15"><use href="#i-hosp"/></svg> While Waiting for 911</div>
+      <ul class="blist">
+        <li>Move person to air conditioning or shade immediately</li>
+        <li>Remove excess clothing</li>
+        <li>Apply cool (not cold) wet cloths to skin</li>
+        <li>Fan the person vigorously</li>
+        <li>Do <strong>NOT</strong> give fluids if unconscious</li>
+        <li>Stay on the line with the 911 operator</li>
+      </ul>
+    </div>
+
+    <div class="div"></div>
+    <div class="sec-lbl">Useful Apps</div>
+    <div class="card c-blue">
+      <div class="ctitle blue"><svg width="15" height="15"><use href="#i-app"/></svg> Apps for Dallas</div>
+      <ul class="blist">
+        <li><strong>GoPass</strong> — DART + TRE transit tickets</li>
+        <li><strong>Uber / Lyft</strong> — book before the match ends</li>
+        <li><strong>Weather.gov</strong> — official NWS heat advisories</li>
+        <li><strong>Google Translate</strong> — Spanish is useful in Texas</li>
+        <li><strong>Maps.me</strong> — offline maps for stadium crowds</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════ NAV ══════════════ -->
+<nav class="bnav">
+  <button class="ni active" onclick="goTo('home',this)">
+    <svg width="22" height="22"><use href="#i-home"/></svg>
+    <span class="nlbl">Home</span>
+  </button>
+  <button class="ni" onclick="goTo('safety',this)">
+    <svg width="22" height="22"><use href="#i-shield"/></svg>
+    <span class="nlbl">Safety</span>
+  </button>
+  <button class="ni" onclick="goTo('transport',this)">
+    <svg width="22" height="22"><use href="#i-train"/></svg>
+    <span class="nlbl">Transport</span>
+  </button>
+  <button class="ni" onclick="goTo('deals',this)">
+    <svg width="22" height="22"><use href="#i-tag"/></svg>
+    <span class="nlbl">Deals</span>
+  </button>
+  <button class="ni ni-sos" onclick="goTo('sos',this)">
+    <div class="ndot"></div>
+    <svg width="22" height="22"><use href="#i-sos"/></svg>
+    <span class="nlbl">SOS</span>
+  </button>
+</nav>
+
+<script>
+function goTo(id,btn){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.ni').forEach(n=>n.classList.remove('active'));
+  document.getElementById('page-'+id).classList.add('active');
+  btn.classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+</script>
+</body>
+</html>

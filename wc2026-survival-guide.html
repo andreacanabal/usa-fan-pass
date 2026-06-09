@@ -1,0 +1,1740 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Tipping & Scam Survival — USA World Cup 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --gold: #F5C842;
+    --gold-dark: #C9A227;
+    --red: #D62828;
+    --red-dark: #9B1C1C;
+    --white: #F5F0E8;
+    --bg: #0D0D0D;
+    --bg2: #161616;
+    --bg3: #1E1E1E;
+    --bg4: #252525;
+    --border: #2E2E2E;
+    --text: #E8E0D0;
+    --muted: #888;
+    --green: #3DD68C;
+    --orange: #FF7A35;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    line-height: 1.6;
+    padding-bottom: 80px;
+    min-height: 100vh;
+  }
+
+  /* ===== HEADER ===== */
+  .header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: var(--bg);
+    border-bottom: 1px solid var(--border);
+    padding: 12px 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .header-logo {
+    font-family: 'Bebas Neue', cursive;
+    font-size: 20px;
+    letter-spacing: 2px;
+    color: var(--gold);
+  }
+
+  .header-logo span { color: var(--red); }
+
+  /* ===== SECTIONS ===== */
+  .section {
+    display: none;
+    animation: fadeIn 0.25s ease;
+  }
+  .section.active { display: block; }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(6px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ===== HERO ===== */
+  .hero {
+    background: linear-gradient(160deg, #1a0a00 0%, #0D0D0D 50%, #0a0010 100%);
+    padding: 32px 16px 28px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -40px; right: -40px;
+    width: 220px; height: 220px;
+    background: radial-gradient(circle, rgba(245,200,66,0.12) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: -30px; left: -30px;
+    width: 180px; height: 180px;
+    background: radial-gradient(circle, rgba(214,40,40,0.1) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .hero-badge {
+    display: inline-block;
+    background: var(--red);
+    color: #fff;
+    font-family: 'Bebas Neue', cursive;
+    font-size: 11px;
+    letter-spacing: 2.5px;
+    padding: 5px 12px;
+    border-radius: 2px;
+    margin-bottom: 14px;
+  }
+
+  .hero h1 {
+    font-family: 'Bebas Neue', cursive;
+    font-size: clamp(40px, 11vw, 64px);
+    line-height: 0.95;
+    letter-spacing: 2px;
+    color: var(--white);
+    margin-bottom: 6px;
+  }
+
+  .hero h1 span { color: var(--gold); display: block; }
+
+  .hero-sub {
+    color: var(--muted);
+    font-size: 13px;
+    margin-top: 10px;
+    max-width: 340px;
+    font-style: italic;
+    line-height: 1.5;
+  }
+
+  .hero-stat {
+    margin-top: 20px;
+    background: rgba(245,200,66,0.08);
+    border: 1px solid rgba(245,200,66,0.25);
+    border-left: 3px solid var(--gold);
+    border-radius: 6px;
+    padding: 12px 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .hero-stat .big { font-family: 'Bebas Neue', cursive; font-size: 32px; color: var(--gold); line-height: 1; }
+  .hero-stat .desc { font-size: 12px; color: var(--text); line-height: 1.4; }
+  .hero-stat .desc strong { color: var(--gold); display: block; font-size: 13px; }
+
+  /* ===== QUICK NAV PILLS ===== */
+  .quick-nav {
+    padding: 14px 16px 0;
+    display: flex;
+    gap: 8px;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .quick-nav::-webkit-scrollbar { display: none; }
+
+  .pill {
+    flex-shrink: 0;
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    color: var(--muted);
+    font-size: 12px;
+    font-weight: 500;
+    padding: 7px 14px;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all 0.2s;
+    letter-spacing: 0.3px;
+  }
+  .pill:hover, .pill.active {
+    background: var(--gold);
+    color: #000;
+    border-color: var(--gold);
+    font-weight: 700;
+  }
+
+  /* ===== SECTION HEADER ===== */
+  .section-header {
+    padding: 24px 16px 8px;
+  }
+
+  .section-label {
+    font-family: 'Bebas Neue', cursive;
+    font-size: 11px;
+    letter-spacing: 3px;
+    color: var(--red);
+    margin-bottom: 4px;
+  }
+
+  .section-title {
+    font-family: 'Bebas Neue', cursive;
+    font-size: 32px;
+    letter-spacing: 1px;
+    color: var(--white);
+    line-height: 1;
+  }
+
+  .section-desc {
+    margin-top: 8px;
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.6;
+    max-width: 400px;
+  }
+
+  /* ===== ALERT CARD ===== */
+  .alert-card {
+    margin: 12px 16px;
+    padding: 14px 16px;
+    border-radius: 8px;
+    font-size: 13px;
+    line-height: 1.6;
+    border-left: 3px solid;
+  }
+  .alert-card.warning {
+    background: rgba(214,40,40,0.08);
+    border-color: var(--red);
+    color: #f5a5a5;
+  }
+  .alert-card.info {
+    background: rgba(245,200,66,0.07);
+    border-color: var(--gold);
+    color: var(--text);
+  }
+  .alert-card.success {
+    background: rgba(61,214,140,0.07);
+    border-color: var(--green);
+    color: var(--text);
+  }
+
+  /* ===== TIP CARD ===== */
+  .tip-cards { padding: 8px 16px; display: flex; flex-direction: column; gap: 10px; }
+
+  .tip-card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+    transition: border-color 0.2s;
+  }
+  .tip-card:hover { border-color: var(--gold); }
+
+  .tip-card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 16px;
+    cursor: pointer;
+    gap: 10px;
+  }
+
+  .tip-card-left { display: flex; align-items: center; gap: 12px; }
+
+  .tip-icon {
+    width: 38px; height: 38px;
+    background: var(--bg3);
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px;
+    flex-shrink: 0;
+  }
+
+  .tip-info .label {
+    font-size: 12px;
+    color: var(--muted);
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+  .tip-info .name {
+    font-weight: 700;
+    font-size: 15px;
+    color: var(--white);
+    line-height: 1.2;
+  }
+
+  .tip-amount {
+    font-family: 'Bebas Neue', cursive;
+    font-size: 20px;
+    color: var(--gold);
+    text-align: right;
+    flex-shrink: 0;
+    line-height: 1;
+  }
+  .tip-amount small { display: block; font-size: 11px; color: var(--muted); font-family: 'DM Sans', sans-serif; font-weight: 400; letter-spacing: 0; }
+
+  .tip-card-body {
+    display: none;
+    padding: 0 16px 16px;
+    font-size: 13px;
+    color: var(--muted);
+    border-top: 1px solid var(--border);
+    margin-top: 0;
+  }
+  .tip-card-body.open { display: block; padding-top: 14px; }
+
+  .tip-how {
+    font-size: 12px;
+    color: var(--gold);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 4px;
+    margin-top: 10px;
+  }
+  .tip-how:first-child { margin-top: 0; }
+
+  .tip-row {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 4px;
+    line-height: 1.5;
+  }
+  .tip-row::before { content: '→'; color: var(--gold); flex-shrink: 0; }
+
+  .chevron {
+    color: var(--muted);
+    transition: transform 0.2s;
+    font-size: 14px;
+    flex-shrink: 0;
+  }
+  .chevron.open { transform: rotate(180deg); }
+
+  /* ===== DO NOT TIP ===== */
+  .dont-grid {
+    padding: 8px 16px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+
+  .dont-item {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 12px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 13px;
+    color: var(--muted);
+    font-weight: 500;
+  }
+  .dont-icon {
+    width: 32px; height: 32px;
+    background: rgba(214,40,40,0.12);
+    border-radius: 6px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 16px;
+    flex-shrink: 0;
+  }
+
+  .ipad-tip-banner {
+    margin: 8px 16px;
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 16px;
+    font-size: 13px;
+    line-height: 1.6;
+  }
+  .ipad-tip-banner .ttitle {
+    font-family: 'Bebas Neue', cursive;
+    font-size: 18px;
+    color: var(--orange);
+    letter-spacing: 1px;
+    margin-bottom: 6px;
+  }
+
+  /* ===== SCAM CARDS ===== */
+  .scam-cards { padding: 8px 16px; display: flex; flex-direction: column; gap: 12px; }
+
+  .scam-card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+  }
+
+  .scam-header {
+    padding: 16px;
+    cursor: pointer;
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .scam-num {
+    font-family: 'Bebas Neue', cursive;
+    font-size: 13px;
+    letter-spacing: 1px;
+    color: var(--red);
+    background: rgba(214,40,40,0.12);
+    border: 1px solid rgba(214,40,40,0.2);
+    padding: 3px 8px;
+    border-radius: 4px;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .scam-title-block .scam-name {
+    font-weight: 700;
+    font-size: 16px;
+    color: var(--white);
+    line-height: 1.2;
+  }
+  .scam-title-block .scam-preview {
+    font-size: 12px;
+    color: var(--muted);
+    margin-top: 2px;
+  }
+
+  .scam-body {
+    display: none;
+    padding: 0 16px 16px;
+    border-top: 1px solid var(--border);
+    font-size: 13px;
+  }
+  .scam-body.open { display: block; padding-top: 14px; }
+
+  .scam-row {
+    margin-bottom: 12px;
+  }
+  .scam-row-label {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+  .scam-row-label.how { color: var(--gold); }
+  .scam-row-label.flag { color: var(--red); }
+  .scam-row-label.do { color: var(--green); }
+
+  .scam-row-body {
+    color: var(--muted);
+    line-height: 1.6;
+  }
+
+  .scam-action {
+    background: rgba(61,214,140,0.07);
+    border: 1px solid rgba(61,214,140,0.2);
+    border-radius: 8px;
+    padding: 10px 12px;
+    color: var(--green);
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 1.5;
+  }
+
+  /* ===== PRICE CARDS ===== */
+  .city-tabs {
+    padding: 12px 16px 0;
+    display: flex;
+    gap: 8px;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .city-tabs::-webkit-scrollbar { display: none; }
+
+  .city-tab {
+    flex-shrink: 0;
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    color: var(--muted);
+    font-size: 12px;
+    font-weight: 600;
+    padding: 8px 14px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+  }
+  .city-tab:hover { border-color: var(--gold); color: var(--text); }
+  .city-tab.active {
+    background: var(--gold);
+    color: #000;
+    border-color: var(--gold);
+  }
+
+  .city-content { display: none; }
+  .city-content.active { display: block; }
+
+  .city-card {
+    margin: 12px 16px;
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+  }
+
+  .city-card-header {
+    padding: 16px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .city-flag {
+    font-size: 28px;
+    line-height: 1;
+  }
+
+  .city-name {
+    font-family: 'Bebas Neue', cursive;
+    font-size: 22px;
+    letter-spacing: 1px;
+    color: var(--white);
+    line-height: 1;
+  }
+  .city-venue {
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 0.5px;
+    margin-top: 2px;
+  }
+
+  .price-list { padding: 0; }
+
+  .price-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 11px 16px;
+    border-bottom: 1px solid var(--border);
+    gap: 12px;
+  }
+  .price-item:last-child { border-bottom: none; }
+
+  .price-item .pi-left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 13px;
+    color: var(--text);
+  }
+  .price-item .pi-emoji { font-size: 16px; width: 24px; text-align: center; }
+  .price-item .pi-right {
+    font-family: 'Bebas Neue', cursive;
+    font-size: 18px;
+    color: var(--gold);
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  /* ===== SOS SECTION ===== */
+  .sos-grid { padding: 8px 16px; display: flex; flex-direction: column; gap: 10px; }
+
+  .sos-card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 16px;
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+  }
+
+  .sos-icon {
+    width: 44px; height: 44px;
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 22px;
+    flex-shrink: 0;
+  }
+
+  .sos-content .sos-title {
+    font-weight: 700;
+    font-size: 15px;
+    color: var(--white);
+    margin-bottom: 4px;
+  }
+  .sos-content .sos-body {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+  .sos-content .sos-script {
+    margin-top: 8px;
+    background: var(--bg3);
+    border-left: 3px solid var(--gold);
+    padding: 10px 12px;
+    border-radius: 0 6px 6px 0;
+    font-size: 13px;
+    color: var(--text);
+    font-style: italic;
+    line-height: 1.5;
+  }
+
+  .emergency-banner {
+    margin: 16px 16px 0;
+    background: linear-gradient(135deg, var(--red-dark), var(--red));
+    border-radius: 12px;
+    padding: 20px;
+    text-align: center;
+  }
+  .emergency-banner .e-title {
+    font-family: 'Bebas Neue', cursive;
+    font-size: 36px;
+    letter-spacing: 2px;
+    color: #fff;
+    line-height: 1;
+  }
+  .emergency-banner .e-subtitle {
+    font-size: 12px;
+    color: rgba(255,255,255,0.7);
+    margin-top: 4px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+  .emergency-banner .e-numbers {
+    margin-top: 14px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+  .e-num-card {
+    background: rgba(0,0,0,0.3);
+    border-radius: 8px;
+    padding: 10px;
+    text-align: center;
+  }
+  .e-num-card .num {
+    font-family: 'Bebas Neue', cursive;
+    font-size: 24px;
+    color: #fff;
+    letter-spacing: 1px;
+  }
+  .e-num-card .num-label {
+    font-size: 10px;
+    color: rgba(255,255,255,0.6);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-top: 2px;
+  }
+
+  /* ===== BOTTOM NAV ===== */
+  .bottom-nav {
+    position: fixed;
+    bottom: 0; left: 0; right: 0;
+    background: var(--bg);
+    border-top: 1px solid var(--border);
+    display: flex;
+    z-index: 200;
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+
+  .nav-item {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 4px 8px;
+    cursor: pointer;
+    transition: all 0.2s;
+    gap: 3px;
+    border: none;
+    background: none;
+    -webkit-appearance: none;
+  }
+
+  .nav-item .nav-icon {
+    font-size: 20px;
+    line-height: 1;
+    transition: transform 0.2s;
+  }
+
+  .nav-item .nav-label {
+    font-size: 9px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    color: var(--muted);
+    transition: color 0.2s;
+  }
+
+  .nav-item.active .nav-label { color: var(--gold); }
+  .nav-item.active .nav-icon { transform: scale(1.15); }
+
+  .nav-item:nth-child(5) .nav-label { color: var(--red); }
+  .nav-item:nth-child(5).active .nav-label { color: var(--red); }
+
+  /* ===== DIVIDER ===== */
+  .divider {
+    height: 1px;
+    background: var(--border);
+    margin: 16px 16px;
+  }
+
+  /* ===== SUB-LABEL ===== */
+  .sub-label {
+    font-family: 'Bebas Neue', cursive;
+    font-size: 14px;
+    letter-spacing: 2px;
+    color: var(--muted);
+    padding: 16px 16px 4px;
+    text-transform: uppercase;
+  }
+
+  /* ===== CHIP ===== */
+  .chip {
+    display: inline-block;
+    background: rgba(245,200,66,0.12);
+    border: 1px solid rgba(245,200,66,0.25);
+    color: var(--gold);
+    font-size: 11px;
+    font-weight: 700;
+    padding: 3px 10px;
+    border-radius: 20px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+  }
+  .chip.red {
+    background: rgba(214,40,40,0.12);
+    border-color: rgba(214,40,40,0.25);
+    color: #f88;
+  }
+  .chip.green {
+    background: rgba(61,214,140,0.12);
+    border-color: rgba(61,214,140,0.25);
+    color: var(--green);
+  }
+
+  /* ===== SCROLL TO TOP ===== */
+  .scroll-hint {
+    text-align: center;
+    padding: 24px 16px 8px;
+    font-size: 11px;
+    color: var(--border);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  /* ===== UTILITY ===== */
+  .px16 { padding-left: 16px; padding-right: 16px; }
+  .mt8 { margin-top: 8px; }
+  .mt16 { margin-top: 16px; }
+
+  /* ===== QUICK CALC ===== */
+  .calc-card {
+    margin: 8px 16px;
+    background: var(--bg2);
+    border: 1px solid var(--gold);
+    border-radius: 12px;
+    padding: 16px;
+  }
+  .calc-title {
+    font-family: 'Bebas Neue', cursive;
+    font-size: 18px;
+    color: var(--gold);
+    letter-spacing: 1px;
+    margin-bottom: 12px;
+  }
+  .calc-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 12px;
+    flex-wrap: wrap;
+  }
+  .calc-row label { font-size: 13px; color: var(--muted); width: 90px; flex-shrink: 0; }
+  .calc-input {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    color: var(--text);
+    font-size: 16px;
+    font-family: 'DM Sans', sans-serif;
+    padding: 8px 12px;
+    border-radius: 6px;
+    width: 130px;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  .calc-input:focus { border-color: var(--gold); }
+  .calc-results {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 8px;
+    margin-top: 4px;
+  }
+  .calc-res-card {
+    background: var(--bg3);
+    border-radius: 8px;
+    padding: 10px 8px;
+    text-align: center;
+  }
+  .calc-res-card .pct { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px; }
+  .calc-res-card .amt { font-family: 'Bebas Neue', cursive; font-size: 22px; color: var(--gold); }
+  .calc-res-card.rec { background: rgba(245,200,66,0.1); border: 1px solid rgba(245,200,66,0.3); }
+  .calc-res-card.rec .amt { color: var(--gold); }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="header">
+  <div class="header-logo">WC<span>26</span> SURVIVAL</div>
+  <div style="font-size:11px; color:var(--muted); letter-spacing:1px; text-transform:uppercase;">USA Guide</div>
+</header>
+
+<!-- ===================== SECTION: HOME ===================== -->
+<section class="section active" id="sec-home">
+
+  <div class="hero">
+    <div class="hero-badge">🛡️ DON'T PAY MORE THAN YOU SHOULD</div>
+    <h1>TIPPING &<span>SCAM SURVIVAL</span></h1>
+    <p class="hero-sub">In the USA, tipping is not optional. And scammers know you don't know that.</p>
+    <div class="hero-stat">
+      <div class="big">$180<sup style="font-size:16px">+</sup></div>
+      <div class="desc">
+        <strong>Average tourist overpays</strong>
+        on a 7-day USA trip — from wrong tips, wrong prices, and classic tourist traps.
+      </div>
+    </div>
+  </div>
+
+  <div class="quick-nav">
+    <div class="pill active" onclick="switchSection('home', this)">🏠 Home</div>
+    <div class="pill" onclick="switchSection('tipping', this)">💵 Tipping</div>
+    <div class="pill" onclick="switchSection('scams', this)">🚨 Scams</div>
+    <div class="pill" onclick="switchSection('prices', this)">💲 Prices</div>
+    <div class="pill" onclick="switchSection('sos', this)">🆘 SOS</div>
+  </div>
+
+  <div style="height:16px"></div>
+
+  <div class="alert-card warning">
+    <strong style="color:#f88">⚠️ Before your first meal in the USA:</strong> tips are part of the worker's wage — not a reward. Not tipping (15%+) at a sit-down restaurant is considered rude or even aggressive.
+  </div>
+
+  <div class="sub-label">Quick Access</div>
+
+  <div style="padding: 8px 16px; display:flex; flex-direction:column; gap:8px;">
+    <div class="sos-card" onclick="goSection('tipping')" style="cursor:pointer; border-color:rgba(245,200,66,0.3)">
+      <div class="sos-icon" style="background:rgba(245,200,66,0.12)">💵</div>
+      <div class="sos-content">
+        <div class="sos-title">Tipping Bible</div>
+        <div class="sos-body">Every situation you'll face — restaurants, bars, hotels, rides, delivery & more.</div>
+      </div>
+      <div style="color:var(--muted); font-size:20px; margin-left:auto; align-self:center">›</div>
+    </div>
+
+    <div class="sos-card" onclick="goSection('scams')" style="cursor:pointer; border-color:rgba(214,40,40,0.3)">
+      <div class="sos-icon" style="background:rgba(214,40,40,0.12)">🚨</div>
+      <div class="sos-content">
+        <div class="sos-title">8 Stadium Scams</div>
+        <div class="sos-body">The most common traps near World Cup venues — with exact red flags and scripts.</div>
+      </div>
+      <div style="color:var(--muted); font-size:20px; margin-left:auto; align-self:center">›</div>
+    </div>
+
+    <div class="sos-card" onclick="goSection('prices')" style="cursor:pointer; border-color:rgba(61,214,140,0.2)">
+      <div class="sos-icon" style="background:rgba(61,214,140,0.08)">💲</div>
+      <div class="sos-content">
+        <div class="sos-title">Real Price Guide</div>
+        <div class="sos-body">NYC, LA, Dallas, Miami, Boston — so you know exactly when you're being overcharged.</div>
+      </div>
+      <div style="color:var(--muted); font-size:20px; margin-left:auto; align-self:center">›</div>
+    </div>
+
+    <div class="sos-card" onclick="goSection('sos')" style="cursor:pointer; border-color:rgba(214,40,40,0.4)">
+      <div class="sos-icon" style="background:rgba(214,40,40,0.15)">🆘</div>
+      <div class="sos-content">
+        <div class="sos-title">Emergency & Disputes</div>
+        <div class="sos-body">Exact scripts to dispute overcharges, report scams, and contact emergency services.</div>
+      </div>
+      <div style="color:var(--muted); font-size:20px; margin-left:auto; align-self:center">›</div>
+    </div>
+  </div>
+
+  <div class="scroll-hint">FIFA World Cup 2026 · USA · Canada · Mexico</div>
+
+</section>
+
+<!-- ===================== SECTION: TIPPING ===================== -->
+<section class="section" id="sec-tipping">
+
+  <div class="section-header">
+    <div class="section-label">Section 1</div>
+    <div class="section-title">THE TIPPING BIBLE</div>
+    <p class="section-desc">In the USA, tips are part of the worker's expected wage. Not tipping is rude and sometimes confrontational.</p>
+  </div>
+
+  <!-- Quick Tip Calculator -->
+  <div class="calc-card">
+    <div class="calc-title">⚡ QUICK TIP CALCULATOR</div>
+    <div class="calc-row">
+      <label>Bill ($)</label>
+      <input type="number" class="calc-input" id="billInput" placeholder="0.00" oninput="calcTip()" inputmode="decimal">
+    </div>
+    <div class="calc-results">
+      <div class="calc-res-card">
+        <div class="pct">15%</div>
+        <div class="amt" id="tip15">$0</div>
+      </div>
+      <div class="calc-res-card rec">
+        <div class="pct">20% ✓</div>
+        <div class="amt" id="tip20">$0</div>
+      </div>
+      <div class="calc-res-card">
+        <div class="pct">22%</div>
+        <div class="amt" id="tip22">$0</div>
+      </div>
+    </div>
+    <div style="font-size:11px; color:var(--muted); margin-top:10px; text-align:center">Tip on pre-tax amount · 20% is the standard</div>
+  </div>
+
+  <div class="sub-label">Tap any card to expand</div>
+
+  <div class="tip-cards">
+
+    <!-- Restaurant -->
+    <div class="tip-card" onclick="toggleCard(this)">
+      <div class="tip-card-header">
+        <div class="tip-card-left">
+          <div class="tip-icon">🍽️</div>
+          <div class="tip-info">
+            <div class="label">Sit-down</div>
+            <div class="name">Restaurant</div>
+          </div>
+        </div>
+        <div style="display:flex; align-items:center; gap:10px">
+          <div class="tip-amount">18–22%<small>of pre-tax bill</small></div>
+          <span class="chevron">▾</span>
+        </div>
+      </div>
+      <div class="tip-card-body">
+        <div class="tip-how">How to calculate</div>
+        <div class="tip-row">Move decimal one place left = 10%. Double it = 20%. Done.</div>
+        <div class="tip-how">Watch out for</div>
+        <div class="tip-row">Groups of 6+ often have auto "gratuity" already added. Check bill before tipping again.</div>
+        <div class="tip-row">Two "gratuity" lines = scam. Dispute immediately.</div>
+        <div class="tip-row">Never tip on a bill that already includes service charge.</div>
+      </div>
+    </div>
+
+    <!-- Bars -->
+    <div class="tip-card" onclick="toggleCard(this)">
+      <div class="tip-card-header">
+        <div class="tip-card-left">
+          <div class="tip-icon">🍺</div>
+          <div class="tip-info">
+            <div class="label">Nightlife</div>
+            <div class="name">Bars & Drinks</div>
+          </div>
+        </div>
+        <div style="display:flex; align-items:center; gap:10px">
+          <div class="tip-amount">$1–2<small>per drink</small></div>
+          <span class="chevron">▾</span>
+        </div>
+      </div>
+      <div class="tip-card-body">
+        <div class="tip-row">$1–2 per individual drink, or 15–20% on full tab.</div>
+        <div class="tip-row">Opening a tab? Tip at the end, not per drink.</div>
+        <div class="tip-row">Irish pubs: $1 per pint is the standard.</div>
+        <div class="tip-row">Good tip = better service + faster drinks all night.</div>
+      </div>
+    </div>
+
+    <!-- Coffee -->
+    <div class="tip-card" onclick="toggleCard(this)">
+      <div class="tip-card-header">
+        <div class="tip-card-left">
+          <div class="tip-icon">☕</div>
+          <div class="tip-info">
+            <div class="label">Counter</div>
+            <div class="name">Coffee Shop</div>
+          </div>
+        </div>
+        <div style="display:flex; align-items:center; gap:10px">
+          <div class="tip-amount">$0–1<small>optional</small></div>
+          <span class="chevron">▾</span>
+        </div>
+      </div>
+      <div class="tip-card-body">
+        <div class="tip-row">Completely optional. No judgment for $0 here.</div>
+        <div class="tip-row">iPad tip screen will appear — tapping 0% is socially acceptable.</div>
+        <div class="tip-row">If you're a regular or they made something complex, $1–2 is nice.</div>
+      </div>
+    </div>
+
+    <!-- Uber/Lyft -->
+    <div class="tip-card" onclick="toggleCard(this)">
+      <div class="tip-card-header">
+        <div class="tip-card-left">
+          <div class="tip-icon">🚗</div>
+          <div class="tip-info">
+            <div class="label">Rideshare</div>
+            <div class="name">Uber / Lyft</div>
+          </div>
+        </div>
+        <div style="display:flex; align-items:center; gap:10px">
+          <div class="tip-amount">15–20%<small>in-app after ride</small></div>
+          <span class="chevron">▾</span>
+        </div>
+      </div>
+      <div class="tip-card-body">
+        <div class="tip-row">Always tip — drivers rate you too. Low-rated passengers get worse service and longer wait times.</div>
+        <div class="tip-row">Tip in-app after the ride. You have ~1 hour window.</div>
+        <div class="tip-row">Cash tip is also accepted and often preferred by drivers.</div>
+        <div class="tip-row">Bad traffic or long pickup = tip higher.</div>
+      </div>
+    </div>
+
+    <!-- Taxi -->
+    <div class="tip-card" onclick="toggleCard(this)">
+      <div class="tip-card-header">
+        <div class="tip-card-left">
+          <div class="tip-icon">🟡</div>
+          <div class="tip-info">
+            <div class="label">Traditional</div>
+            <div class="name">Taxi / Cab</div>
+          </div>
+        </div>
+        <div style="display:flex; align-items:center; gap:10px">
+          <div class="tip-amount">15–20%<small>+ round up</small></div>
+          <span class="chevron">▾</span>
+        </div>
+      </div>
+      <div class="tip-card-body">
+        <div class="tip-row">15–20% is standard, plus round up to nearest dollar.</div>
+        <div class="tip-row">If you think the fare is inflated — dispute it, don't tip on it.</div>
+        <div class="tip-row">Ask for a receipt. Overcharges are easier to dispute with proof.</div>
+      </div>
+    </div>
+
+    <!-- Hotel Housekeeping -->
+    <div class="tip-card" onclick="toggleCard(this)">
+      <div class="tip-card-header">
+        <div class="tip-card-left">
+          <div class="tip-icon">🏨</div>
+          <div class="tip-info">
+            <div class="label">Hotel</div>
+            <div class="name">Housekeeping</div>
+          </div>
+        </div>
+        <div style="display:flex; align-items:center; gap:10px">
+          <div class="tip-amount">$2–5<small>per night</small></div>
+          <span class="chevron">▾</span>
+        </div>
+      </div>
+      <div class="tip-card-body">
+        <div class="tip-row">Leave $2–5 cash on the pillow each morning with a note: "For Housekeeping".</div>
+        <div class="tip-row">Leave it DAILY — different staff may clean each day. A tip at checkout may not reach the right person.</div>
+        <div class="tip-row">Luxury hotel? $5/night minimum.</div>
+      </div>
+    </div>
+
+    <!-- Bellhop -->
+    <div class="tip-card" onclick="toggleCard(this)">
+      <div class="tip-card-header">
+        <div class="tip-card-left">
+          <div class="tip-icon">🧳</div>
+          <div class="tip-info">
+            <div class="label">Hotel</div>
+            <div class="name">Bellhop / Porter</div>
+          </div>
+        </div>
+        <div style="display:flex; align-items:center; gap:10px">
+          <div class="tip-amount">$2–3<small>per bag</small></div>
+          <span class="chevron">▾</span>
+        </div>
+      </div>
+      <div class="tip-card-body">
+        <div class="tip-row">$2–3 per bag is standard. $5 for heavy bags or large loads.</div>
+        <div class="tip-row">Tip at delivery, not at check-in. Have small bills ready.</div>
+      </div>
+    </div>
+
+    <!-- Valet -->
+    <div class="tip-card" onclick="toggleCard(this)">
+      <div class="tip-card-header">
+        <div class="tip-card-left">
+          <div class="tip-icon">🅿️</div>
+          <div class="tip-info">
+            <div class="label">Hotel / Restaurant</div>
+            <div class="name">Valet Parking</div>
+          </div>
+        </div>
+        <div style="display:flex; align-items:center; gap:10px">
+          <div class="tip-amount">$3–10<small>drop + pick up</small></div>
+          <span class="chevron">▾</span>
+        </div>
+      </div>
+      <div class="tip-card-body">
+        <div class="tip-row">$3–5 when dropping off + $5 when picking up.</div>
+        <div class="tip-row">In Miami or Los Angeles: $10 per occasion is the norm.</div>
+        <div class="tip-row">Cash only. Keep $5–10 bills in your wallet for this.</div>
+      </div>
+    </div>
+
+    <!-- Food Delivery -->
+    <div class="tip-card" onclick="toggleCard(this)">
+      <div class="tip-card-header">
+        <div class="tip-card-left">
+          <div class="tip-icon">📦</div>
+          <div class="tip-info">
+            <div class="label">App Orders</div>
+            <div class="name">Food Delivery</div>
+          </div>
+        </div>
+        <div style="display:flex; align-items:center; gap:10px">
+          <div class="tip-amount">15–20%<small>min $3–4</small></div>
+          <span class="chevron">▾</span>
+        </div>
+      </div>
+      <div class="tip-card-body">
+        <div class="tip-row">DoorDash, Uber Eats, Grubhub: 15–20% is standard in-app.</div>
+        <div class="tip-row">Minimum $3–4 for small orders — drivers use their own car and gas.</div>
+        <div class="tip-row">Low tips = longer delivery times (drivers see tip before accepting).</div>
+      </div>
+    </div>
+
+    <!-- Tour Guide -->
+    <div class="tip-card" onclick="toggleCard(this)">
+      <div class="tip-card-header">
+        <div class="tip-card-left">
+          <div class="tip-icon">🗺️</div>
+          <div class="tip-info">
+            <div class="label">Activities</div>
+            <div class="name">Tour Guides</div>
+          </div>
+        </div>
+        <div style="display:flex; align-items:center; gap:10px">
+          <div class="tip-amount">$10–20<small>per person</small></div>
+          <span class="chevron">▾</span>
+        </div>
+      </div>
+      <div class="tip-card-body">
+        <div class="tip-row">Group tours: $10–20 per person at the end.</div>
+        <div class="tip-row">Private tours: 15–20% of total tour price.</div>
+        <div class="tip-row">Cash is preferred. Tip the guide directly, not the booking desk.</div>
+      </div>
+    </div>
+
+    <!-- Hair / Tattoo -->
+    <div class="tip-card" onclick="toggleCard(this)">
+      <div class="tip-card-header">
+        <div class="tip-card-left">
+          <div class="tip-icon">✂️</div>
+          <div class="tip-info">
+            <div class="label">Personal Services</div>
+            <div class="name">Hair / Tattoo</div>
+          </div>
+        </div>
+        <div style="display:flex; align-items:center; gap:10px">
+          <div class="tip-amount">20%<small>minimum — cash</small></div>
+          <span class="chevron">▾</span>
+        </div>
+      </div>
+      <div class="tip-card-body">
+        <div class="tip-row">20% is the MINIMUM. This is very strictly observed in the USA.</div>
+        <div class="tip-row">Cash is strongly preferred — it goes directly to the artist.</div>
+        <div class="tip-row">Haircut, color, blow-dry, nails, tattoo — all follow this rule.</div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="sub-label">🚫 Do Not Tip These</div>
+  <div class="dont-grid">
+    <div class="dont-item"><div class="dont-icon">🍔</div>Fast Food (McDonald's, etc.)</div>
+    <div class="dont-item"><div class="dont-icon">🤖</div>Self-checkout</div>
+    <div class="dont-item"><div class="dont-icon">🏛️</div>Government services</div>
+    <div class="dont-item"><div class="dont-icon">👨‍⚕️</div>Doctors / medical</div>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="ipad-tip-banner">
+    <div class="ttitle">📱 THE iPAD TIP SCREEN</div>
+    <p>You will now see tip prompt screens <strong>everywhere</strong> — bakeries, parking booths, convenience stores, food trucks. For non-service businesses: tap <strong>"No tip"</strong> or <strong>"Custom: 0%"</strong>. This is completely socially acceptable. The guilt is designed.</p>
+  </div>
+
+  <div style="height:8px"></div>
+
+</section>
+
+<!-- ===================== SECTION: SCAMS ===================== -->
+<section class="section" id="sec-scams">
+
+  <div class="section-header">
+    <div class="section-label">Section 2</div>
+    <div class="section-title">THE 8 SCAMS</div>
+    <p class="section-desc">Most common traps near World Cup stadiums. Know them before you see them.</p>
+  </div>
+
+  <div class="alert-card warning" style="margin-bottom:0">
+    🎯 These scams specifically target international tourists who look unfamiliar with the USA — especially near stadium areas before and after matches.
+  </div>
+
+  <div class="scam-cards">
+
+    <div class="scam-card">
+      <div class="scam-header" onclick="toggleScam(this)">
+        <div class="scam-num">SCAM 1</div>
+        <div class="scam-title-block">
+          <div class="scam-name">The Unlicensed Cab</div>
+          <div class="scam-preview">Outside the stadium, "great flat rate"</div>
+        </div>
+        <span class="chevron" style="margin-left:auto; flex-shrink:0">▾</span>
+      </div>
+      <div class="scam-body">
+        <div class="scam-row">
+          <div class="scam-row-label how">How it works</div>
+          <div class="scam-row-body">Driver approaches you outside the stadium with a "flat rate" offer that sounds reasonable. No meter, no official markings, no app — just a deal.</div>
+        </div>
+        <div class="scam-row">
+          <div class="scam-row-label flag">🚩 Red flags</div>
+          <div class="scam-row-body">No meter visible. Driver approaches YOU (legit drivers don't solicit). Unofficial-looking car. Can't see credentials.</div>
+        </div>
+        <div class="scam-action">✅ Only use Uber, Lyft, or official yellow/green taxis with meters. Never negotiate with someone who approaches you first.</div>
+      </div>
+    </div>
+
+    <div class="scam-card">
+      <div class="scam-header" onclick="toggleScam(this)">
+        <div class="scam-num">SCAM 2</div>
+        <div class="scam-title-block">
+          <div class="scam-name">Fake Ticket Seller</div>
+          <div class="scam-preview">Counterfeit or already-used tickets</div>
+        </div>
+        <span class="chevron" style="margin-left:auto; flex-shrink:0">▾</span>
+      </div>
+      <div class="scam-body">
+        <div class="scam-row">
+          <div class="scam-row-label how">How it works</div>
+          <div class="scam-row-body">Someone sells printed tickets outside the venue. They look real. They scan as invalid at the gate — or were already used by someone else.</div>
+        </div>
+        <div class="scam-row">
+          <div class="scam-row-label flag">🚩 Red flags</div>
+          <div class="scam-row-body">Selling outside the venue. "Great deal" pricing. Won't let you verify the barcode on your phone before paying.</div>
+        </div>
+        <div class="scam-action">✅ Only buy from: FIFA official app, Ticketmaster, or authorized resellers. Always scan/verify before handing over money.</div>
+      </div>
+    </div>
+
+    <div class="scam-card">
+      <div class="scam-header" onclick="toggleScam(this)">
+        <div class="scam-num">SCAM 3</div>
+        <div class="scam-title-block">
+          <div class="scam-name">The "Free" CD / Bracelet</div>
+          <div class="scam-preview">Very common: Miami, NYC Times Square</div>
+        </div>
+        <span class="chevron" style="margin-left:auto; flex-shrink:0">▾</span>
+      </div>
+      <div class="scam-body">
+        <div class="scam-row">
+          <div class="scam-row-label how">How it works</div>
+          <div class="scam-row-body">Stranger puts a CD, flower, or bracelet in your hand — sometimes physically wraps it around your wrist. Then aggressively demands payment. Refusing gets very uncomfortable fast.</div>
+        </div>
+        <div class="scam-row">
+          <div class="scam-row-label flag">🚩 Red flags</div>
+          <div class="scam-row-body">Ocean Drive Miami, Times Square NYC, Hollywood Blvd LA are hotspots. Anyone approaching you with an object.</div>
+        </div>
+        <div class="scam-action">✅ Do not take ANYTHING from strangers on the street. Say "No thank you" firmly without slowing down. Keep walking. Do not engage further.</div>
+      </div>
+    </div>
+
+    <div class="scam-card">
+      <div class="scam-header" onclick="toggleScam(this)">
+        <div class="scam-num">SCAM 4</div>
+        <div class="scam-title-block">
+          <div class="scam-name">Card Skimmer at ATM</div>
+          <div class="scam-preview">Device that steals your card data</div>
+        </div>
+        <span class="chevron" style="margin-left:auto; flex-shrink:0">▾</span>
+      </div>
+      <div class="scam-body">
+        <div class="scam-row">
+          <div class="scam-row-label how">How it works</div>
+          <div class="scam-row-body">A thin plastic device is placed over the card slot. A hidden camera or overlay captures your PIN. Your card data is cloned and your account drained — sometimes within hours.</div>
+        </div>
+        <div class="scam-row">
+          <div class="scam-row-label flag">🚩 Red flags</div>
+          <div class="scam-row-body">Loose or raised card slot. Unusual bulk on the machine. Small camera hole near keypad. ATM in isolated location.</div>
+        </div>
+        <div class="scam-action">✅ Wiggle the card slot before inserting. Cover keypad when entering PIN. Only use ATMs inside banks or major hotel lobbies.</div>
+      </div>
+    </div>
+
+    <div class="scam-card">
+      <div class="scam-header" onclick="toggleScam(this)">
+        <div class="scam-num">SCAM 5</div>
+        <div class="scam-title-block">
+          <div class="scam-name">The Fake Police Officer</div>
+          <div class="scam-preview">"Drug residue check" on your wallet</div>
+        </div>
+        <span class="chevron" style="margin-left:auto; flex-shrink:0">▾</span>
+      </div>
+      <div class="scam-body">
+        <div class="scam-row">
+          <div class="scam-row-label how">How it works</div>
+          <div class="scam-row-body">Person in uniform (real-looking or fake) stops you and says they need to check your wallet for "drug residue." Once you hand it over, it's gone — or cash is removed.</div>
+        </div>
+        <div class="scam-row">
+          <div class="scam-row-label flag">🚩 Red flags</div>
+          <div class="scam-row-body">Real police NEVER ask to hold your wallet. No marked vehicle nearby. Asks to see your cash specifically.</div>
+        </div>
+        <div class="scam-action">✅ Ask for badge number. Say you're calling 911 to verify. Real officers will not object. Never hand over your wallet under any circumstances.</div>
+      </div>
+    </div>
+
+    <div class="scam-card">
+      <div class="scam-header" onclick="toggleScam(this)">
+        <div class="scam-num">SCAM 6</div>
+        <div class="scam-title-block">
+          <div class="scam-name">Restaurant Bill Overcharge</div>
+          <div class="scam-preview">Items you didn't order, double gratuity</div>
+        </div>
+        <span class="chevron" style="margin-left:auto; flex-shrink:0">▾</span>
+      </div>
+      <div class="scam-body">
+        <div class="scam-row">
+          <div class="scam-row-label how">How it works</div>
+          <div class="scam-row-body">Bill arrives with items you didn't order, or with two gratuity lines (one auto-added, one on the signature line to catch the inattentive).</div>
+        </div>
+        <div class="scam-row">
+          <div class="scam-row-label flag">🚩 Red flags</div>
+          <div class="scam-row-body">Bill total seems higher than expected. Two lines that look like "gratuity." Mystery charges.</div>
+        </div>
+        <div class="scam-action">✅ Review every single line before signing. Say: "Could you walk me through this bill? I think there might be an error." Never accusatory — always curious tone.</div>
+      </div>
+    </div>
+
+    <div class="scam-card">
+      <div class="scam-header" onclick="toggleScam(this)">
+        <div class="scam-num">SCAM 7</div>
+        <div class="scam-title-block">
+          <div class="scam-name">WiFi Phishing Hotspot</div>
+          <div class="scam-preview">"Stadium Free WiFi" — it's a trap</div>
+        </div>
+        <span class="chevron" style="margin-left:auto; flex-shrink:0">▾</span>
+      </div>
+      <div class="scam-body">
+        <div class="scam-row">
+          <div class="scam-row-label how">How it works</div>
+          <div class="scam-row-body">Fake hotspot named something like "Stadium_FreeWifi" or "WorldCup_Guest" intercepts all your data. Passwords, banking, emails — everything goes through the attacker's device.</div>
+        </div>
+        <div class="scam-row">
+          <div class="scam-row-label flag">🚩 Red flags</div>
+          <div class="scam-row-body">No password required. Generic name. Connection appears at exactly the right time and place.</div>
+        </div>
+        <div class="scam-action">✅ Use your eSIM or mobile data. If WiFi is necessary, use a VPN. NEVER access banking or passwords on public WiFi.</div>
+      </div>
+    </div>
+
+    <div class="scam-card">
+      <div class="scam-header" onclick="toggleScam(this)">
+        <div class="scam-num">SCAM 8</div>
+        <div class="scam-title-block">
+          <div class="scam-name">The Bump and Grab</div>
+          <div class="scam-preview">Post-match crowds — most dangerous time</div>
+        </div>
+        <span class="chevron" style="margin-left:auto; flex-shrink:0">▾</span>
+      </div>
+      <div class="scam-body">
+        <div class="scam-row">
+          <div class="scam-row-label how">How it works</div>
+          <div class="scam-row-body">Person "accidentally" bumps into you hard in a crowd. While you're distracted and apologizing, their accomplice grabs your phone, wallet, or bag.</div>
+        </div>
+        <div class="scam-row">
+          <div class="scam-row-label flag">🚩 Red flags</div>
+          <div class="scam-row-body">Crowded areas right after a match. People pushing closer than necessary. Someone in front who seems to be creating a bottleneck.</div>
+        </div>
+        <div class="scam-action">✅ Keep phone in front pocket or zipped bag. Use a crossbody bag worn in front. Be especially alert the first 30 mins after the final whistle.</div>
+      </div>
+    </div>
+
+  </div>
+
+  <div style="height:8px"></div>
+
+</section>
+
+<!-- ===================== SECTION: PRICES ===================== -->
+<section class="section" id="sec-prices">
+
+  <div class="section-header">
+    <div class="section-label">Section 3</div>
+    <div class="section-title">REAL PRICE GUIDE</div>
+    <p class="section-desc">What things actually cost — so you know exactly when you're being overcharged.</p>
+  </div>
+
+  <div class="alert-card info">
+    💡 Prices are 2026 estimates for each city. Always compare before paying. If a price seems 50%+ higher than this guide, ask for a breakdown.
+  </div>
+
+  <div class="city-tabs">
+    <div class="city-tab active" onclick="switchCity('nyc', this)">NYC/NJ</div>
+    <div class="city-tab" onclick="switchCity('la', this)">LA</div>
+    <div class="city-tab" onclick="switchCity('dallas', this)">Dallas</div>
+    <div class="city-tab" onclick="switchCity('miami', this)">Miami</div>
+    <div class="city-tab" onclick="switchCity('boston', this)">Boston</div>
+  </div>
+
+  <!-- NYC -->
+  <div class="city-content active" id="city-nyc">
+    <div class="city-card">
+      <div class="city-card-header">
+        <div class="city-flag">🗽</div>
+        <div>
+          <div class="city-name">New York / NJ</div>
+          <div class="city-venue">MetLife Stadium, East Rutherford</div>
+        </div>
+      </div>
+      <div class="price-list">
+        <div class="price-item"><div class="pi-left"><span class="pi-emoji">✈️</span>Airport → Manhattan (JFK flat)</div><div class="pi-right">$70–85</div></div>
+        <div class="price-item"><div class="pi-left"><span class="pi-emoji">✈️</span>Newark → Manhattan (Uber)</div><div class="pi-right">$50–60</div></div>
+        <div class="price-item"><div class="pi-left"><span class="pi-emoji">✈️</span>LGA → Manhattan (Uber)</div><div class="pi-right">$35–50</div></div>
+        <div class="price-item"><div class="pi-left"><span class="pi-emoji">🍺</span>Beer at a bar</div><div class="pi-right">$8–12</div></div>
+        <div class="price-item"><div class="pi-left"><span class="pi-emoji">🏟️</span>Beer at stadium</div><div class="pi-right">$14–18</div></div>
+        <div class="price-item"><div class="pi-left"><span class="pi-emoji">🍕</span>Slice of pizza</div><div class="pi-right">$4–6</div></div>
+        <div class="price-item"><div class="pi-left"><span class="pi-emoji">🚗</span>Uber (3 miles)</div><div class="pi-right">$18–28</div></div>
+        <div class="price-item"><div class="pi-left"><span class="pi-emoji">💧</span>Bottle of water</div><div class="pi-right">$2–4</div></div>
+        <div class="price-item"><div class="pi-left"><span class="pi-emoji">🍔</span>Big Mac</div><div class="pi-right">$7–9</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- LA -->
+  <div class="city-content" id="city-la">
+    <div class="city-card">
+      <div class="city-card-header">
+        <div class="city-flag">🎬</div>
+        <div>
+          <div class="city-name">Los Angeles</div>
+          <div class="city-venue">SoFi Stadium, Inglewood</div>
+        </div>
+      </div>
+      <div class="price-list">
+        <div class="price-item"><div class="pi-left"><span class="pi-emoji">✈️</span>LAX → SoFi Stadium (Uber)</div><div class="pi-right">$35–55</div></div>
+        <div class="price-item"><div class="pi-left"><span class="pi-emoji">🍺</span>Beer at a bar</div><div class="pi-right">$7–10</div></div>
+        <div class="price-item"><div class="pi-left"><span class="pi-emoji">🏟️</span>Beer at SoFi</div><div class="pi-right">$15–18</div></div>
+        <div class="price-item"><div class="pi-left"><span class="pi-emoji">🌮</span>Taco truck (per taco)</div><div class="pi-right">$3–5</div></div>
+        <div class="price-item"><div class="pi-left"><span class="pi-emoji">🚗</span>Uber (3 miles)</div><div class="pi-right">$15–22</div></div>
+        <div class="price-item"><div class="pi-left"><span class="pi-emoji">🍔</span>In-N-Out burger</div><div class="pi-right">$5–7</div></div>
+        <div class="price-item"><div class="pi-left"><span class="pi-emoji">🅿️</span>Parking near stadium</div><div class="pi-right">$60–100</div></div>
+      </div>
+    </div>
+    <div class="alert-card warning" style="margin-top:8px">⚠️ Stadium parking in LA is one of the highest in the USA. Book in advance or Uber.</div>
+  </div>
+
+  <!-- Dallas -->
+  <div class="city-content" id="city-dallas">
+    <div class="city-card">
+      <div class="city-card-header">
+        <div class="city-flag">🤠</div>
+        <div>
+          <div class="city-name">Dallas</div>
+          <div class="city-venue">AT&T Stadium, Arlington</div>
+        </div>
+      </div>
+      <div class="price-list">
+        <div class="price-item"><div class="pi-left"><span class="pi-emoji">✈️</span>DFW → AT&T Stadium (Uber)</div><div class="pi-right">$40–60</div></div>
+        <div class="price-item"><div class="pi-left"><span class="pi-emoji">🍺</span>Beer at a bar</div><div class="pi-right">$5–8</div></div>
+        <div class="price-item"><div class="pi-left"><span class="pi-emoji">🏟️</span>Beer at AT&T Stadium</div><div class="pi-right">$13–16</div></div>
+        <div class="price-item"><div class="pi-left"><span class="pi-emoji">🥩</span>BBQ plate</div><div class="pi-right">$15–25</div></div>
+        <div class="price-item"><div class="pi-left"><span class="pi-emoji">🚗</span>Uber (3 miles)</div><div class="pi-right">$12–18</div></div>
+        <div class="price-item"><div class="pi-left"><span class="pi-emoji">🅿️</span>Parking</div><div class="pi-right">$50–80</div></div>
+      </div>
+    </div>
+    <div class="alert-card success" style="margin-top:8px">✅ Dallas has the cheapest bars and Ubers of all 5 World Cup cities.</div>
+  </div>
+
+  <!-- Miami -->
+  <div class="city-content" id="city-miami">
+    <div class="city-card">
+      <div class="city-card-header">
+        <div class="city-flag">🌴</div>
+        <div>
+          <div class="city-name">Miami</div>
+          <div class="city-venue">Hard Rock Stadium, Miami Gardens</div>
+        </div>
+      </div>
+      <div class="price-list">
+        <div class="price-item"><div class="pi-left"><span class="pi-emoji">✈️</span>MIA → Hard Rock (Uber)</div><div class="pi-right">$35–55</div></div>
+        <div class="price-item"><div class="pi-left"><span class="pi-emoji">🍺</span>Beer at bar (South Beach)</div><div class="pi-right">$9–14</div></div>
+        <div class="price-item"><div class="pi-left"><span class="pi-emoji">🏟️</span>Beer at Hard Rock</div><div class="pi-right">$14–17</div></div>
+        <div class="price-item"><div class="pi-left"><span class="pi-emoji">🥪</span>Cuban sandwich</div><div class="pi-right">$8–12</div></div>
+        <div class="price-item"><div class="pi-left"><span class="pi-emoji">🚗</span>Uber (3 miles)</div><div class="pi-right">$15–22</div></div>
+        <div class="price-item"><div class="pi-left"><span class="pi-emoji">🅿️</span>Valet South Beach</div><div class="pi-right">$30–50</div></div>
+      </div>
+    </div>
+    <div class="alert-card warning" style="margin-top:8px">⚠️ South Beach is the scam capital of all 5 cities. Stay alert on Ocean Drive at all times.</div>
+  </div>
+
+  <!-- Boston -->
+  <div class="city-content" id="city-boston">
+    <div class="city-card">
+      <div class="city-card-header">
+        <div class="city-flag">🦞</div>
+        <div>
+          <div class="city-name">Boston</div>
+          <div class="city-venue">Gillette Stadium, Foxborough</div>
+        </div>
+      </div>
+      <div class="price-list">
+        <div class="price-item"><div class="pi-left"><span class="pi-emoji">✈️</span>BOS → Boston (Silver Line+train)</div><div class="pi-right">$35–50</div></div>
+        <div class="price-item"><div class="pi-left"><span class="pi-emoji">✈️</span>BOS → Boston (Uber)</div><div class="pi-right">$45–65</div></div>
+        <div class="price-item"><div class="pi-left"><span class="pi-emoji">🍺</span>Beer at a bar</div><div class="pi-right">$7–10</div></div>
+        <div class="price-item"><div class="pi-left"><span class="pi-emoji">🏟️</span>Beer at Gillette</div><div class="pi-right">$13–16</div></div>
+        <div class="price-item"><div class="pi-left"><span class="pi-emoji">🦞</span>Lobster roll</div><div class="pi-right">$25–35</div></div>
+        <div class="price-item"><div class="pi-left"><span class="pi-emoji">🚗</span>Uber (3 miles)</div><div class="pi-right">$16–24</div></div>
+        <div class="price-item"><div class="pi-left"><span class="pi-emoji">🚂</span>Train to Gillette (roundtrip)</div><div class="pi-right">$15–20</div></div>
+      </div>
+    </div>
+    <div class="alert-card info" style="margin-top:8px">💡 Take the train to Gillette Stadium — traffic on game day is brutal and parking is expensive.</div>
+  </div>
+
+  <div style="height:8px"></div>
+
+</section>
+
+<!-- ===================== SECTION: SOS ===================== -->
+<section class="section" id="sec-sos">
+
+  <div class="section-header">
+    <div class="section-label">Section 4</div>
+    <div class="section-title">SOS & DISPUTES</div>
+    <p class="section-desc">Exact scripts and steps for when something goes wrong.</p>
+  </div>
+
+  <div class="emergency-banner">
+    <div class="e-title">EMERGENCY</div>
+    <div class="e-subtitle">USA emergency number — all situations</div>
+    <div class="e-numbers">
+      <div class="e-num-card">
+        <div class="num">9-1-1</div>
+        <div class="num-label">Police / Fire / Medical</div>
+      </div>
+      <div class="e-num-card">
+        <div class="num">311</div>
+        <div class="num-label">Non-emergency city help</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sub-label mt16">Dispute Scripts</div>
+
+  <div class="sos-grid">
+
+    <div class="sos-card">
+      <div class="sos-icon" style="background:rgba(245,200,66,0.12)">🍽️</div>
+      <div class="sos-content">
+        <div class="sos-title">Restaurant Overcharge</div>
+        <div class="sos-body">Stay calm. Don't accuse — be curious. The key is to get an itemized review without confrontation.</div>
+        <div class="sos-script">"Excuse me, I think there may be an error on my bill. Could you go through it with me item by item?"</div>
+      </div>
+    </div>
+
+    <div class="sos-card">
+      <div class="sos-icon" style="background:rgba(245,200,66,0.12)">🚗</div>
+      <div class="sos-content">
+        <div class="sos-title">Uber / Lyft Overcharge</div>
+        <div class="sos-body">Do this immediately after your trip — response is faster when you're still close to the ride time.</div>
+        <div class="sos-script">App → Trip History → Get Help → Fare Review → Submit. Usually resolved within 24 hours.</div>
+      </div>
+    </div>
+
+    <div class="sos-card">
+      <div class="sos-icon" style="background:rgba(245,200,66,0.12)">🏨</div>
+      <div class="sos-content">
+        <div class="sos-title">Hotel Dispute</div>
+        <div class="sos-body">Always dispute at check-out, before you leave the property. Much harder to resolve remotely.</div>
+        <div class="sos-script">"I'd like to speak with the manager about a charge on my bill before I check out. I'd prefer to resolve this now."</div>
+      </div>
+    </div>
+
+    <div class="sos-card">
+      <div class="sos-icon" style="background:rgba(214,40,40,0.15)">💳</div>
+      <div class="sos-content">
+        <div class="sos-title">Credit Card Fraud</div>
+        <div class="sos-body">Act immediately. Every hour matters for fraud disputes. Most banks resolve in 3–5 days.</div>
+        <div class="sos-script">Call the number on the back of your card immediately. Dispute in the app → usually resolved in 3–5 days. Request a new card number sent to your email.</div>
+      </div>
+    </div>
+
+    <div class="sos-card">
+      <div class="sos-icon" style="background:rgba(214,40,40,0.15)">🎫</div>
+      <div class="sos-content">
+        <div class="sos-title">Fake Ticket — At the Gate</div>
+        <div class="sos-body">Don't make a scene. Report it, then contact your card for a chargeback.</div>
+        <div class="sos-script">Tell gate security: "I purchased this ticket and it won't scan. I believe I may have been defrauded. Can you direct me to guest services?" Then file a police report for the chargeback.</div>
+      </div>
+    </div>
+
+    <div class="sos-card">
+      <div class="sos-icon" style="background:rgba(61,214,140,0.1)">📱</div>
+      <div class="sos-content">
+        <div class="sos-title">Lost / Stolen Phone</div>
+        <div class="sos-body">Lock remotely first — this protects your data and makes the phone useless to thieves.</div>
+        <div class="sos-script">iPhone: iCloud.com → Find My → Lock. Android: android.com/find → Secure Device. Then file a police report for insurance purposes.</div>
+      </div>
+    </div>
+
+    <div class="sos-card">
+      <div class="sos-icon" style="background:rgba(61,214,140,0.1)">🛂</div>
+      <div class="sos-content">
+        <div class="sos-title">Passport / Documents Lost</div>
+        <div class="sos-body">Contact your country's consulate or embassy immediately — most operate 24/7 emergency lines during major events.</div>
+        <div class="sos-script">"I am a [nationality] citizen and I need emergency assistance — my passport has been lost/stolen. I am attending the FIFA World Cup and need emergency travel documentation."</div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="sub-label mt16">Useful USA Numbers</div>
+  <div style="padding: 8px 16px; display:flex; flex-direction:column; gap:8px;">
+    <div style="background:var(--bg2); border:1px solid var(--border); border-radius:10px; padding:14px 16px; display:flex; justify-content:space-between; align-items:center">
+      <div style="font-size:13px; color:var(--text)">🚔 Non-emergency Police</div>
+      <div style="font-family:'Bebas Neue',cursive; font-size:20px; color:var(--gold)">311</div>
+    </div>
+    <div style="background:var(--bg2); border:1px solid var(--border); border-radius:10px; padding:14px 16px; display:flex; justify-content:space-between; align-items:center">
+      <div style="font-size:13px; color:var(--text)">🏥 Poison Control</div>
+      <div style="font-family:'Bebas Neue',cursive; font-size:20px; color:var(--gold)">1-800-222-1222</div>
+    </div>
+    <div style="background:var(--bg2); border:1px solid var(--border); border-radius:10px; padding:14px 16px; display:flex; justify-content:space-between; align-items:center">
+      <div style="font-size:13px; color:var(--text)">🧠 Crisis / Mental Health</div>
+      <div style="font-family:'Bebas Neue',cursive; font-size:20px; color:var(--gold)">988</div>
+    </div>
+    <div style="background:var(--bg2); border:1px solid var(--border); border-radius:10px; padding:14px 16px; display:flex; justify-content:space-between; align-items:center">
+      <div style="font-size:13px; color:var(--text)">🏦 Report Card Fraud (Visa)</div>
+      <div style="font-family:'Bebas Neue',cursive; font-size:18px; color:var(--gold)">1-800-847-2911</div>
+    </div>
+  </div>
+
+  <div class="scroll-hint" style="margin-top:16px">Stay safe · Enjoy the game · ¡Vamos! 🏆</div>
+
+</section>
+
+<!-- ===================== BOTTOM NAV ===================== -->
+<nav class="bottom-nav">
+  <button class="nav-item active" id="nav-home" onclick="goSection('home')">
+    <span class="nav-icon">🏠</span>
+    <span class="nav-label">Home</span>
+  </button>
+  <button class="nav-item" id="nav-tipping" onclick="goSection('tipping')">
+    <span class="nav-icon">💵</span>
+    <span class="nav-label">Tipping</span>
+  </button>
+  <button class="nav-item" id="nav-scams" onclick="goSection('scams')">
+    <span class="nav-icon">🚨</span>
+    <span class="nav-label">Scams</span>
+  </button>
+  <button class="nav-item" id="nav-prices" onclick="goSection('prices')">
+    <span class="nav-icon">💲</span>
+    <span class="nav-label">Prices</span>
+  </button>
+  <button class="nav-item" id="nav-sos" onclick="goSection('sos')">
+    <span class="nav-icon">🆘</span>
+    <span class="nav-label">SOS</span>
+  </button>
+</nav>
+
+<script>
+  // ===== NAVIGATION =====
+  function goSection(name) {
+    document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+    document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+    document.getElementById('sec-' + name).classList.add('active');
+    document.getElementById('nav-' + name).classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function switchSection(name, pill) {
+    goSection(name);
+    document.querySelectorAll('.pill').forEach(p => p.classList.remove('active'));
+    pill.classList.add('active');
+  }
+
+  // ===== ACCORDION =====
+  function toggleCard(card) {
+    const body = card.querySelector('.tip-card-body');
+    const chevron = card.querySelector('.chevron');
+    const isOpen = body.classList.contains('open');
+
+    // Close all first
+    document.querySelectorAll('.tip-card-body.open').forEach(b => b.classList.remove('open'));
+    document.querySelectorAll('.tip-card .chevron.open').forEach(c => c.classList.remove('open'));
+
+    if (!isOpen) {
+      body.classList.add('open');
+      chevron.classList.add('open');
+    }
+  }
+
+  function toggleScam(header) {
+    const card = header.parentElement;
+    const body = card.querySelector('.scam-body');
+    const chevron = header.querySelector('.chevron');
+    const isOpen = body.classList.contains('open');
+
+    document.querySelectorAll('.scam-body.open').forEach(b => b.classList.remove('open'));
+    document.querySelectorAll('.scam-header .chevron.open').forEach(c => c.classList.remove('open'));
+
+    if (!isOpen) {
+      body.classList.add('open');
+      chevron.classList.add('open');
+    }
+  }
+
+  // ===== CITY TABS =====
+  function switchCity(city, tab) {
+    document.querySelectorAll('.city-content').forEach(c => c.classList.remove('active'));
+    document.querySelectorAll('.city-tab').forEach(t => t.classList.remove('active'));
+    document.getElementById('city-' + city).classList.add('active');
+    tab.classList.add('active');
+  }
+
+  // ===== TIP CALCULATOR =====
+  function calcTip() {
+    const val = parseFloat(document.getElementById('billInput').value) || 0;
+    document.getElementById('tip15').textContent = '$' + (val * 0.15).toFixed(2);
+    document.getElementById('tip20').textContent = '$' + (val * 0.20).toFixed(2);
+    document.getElementById('tip22').textContent = '$' + (val * 0.22).toFixed(2);
+  }
+
+  // ===== SERVICE WORKER (offline) =====
+  if ('serviceWorker' in navigator) {
+    const sw = `
+      self.addEventListener('install', e => e.waitUntil(
+        caches.open('wc26-v1').then(c => c.add('/'))
+      ));
+      self.addEventListener('fetch', e => e.respondWith(
+        caches.match(e.request).then(r => r || fetch(e.request))
+      ));
+    `;
+    const blob = new Blob([sw], { type: 'application/javascript' });
+    navigator.serviceWorker.register(URL.createObjectURL(blob)).catch(() => {});
+  }
+</script>
+</body>
+</html>
