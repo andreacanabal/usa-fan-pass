@@ -1093,7 +1093,7 @@
 
 
 <!-- EMAIL GATE MODAL -->
-<div class="cart-overlay" id="emailGateModal" onclick="if(event.target===this)this.classList.remove('open')">
+<div class="cart-overlay" id="emailGateModal" style="z-index:500" onclick="if(event.target===this)this.classList.remove('open')">
   <div style="background:white;border-radius:20px 20px 0 0;width:100%;max-width:500px;overflow:hidden;">
     <div style="background:var(--blue);padding:20px 24px;display:flex;align-items:center;justify-content:space-between;">
       <div style="font-family:'Bebas Neue',sans-serif;font-size:24px;letter-spacing:0.06em;color:var(--gold);">ALMOST THERE</div>
@@ -1110,7 +1110,7 @@
 </div>
 
 <!-- STRIPE EMBEDDED CHECKOUT MODAL -->
-<div class="cart-overlay" id="stripeModal">
+<div class="cart-overlay" id="stripeModal" style="z-index:500">
   <div style="background:white;border-radius:20px 20px 0 0;width:100%;max-width:500px;max-height:90vh;overflow-y:auto;">
     <div style="background:var(--blue);padding:16px 24px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:10;">
       <div style="font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:0.06em;color:var(--gold);">SECURE CHECKOUT</div>
@@ -1313,6 +1313,8 @@
       }
     });
     if(pendingLineItems.length === 0) return;
+    // Close cart first, then open email gate on top
+    document.getElementById('cartOverlay').classList.remove('open');
     document.getElementById('emailGateModal').classList.add('open');
     document.body.style.overflow = 'hidden';
   }
