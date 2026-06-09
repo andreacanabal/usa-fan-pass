@@ -1,0 +1,993 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="theme-color" content="#050D1F">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="East Coast Pack">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="description" content="Your East Coast World Cup guide — New York, Miami, Boston">
+  <title>USA Fan Pass · East Coast Pack · 2026</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    /* ============================================
+       TOKENS
+    ============================================ */
+    :root {
+      --navy:        #050D1F;
+      --navy-mid:    #0A1830;
+      --navy-card:   #0D1F3C;
+      --navy-border: #1A2E50;
+      --gold:        #C9A84C;
+      --gold-bright: #F0C04A;
+      --gold-dim:    #8A6E2F;
+      --gold-glow:   rgba(201, 168, 76, 0.18);
+      --red:         #E03E3E;
+      --white:       #F4F6FA;
+      --muted:       #7A8FAE;
+      --font-display: 'Bebas Neue', sans-serif;
+      --font-body:    'DM Sans', sans-serif;
+    }
+
+    /* ============================================
+       RESET & BASE
+    ============================================ */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html {
+      background: var(--navy);
+      -webkit-text-size-adjust: 100%;
+    }
+
+    body {
+      font-family: var(--font-body);
+      background: var(--navy);
+      color: var(--white);
+      min-height: 100vh;
+      max-width: 480px;
+      margin: 0 auto;
+      padding: 0 0 env(safe-area-inset-bottom, 24px);
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    /* Subtle grid texture overlay */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(201,168,76,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(201,168,76,0.03) 1px, transparent 1px);
+      background-size: 32px 32px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ============================================
+       TOP BAR
+    ============================================ */
+    .topbar {
+      background: var(--gold);
+      color: var(--navy);
+      font-family: var(--font-display);
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-align: center;
+      padding: 9px 16px;
+      line-height: 1.2;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 12px rgba(201,168,76,0.35);
+    }
+
+    /* ============================================
+       HERO HEADER
+    ============================================ */
+    .hero {
+      position: relative;
+      z-index: 1;
+      padding: 36px 24px 28px;
+      text-align: center;
+      background: linear-gradient(180deg, rgba(201,168,76,0.07) 0%, transparent 100%);
+      border-bottom: 1px solid var(--navy-border);
+    }
+
+    .hero-eyebrow {
+      font-family: var(--font-display);
+      font-size: 11px;
+      letter-spacing: 0.25em;
+      color: var(--gold);
+      margin-bottom: 14px;
+      opacity: 0.85;
+    }
+
+    .hero-title {
+      font-family: var(--font-display);
+      font-size: 56px;
+      line-height: 0.92;
+      letter-spacing: 0.02em;
+      color: var(--white);
+      margin-bottom: 4px;
+    }
+
+    .hero-title span {
+      color: var(--gold-bright);
+    }
+
+    .hero-subtitle {
+      font-family: var(--font-display);
+      font-size: 18px;
+      letter-spacing: 0.1em;
+      color: var(--muted);
+      margin-bottom: 20px;
+    }
+
+    .hero-divider {
+      width: 48px;
+      height: 2px;
+      background: var(--gold);
+      margin: 0 auto 18px;
+      border-radius: 2px;
+    }
+
+    .hero-instructions {
+      font-size: 14px;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    .hero-instructions strong {
+      color: var(--white);
+      font-weight: 500;
+    }
+
+    /* ============================================
+       COUNTDOWN
+    ============================================ */
+    .section {
+      position: relative;
+      z-index: 1;
+      padding: 24px 20px;
+    }
+
+    .section-label {
+      font-family: var(--font-display);
+      font-size: 11px;
+      letter-spacing: 0.22em;
+      color: var(--gold-dim);
+      margin-bottom: 12px;
+      text-transform: uppercase;
+    }
+
+    .countdown-card {
+      background: var(--navy-card);
+      border: 1px solid var(--navy-border);
+      border-radius: 14px;
+      padding: 22px 20px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .countdown-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    }
+
+    .countdown-label {
+      font-size: 12px;
+      color: var(--muted);
+      letter-spacing: 0.08em;
+      margin-bottom: 14px;
+      text-transform: uppercase;
+    }
+
+    .countdown-display {
+      display: flex;
+      justify-content: center;
+      align-items: flex-end;
+      gap: 6px;
+    }
+
+    .cd-unit {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-width: 54px;
+    }
+
+    .cd-number {
+      font-family: var(--font-display);
+      font-size: 44px;
+      line-height: 1;
+      color: var(--gold-bright);
+      letter-spacing: 0.02em;
+      text-shadow: 0 0 24px rgba(240,192,74,0.35);
+    }
+
+    .cd-name {
+      font-size: 9px;
+      color: var(--muted);
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      margin-top: 4px;
+    }
+
+    .cd-sep {
+      font-family: var(--font-display);
+      font-size: 36px;
+      color: var(--gold-dim);
+      line-height: 1;
+      padding-bottom: 8px;
+    }
+
+    .countdown-sub {
+      font-size: 11px;
+      color: var(--muted);
+      margin-top: 14px;
+      letter-spacing: 0.04em;
+    }
+
+    /* ============================================
+       CITY CARDS
+    ============================================ */
+    .cards-wrap {
+      position: relative;
+      z-index: 1;
+      padding: 4px 20px 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .city-card {
+      background: var(--navy-card);
+      border: 1px solid var(--navy-border);
+      border-radius: 16px;
+      padding: 20px;
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+    }
+
+    .city-card:active {
+      transform: scale(0.985);
+    }
+
+    /* Featured card — NY/NJ */
+    .city-card.featured {
+      border-color: var(--gold);
+      box-shadow: 0 0 0 1px var(--gold), 0 8px 32px rgba(201,168,76,0.14);
+    }
+
+    .city-card.featured::before {
+      content: 'FEATURED';
+      position: absolute;
+      top: 14px;
+      right: 14px;
+      font-family: var(--font-display);
+      font-size: 9px;
+      letter-spacing: 0.18em;
+      color: var(--navy);
+      background: var(--gold);
+      padding: 3px 8px;
+      border-radius: 20px;
+    }
+
+    .card-flag {
+      font-size: 28px;
+      margin-bottom: 8px;
+      line-height: 1;
+    }
+
+    .card-title {
+      font-family: var(--font-display);
+      font-size: 28px;
+      letter-spacing: 0.04em;
+      color: var(--white);
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+
+    .city-card.featured .card-title {
+      color: var(--gold-bright);
+    }
+
+    .card-venue {
+      font-size: 13px;
+      color: var(--muted);
+      font-weight: 500;
+      margin-bottom: 12px;
+    }
+
+    .card-dates {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 10px;
+    }
+
+    .date-chip {
+      font-size: 11px;
+      font-weight: 500;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid var(--navy-border);
+      color: var(--white);
+      padding: 4px 10px;
+      border-radius: 20px;
+      letter-spacing: 0.02em;
+    }
+
+    .date-chip.final {
+      background: rgba(201,168,76,0.12);
+      border-color: var(--gold-dim);
+      color: var(--gold);
+      font-weight: 600;
+    }
+
+    .card-note {
+      font-size: 12px;
+      color: var(--muted);
+      margin-bottom: 16px;
+      line-height: 1.4;
+    }
+
+    .card-note::before {
+      content: '✦ ';
+      color: var(--gold-dim);
+      font-size: 9px;
+    }
+
+    .card-btn {
+      display: block;
+      width: 100%;
+      text-align: center;
+      font-family: var(--font-display);
+      font-size: 16px;
+      letter-spacing: 0.1em;
+      color: var(--navy);
+      background: var(--gold);
+      padding: 14px 20px;
+      border-radius: 10px;
+      text-decoration: none;
+      transition: background 0.15s, transform 0.1s;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .city-card:not(.featured) .card-btn {
+      background: transparent;
+      color: var(--gold);
+      border: 1.5px solid var(--gold-dim);
+    }
+
+    .card-btn:active {
+      transform: scale(0.97);
+    }
+
+    /* ============================================
+       EMERGENCY
+    ============================================ */
+    .emergency-section {
+      position: relative;
+      z-index: 1;
+      padding: 0 20px 24px;
+    }
+
+    .emergency-card {
+      background: rgba(224,62,62,0.07);
+      border: 1px solid rgba(224,62,62,0.25);
+      border-radius: 14px;
+      padding: 18px 20px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .emergency-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--red), transparent);
+    }
+
+    .emergency-header {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 14px;
+    }
+
+    .emergency-dot {
+      width: 8px;
+      height: 8px;
+      background: var(--red);
+      border-radius: 50%;
+      animation: pulse-red 1.8s infinite;
+      flex-shrink: 0;
+    }
+
+    @keyframes pulse-red {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50%       { opacity: 0.5; transform: scale(0.8); }
+    }
+
+    .emergency-title {
+      font-family: var(--font-display);
+      font-size: 15px;
+      letter-spacing: 0.14em;
+      color: var(--red);
+    }
+
+    .emergency-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+
+    .emergency-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .emergency-number {
+      font-family: var(--font-display);
+      font-size: 22px;
+      color: var(--white);
+      letter-spacing: 0.04em;
+      min-width: 90px;
+    }
+
+    .emergency-desc {
+      font-size: 12px;
+      color: var(--muted);
+      line-height: 1.3;
+    }
+
+    .emergency-link {
+      color: var(--white);
+      text-decoration: none;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .emergency-link:hover .emergency-number { color: var(--gold-bright); }
+
+    .emergency-note {
+      font-size: 11px;
+      color: var(--muted);
+      font-style: italic;
+      padding-top: 10px;
+      border-top: 1px solid rgba(255,255,255,0.05);
+    }
+
+    /* ============================================
+       QUICK RULES
+    ============================================ */
+    .rules-section {
+      position: relative;
+      z-index: 1;
+      padding: 0 20px 24px;
+    }
+
+    .rules-card {
+      background: var(--navy-card);
+      border: 1px solid var(--navy-border);
+      border-radius: 14px;
+      padding: 18px 20px;
+    }
+
+    .rules-list {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .rule-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+    }
+
+    .rule-icon {
+      font-size: 22px;
+      line-height: 1.1;
+      flex-shrink: 0;
+      width: 30px;
+      text-align: center;
+    }
+
+    .rule-text {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--white);
+      line-height: 1.4;
+    }
+
+    .rule-text em {
+      font-style: normal;
+      color: var(--muted);
+      font-weight: 400;
+    }
+
+    /* ============================================
+       SAVE THIS PAGE
+    ============================================ */
+    .save-section {
+      position: relative;
+      z-index: 1;
+      padding: 0 20px 28px;
+    }
+
+    .save-card {
+      background: linear-gradient(135deg, rgba(201,168,76,0.1), rgba(201,168,76,0.04));
+      border: 1px solid var(--gold-dim);
+      border-radius: 14px;
+      padding: 20px;
+      text-align: center;
+    }
+
+    .save-icon {
+      font-size: 32px;
+      margin-bottom: 10px;
+    }
+
+    .save-title {
+      font-family: var(--font-display);
+      font-size: 20px;
+      letter-spacing: 0.06em;
+      color: var(--gold-bright);
+      margin-bottom: 8px;
+    }
+
+    .save-body {
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.6;
+      margin-bottom: 14px;
+    }
+
+    .save-body strong {
+      color: var(--white);
+      font-weight: 500;
+    }
+
+    .save-btn {
+      display: inline-block;
+      font-family: var(--font-display);
+      font-size: 14px;
+      letter-spacing: 0.1em;
+      color: var(--navy);
+      background: var(--gold);
+      padding: 12px 28px;
+      border-radius: 8px;
+      text-decoration: none;
+      cursor: pointer;
+      border: none;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    /* ============================================
+       FOOTER
+    ============================================ */
+    .footer {
+      position: relative;
+      z-index: 1;
+      border-top: 1px solid var(--navy-border);
+      padding: 24px 20px 32px;
+      text-align: center;
+    }
+
+    .footer-brand {
+      font-family: var(--font-display);
+      font-size: 13px;
+      letter-spacing: 0.16em;
+      color: var(--gold-dim);
+      margin-bottom: 12px;
+    }
+
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 18px;
+      margin-bottom: 12px;
+    }
+
+    .footer-links a {
+      font-size: 12px;
+      color: var(--muted);
+      text-decoration: none;
+    }
+
+    .footer-links a:hover { color: var(--gold); }
+
+    .footer-copy {
+      font-size: 11px;
+      color: rgba(122,143,174,0.55);
+      letter-spacing: 0.04em;
+    }
+
+    /* ============================================
+       A2HS BANNER
+    ============================================ */
+    .a2hs-banner {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      max-width: 480px;
+      margin: 0 auto;
+      background: var(--navy-card);
+      border-top: 1px solid var(--gold-dim);
+      padding: 14px 18px 18px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      z-index: 999;
+      transform: translateY(100%);
+      transition: transform 0.35s cubic-bezier(0.16,1,0.3,1);
+      box-shadow: 0 -4px 24px rgba(0,0,0,0.5);
+    }
+
+    .a2hs-banner.visible { transform: translateY(0); }
+
+    .a2hs-text {
+      flex: 1;
+    }
+
+    .a2hs-text strong {
+      display: block;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--white);
+      margin-bottom: 2px;
+    }
+
+    .a2hs-text span {
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    .a2hs-add {
+      font-family: var(--font-display);
+      font-size: 13px;
+      letter-spacing: 0.08em;
+      color: var(--navy);
+      background: var(--gold);
+      border: none;
+      padding: 10px 16px;
+      border-radius: 8px;
+      cursor: pointer;
+      flex-shrink: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .a2hs-close {
+      background: none;
+      border: none;
+      color: var(--muted);
+      font-size: 18px;
+      cursor: pointer;
+      padding: 4px;
+      flex-shrink: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    /* ============================================
+       SECTION DIVIDER
+    ============================================ */
+    .divider {
+      position: relative;
+      z-index: 1;
+      padding: 0 20px 8px;
+    }
+
+    .divider-line {
+      height: 1px;
+      background: var(--navy-border);
+    }
+
+  </style>
+</head>
+<body>
+
+  <!-- TOP BAR -->
+  <div class="topbar">🇺🇸 USA FAN PASS · EAST COAST PACK · SUMMER 2026 ⚽</div>
+
+  <!-- HERO -->
+  <header class="hero">
+    <p class="hero-eyebrow">OFFICIAL DIGITAL GUIDE</p>
+    <h1 class="hero-title">YOUR PASS<br>IS <span>READY</span></h1>
+    <p class="hero-subtitle">New York / NJ · Miami · Boston</p>
+    <div class="hero-divider"></div>
+    <p class="hero-instructions">
+      Tap any city below to open your guide.<br>
+      <strong>Bookmark this page — it works offline.</strong>
+    </p>
+  </header>
+
+  <!-- COUNTDOWN -->
+  <div class="section">
+    <p class="section-label">⚽ Tournament Countdown</p>
+    <div class="countdown-card">
+      <p class="countdown-label">First kickoff in</p>
+      <div class="countdown-display">
+        <div class="cd-unit">
+          <span class="cd-number" id="cd-days">--</span>
+          <span class="cd-name">Days</span>
+        </div>
+        <span class="cd-sep">:</span>
+        <div class="cd-unit">
+          <span class="cd-number" id="cd-hrs">--</span>
+          <span class="cd-name">Hrs</span>
+        </div>
+        <span class="cd-sep">:</span>
+        <div class="cd-unit">
+          <span class="cd-number" id="cd-min">--</span>
+          <span class="cd-name">Min</span>
+        </div>
+        <span class="cd-sep">:</span>
+        <div class="cd-unit">
+          <span class="cd-number" id="cd-sec">--</span>
+          <span class="cd-name">Sec</span>
+        </div>
+      </div>
+      <p class="countdown-sub">FIFA World Cup 2026 · June 11 – July 19</p>
+    </div>
+  </div>
+
+  <!-- CITY GUIDES -->
+  <div class="section" style="padding-bottom: 0;">
+    <p class="section-label">📍 Your City Guides</p>
+  </div>
+
+  <div class="cards-wrap">
+
+    <!-- NEW YORK / NJ — FEATURED -->
+    <div class="city-card featured">
+      <div class="card-flag">🗽</div>
+      <h2 class="card-title">NEW YORK / NJ</h2>
+      <p class="card-venue">MetLife Stadium · 6 matches</p>
+      <div class="card-dates">
+        <span class="date-chip">Jun 12</span>
+        <span class="date-chip">Jun 15</span>
+        <span class="date-chip">Jun 19</span>
+        <span class="date-chip">Jun 25</span>
+        <span class="date-chip">Jul 1</span>
+        <span class="date-chip final">⚽ FINAL</span>
+      </div>
+      <p class="card-note">Largest stadium · Final match venue</p>
+      <a href="https://usa-fan-pass.vercel.app/nynj-worldcup-guide.html" class="card-btn" target="_blank" rel="noopener">OPEN GUIDE →</a>
+    </div>
+
+    <!-- MIAMI -->
+    <div class="city-card">
+      <div class="card-flag">🌊</div>
+      <h2 class="card-title">MIAMI</h2>
+      <p class="card-venue">Hard Rock Stadium · 4 matches</p>
+      <div class="card-dates">
+        <span class="date-chip">Jun 14</span>
+        <span class="date-chip">Jun 20</span>
+        <span class="date-chip">Jun 26</span>
+        <span class="date-chip">Jul 4</span>
+      </div>
+      <p class="card-note">Latin America hub · Best nightlife</p>
+      <a href="https://usa-fan-pass.vercel.app/miami-fan-pass.html" class="card-btn" target="_blank" rel="noopener">OPEN GUIDE →</a>
+    </div>
+
+    <!-- BOSTON -->
+    <div class="city-card">
+      <div class="card-flag">🦞</div>
+      <h2 class="card-title">BOSTON</h2>
+      <p class="card-venue">Gillette Stadium · 4 matches</p>
+      <div class="card-dates">
+        <span class="date-chip">Jun 16</span>
+        <span class="date-chip">Jun 23</span>
+        <span class="date-chip">Jun 29</span>
+        <span class="date-chip">Jul 5</span>
+      </div>
+      <p class="card-note">Most European city · Best weather</p>
+      <a href="https://usa-fan-pass.vercel.app/boston-fan-pass-2026.html" class="card-btn" target="_blank" rel="noopener">OPEN GUIDE →</a>
+    </div>
+
+  </div>
+
+  <div class="divider"><div class="divider-line"></div></div>
+
+  <!-- EMERGENCY NUMBERS -->
+  <div class="emergency-section">
+    <p class="section-label" style="padding: 0 0 12px;">🚨 Emergency Numbers</p>
+    <div class="emergency-card">
+      <div class="emergency-header">
+        <div class="emergency-dot"></div>
+        <span class="emergency-title">SAVE BEFORE YOU TRAVEL</span>
+      </div>
+      <div class="emergency-list">
+        <a class="emergency-link" href="tel:911">
+          <div class="emergency-item">
+            <span class="emergency-number">911</span>
+            <span class="emergency-desc">All emergencies<br>Police · Fire · Ambulance</span>
+          </div>
+        </a>
+        <a class="emergency-link" href="tel:311">
+          <div class="emergency-item">
+            <span class="emergency-number">311</span>
+            <span class="emergency-desc">Non-emergency / city services<br>Lost items · noise · general help</span>
+          </div>
+        </a>
+        <a class="emergency-link" href="tel:+18884074747">
+          <div class="emergency-item">
+            <span class="emergency-number" style="font-size:16px; min-width:90px;">+1-888-407-4747</span>
+            <span class="emergency-desc">US Tourist Emergency<br>State Dept. 24/7 hotline</span>
+          </div>
+        </a>
+      </div>
+      <p class="emergency-note">Full emergency contacts inside each city guide</p>
+    </div>
+  </div>
+
+  <div class="divider"><div class="divider-line"></div></div>
+
+  <!-- QUICK RULES -->
+  <div class="rules-section">
+    <p class="section-label" style="padding: 12px 0 12px;">⚡ 5 Rules to Stay Safe</p>
+    <div class="rules-card">
+      <div class="rules-list">
+        <div class="rule-item">
+          <span class="rule-icon">🚖</span>
+          <span class="rule-text">Uber / Lyft only<em> — no unlicensed cabs, ever</em></span>
+        </div>
+        <div class="rule-item">
+          <span class="rule-icon">🏥</span>
+          <span class="rule-text">Urgent Care, not the ER<em> — saves thousands of dollars</em></span>
+        </div>
+        <div class="rule-item">
+          <span class="rule-icon">📱</span>
+          <span class="rule-text">Phone in front pocket<em> — not your back pocket</em></span>
+        </div>
+        <div class="rule-item">
+          <span class="rule-icon">🏦</span>
+          <span class="rule-text">ATM inside banks or hotels<em> — skip street ATMs</em></span>
+        </div>
+        <div class="rule-item">
+          <span class="rule-icon">🌙</span>
+          <span class="rule-text">Check your safety zone after dark<em> — city guide has the map</em></span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"><div class="divider-line"></div></div>
+
+  <!-- SAVE THIS PAGE -->
+  <div class="save-section" style="padding-top: 20px;">
+    <div class="save-card">
+      <div class="save-icon">📲</div>
+      <h3 class="save-title">SAVE THIS PAGE</h3>
+      <p class="save-body">
+        This page works <strong>without internet</strong> once saved.<br>
+        Add to Home Screen for instant access in the USA.
+      </p>
+      <button class="save-btn" id="a2hs-trigger">+ Add to Home Screen</button>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <p class="footer-brand">USA FAN PASS — Your guide. Your trip. Your safety.</p>
+    <div class="footer-links">
+      <a href="mailto:hello@usfanpass.com">Support</a>
+      <a href="#">Refund Policy</a>
+      <a href="https://usfanpass.com" target="_blank" rel="noopener">usfanpass.com</a>
+    </div>
+    <p class="footer-copy">© 2026 USA Fan Pass · For personal use only</p>
+  </footer>
+
+  <!-- ADD TO HOME SCREEN BANNER -->
+  <div class="a2hs-banner" id="a2hs-banner">
+    <div class="a2hs-text">
+      <strong>Add to Home Screen</strong>
+      <span>Works offline · Instant access</span>
+    </div>
+    <button class="a2hs-add" id="a2hs-install">Install</button>
+    <button class="a2hs-close" id="a2hs-dismiss" aria-label="Dismiss">✕</button>
+  </div>
+
+  <script>
+    // ============================================
+    // COUNTDOWN
+    // ============================================
+    (function() {
+      var target = new Date('2026-06-11T18:00:00Z'); // Jun 11 2026 kickoff (UTC)
+
+      function pad(n) { return String(n).padStart(2, '0'); }
+
+      function tick() {
+        var now  = Date.now();
+        var diff = target - now;
+
+        if (diff <= 0) {
+          document.getElementById('cd-days').textContent = '00';
+          document.getElementById('cd-hrs').textContent  = '00';
+          document.getElementById('cd-min').textContent  = '00';
+          document.getElementById('cd-sec').textContent  = '00';
+          return;
+        }
+
+        var days = Math.floor(diff / 86400000);
+        var hrs  = Math.floor((diff % 86400000) / 3600000);
+        var min  = Math.floor((diff % 3600000)  / 60000);
+        var sec  = Math.floor((diff % 60000)    / 1000);
+
+        document.getElementById('cd-days').textContent = pad(days);
+        document.getElementById('cd-hrs').textContent  = pad(hrs);
+        document.getElementById('cd-min').textContent  = pad(min);
+        document.getElementById('cd-sec').textContent  = pad(sec);
+      }
+
+      tick();
+      setInterval(tick, 1000);
+    })();
+
+    // ============================================
+    // ADD TO HOME SCREEN
+    // ============================================
+    (function() {
+      var deferredPrompt = null;
+      var banner  = document.getElementById('a2hs-banner');
+      var install = document.getElementById('a2hs-install');
+      var dismiss = document.getElementById('a2hs-dismiss');
+      var trigger = document.getElementById('a2hs-trigger');
+
+      function showBanner() {
+        setTimeout(function() { banner.classList.add('visible'); }, 2500);
+      }
+
+      window.addEventListener('beforeinstallprompt', function(e) {
+        e.preventDefault();
+        deferredPrompt = e;
+        showBanner();
+      });
+
+      function doInstall() {
+        if (deferredPrompt) {
+          deferredPrompt.prompt();
+          deferredPrompt.userChoice.then(function() {
+            deferredPrompt = null;
+            banner.classList.remove('visible');
+          });
+        } else {
+          // iOS / fallback: show instructions
+          alert('To add to Home Screen:\niOS: Tap the Share icon → "Add to Home Screen"\nAndroid: Tap the menu (⋮) → "Add to Home Screen"');
+        }
+      }
+
+      install.addEventListener('click', doInstall);
+      trigger.addEventListener('click', doInstall);
+
+      dismiss.addEventListener('click', function() {
+        banner.classList.remove('visible');
+      });
+
+      // On iOS, no beforeinstallprompt — show banner after delay anyway
+      var isIOS = /iphone|ipad|ipod/i.test(navigator.userAgent);
+      var isInStandalone = window.navigator.standalone;
+      if (isIOS && !isInStandalone) {
+        showBanner();
+      }
+    })();
+  </script>
+
+</body>
+</html>

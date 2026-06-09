@@ -1,0 +1,858 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>USA Fan Pass · USA + Mexico Full Pass · 2026</title>
+  <meta name="theme-color" content="#050D1F" />
+  <meta name="description" content="Your complete World Cup 2026 pass — 5 USA cities + 3 Mexico cities. All 8 host cities covered." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --navy-deep:   #050D1F;
+      --navy-mid:    #0A1830;
+      --navy-card:   #0D1E38;
+      --navy-border: #1A3057;
+      --gold:        #C9A84C;
+      --gold-bright: #F0C84A;
+      --gold-dim:    #7A6128;
+      --white:       #FFFFFF;
+      --off-white:   #D4E0F0;
+      --muted:       #6A85A8;
+      --usa-red:     #B22234;
+      --mx-green:    #006847;
+      --mx-red:      #CE1126;
+      --danger:      #E55353;
+      --radius-card: 14px;
+      --radius-sm:   8px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--navy-deep);
+      color: var(--white);
+      font-family: 'Inter', system-ui, sans-serif;
+      font-size: 15px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      min-height: 100vh;
+    }
+
+    /* ── NOISE TEXTURE OVERLAY ── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.4;
+    }
+
+    .page-wrap {
+      position: relative;
+      z-index: 1;
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 0 16px 64px;
+    }
+
+    /* ── CROSS-BORDER BANNER ── */
+    .xborder-banner {
+      background: linear-gradient(135deg, var(--usa-red) 0%, #3C3B6E 30%, var(--navy-deep) 50%, var(--mx-green) 75%, var(--mx-red) 100%);
+      text-align: center;
+      padding: 6px 16px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.92);
+    }
+
+    /* ── HEADER ── */
+    .site-header {
+      background: linear-gradient(180deg, #091528 0%, var(--navy-deep) 100%);
+      border-bottom: 1px solid var(--navy-border);
+      padding: 28px 16px 32px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .site-header::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0; height: 2px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    }
+
+    .badge {
+      display: inline-block;
+      background: linear-gradient(135deg, var(--gold-dim), var(--gold));
+      color: var(--navy-deep);
+      font-size: 10.5px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      padding: 5px 14px;
+      border-radius: 20px;
+      margin-bottom: 18px;
+    }
+
+    .flags-row {
+      font-size: 28px;
+      margin-bottom: 14px;
+      letter-spacing: 0.1em;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    .flags-row .ball {
+      font-size: 22px;
+      animation: spin 8s linear infinite;
+      display: inline-block;
+    }
+
+    @keyframes spin {
+      0%   { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    .header-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(40px, 10vw, 62px);
+      letter-spacing: 0.05em;
+      color: var(--white);
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+
+    .header-title span {
+      background: linear-gradient(90deg, var(--gold), var(--gold-bright));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .header-subtitle {
+      color: var(--off-white);
+      font-size: 14px;
+      font-weight: 400;
+      margin-bottom: 6px;
+      opacity: 0.85;
+    }
+
+    .header-cta-text {
+      color: var(--gold);
+      font-size: 13px;
+      font-weight: 500;
+      margin-top: 10px;
+      opacity: 0.9;
+    }
+
+    /* ── COUNTDOWN ── */
+    .countdown-wrap {
+      background: var(--navy-mid);
+      border: 1px solid var(--navy-border);
+      border-top: 2px solid var(--gold);
+      border-radius: var(--radius-card);
+      padding: 20px 16px;
+      margin: 20px 0;
+      text-align: center;
+    }
+
+    .countdown-label {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 14px;
+    }
+
+    .countdown-units {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+    }
+
+    .cd-unit {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-width: 56px;
+    }
+
+    .cd-num {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 42px;
+      line-height: 1;
+      color: var(--gold-bright);
+      letter-spacing: 0.04em;
+    }
+
+    .cd-lbl {
+      font-size: 9px;
+      font-weight: 600;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-top: 4px;
+    }
+
+    .cd-sep {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 38px;
+      color: var(--gold-dim);
+      line-height: 1;
+      align-self: flex-start;
+      padding-top: 4px;
+    }
+
+    /* ── SECTION HEADERS ── */
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin: 32px 0 14px;
+    }
+
+    .section-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 26px;
+      letter-spacing: 0.06em;
+      color: var(--white);
+    }
+
+    .section-line {
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(90deg, var(--navy-border), transparent);
+    }
+
+    .section-note {
+      font-size: 12px;
+      color: var(--muted);
+      margin: -8px 0 14px;
+      padding-left: 2px;
+    }
+
+    /* ── CITY CARDS ── */
+    .city-card {
+      background: var(--navy-card);
+      border: 1px solid var(--navy-border);
+      border-radius: var(--radius-card);
+      margin-bottom: 12px;
+      overflow: hidden;
+      text-decoration: none;
+      display: block;
+      transition: transform 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease;
+      position: relative;
+    }
+
+    .city-card:hover, .city-card:focus-visible {
+      transform: translateY(-2px);
+      border-color: var(--gold-dim);
+      box-shadow: 0 8px 32px rgba(201, 168, 76, 0.12);
+      outline: none;
+    }
+
+    .city-card:active {
+      transform: translateY(0);
+    }
+
+    /* featured card */
+    .city-card.featured {
+      border-color: var(--gold-dim);
+      background: linear-gradient(135deg, #101F3A, #0A1830);
+    }
+
+    .city-card.featured::before {
+      content: '⭐ FEATURED CITY';
+      position: absolute;
+      top: 0; right: 0;
+      background: var(--gold);
+      color: var(--navy-deep);
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      padding: 4px 10px;
+      border-bottom-left-radius: var(--radius-sm);
+    }
+
+    .card-inner {
+      padding: 16px 18px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .card-flag {
+      font-size: 32px;
+      line-height: 1;
+      flex-shrink: 0;
+    }
+
+    .card-body {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .card-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 22px;
+      letter-spacing: 0.06em;
+      color: var(--white);
+      line-height: 1.1;
+    }
+
+    .card-subtitle {
+      font-size: 12px;
+      color: var(--gold);
+      font-weight: 500;
+      margin-top: 2px;
+    }
+
+    .card-dates {
+      font-size: 11px;
+      color: var(--muted);
+      margin-top: 4px;
+    }
+
+    .card-note {
+      font-size: 11px;
+      color: var(--off-white);
+      opacity: 0.7;
+      margin-top: 4px;
+      font-style: italic;
+    }
+
+    .card-arrow {
+      color: var(--gold-dim);
+      font-size: 20px;
+      flex-shrink: 0;
+      transition: transform 0.18s ease, color 0.18s ease;
+    }
+
+    .city-card:hover .card-arrow {
+      transform: translateX(4px);
+      color: var(--gold);
+    }
+
+    /* mexico cards get a subtle green tint */
+    .mx-card {
+      border-left: 3px solid var(--mx-green);
+    }
+
+    /* ── ALSO INCLUDED ── */
+    .bonus-grid {
+      display: grid;
+      gap: 10px;
+    }
+
+    .bonus-link {
+      background: var(--navy-mid);
+      border: 1px solid var(--navy-border);
+      border-radius: var(--radius-sm);
+      padding: 14px 16px;
+      text-decoration: none;
+      color: var(--white);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      transition: border-color 0.18s, background 0.18s;
+    }
+
+    .bonus-link:hover {
+      border-color: var(--gold-dim);
+      background: var(--navy-card);
+    }
+
+    .bonus-icon { font-size: 22px; flex-shrink: 0; }
+    .bonus-text { font-size: 13px; font-weight: 500; color: var(--off-white); }
+    .bonus-arrow { margin-left: auto; color: var(--muted); font-size: 16px; }
+
+    /* ── EMERGENCY ── */
+    .emergency-section {
+      background: var(--navy-card);
+      border: 1px solid var(--navy-border);
+      border-top: 2px solid var(--danger);
+      border-radius: var(--radius-card);
+      padding: 20px 18px;
+      margin: 32px 0 0;
+    }
+
+    .emergency-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 20px;
+      color: var(--danger);
+      letter-spacing: 0.08em;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .emergency-cols {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    @media (max-width: 420px) {
+      .emergency-cols { grid-template-columns: 1fr; }
+    }
+
+    .emergency-col-title {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 10px;
+    }
+
+    .emergency-item {
+      display: flex;
+      align-items: baseline;
+      gap: 8px;
+      margin-bottom: 8px;
+    }
+
+    .emergency-num {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 20px;
+      color: var(--danger);
+      min-width: 40px;
+    }
+
+    .emergency-desc {
+      font-size: 12px;
+      color: var(--off-white);
+      opacity: 0.85;
+    }
+
+    /* ── QUICK RULES ── */
+    .rules-section {
+      background: var(--navy-mid);
+      border: 1px solid var(--navy-border);
+      border-radius: var(--radius-card);
+      padding: 20px 18px;
+      margin-top: 20px;
+    }
+
+    .rules-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 18px;
+      letter-spacing: 0.08em;
+      color: var(--gold);
+      margin-bottom: 14px;
+    }
+
+    .rule-item {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      padding: 9px 0;
+      border-bottom: 1px solid rgba(26,48,87,0.6);
+      font-size: 12.5px;
+      color: var(--off-white);
+      line-height: 1.5;
+    }
+
+    .rule-item:last-child { border-bottom: none; }
+
+    .rule-icon { flex-shrink: 0; font-size: 16px; margin-top: 1px; }
+
+    /* ── FOOTER ── */
+    .site-footer {
+      text-align: center;
+      padding: 36px 16px 24px;
+      border-top: 1px solid var(--navy-border);
+      margin-top: 40px;
+    }
+
+    .footer-brand {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 18px;
+      letter-spacing: 0.1em;
+      color: var(--gold);
+      margin-bottom: 8px;
+    }
+
+    .footer-tagline {
+      font-size: 13px;
+      color: var(--muted);
+      margin-bottom: 10px;
+      line-height: 1.5;
+    }
+
+    .footer-support {
+      font-size: 12px;
+      color: var(--gold-dim);
+    }
+
+    .footer-support a {
+      color: var(--gold);
+      text-decoration: none;
+    }
+
+    .footer-support a:hover { text-decoration: underline; }
+
+    .footer-copy {
+      font-size: 10px;
+      color: var(--muted);
+      margin-top: 10px;
+      opacity: 0.6;
+    }
+
+    /* ── DIVIDER ── */
+    .gold-divider {
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--gold-dim), transparent);
+      margin: 28px 0;
+      opacity: 0.5;
+    }
+
+    /* ── SCROLL FADE-IN ── */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(16px);
+      transition: opacity 0.45s ease, transform 0.45s ease;
+    }
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .fade-in { opacity: 1; transform: none; transition: none; }
+      .flags-row .ball { animation: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Cross-border top banner -->
+  <div class="xborder-banner">🌎 USA + MEXICO CROSS-BORDER TOURNAMENT PASS · FIFA WORLD CUP 2026™</div>
+
+  <!-- Header -->
+  <header class="site-header">
+    <div class="badge">🌎 Full Tournament Pass — All 8 Cities</div>
+    <div class="flags-row">
+      <span>🇺🇸</span>
+      <span class="ball">⚽</span>
+      <span>🇲🇽</span>
+    </div>
+    <h1 class="header-title">YOUR PASS IS <span>READY</span></h1>
+    <p class="header-subtitle">5 USA cities &nbsp;·&nbsp; 3 Mexico cities &nbsp;·&nbsp; Complete tournament coverage</p>
+    <p class="header-cta-text">Tap any city below to open your guide.</p>
+  </header>
+
+  <!-- Page content -->
+  <div class="page-wrap">
+
+    <!-- Countdown -->
+    <div class="countdown-wrap fade-in">
+      <div class="countdown-label">⚡ Kickoff starts in</div>
+      <div class="countdown-units">
+        <div class="cd-unit">
+          <span class="cd-num" id="cd-days">--</span>
+          <span class="cd-lbl">Days</span>
+        </div>
+        <div class="cd-sep">:</div>
+        <div class="cd-unit">
+          <span class="cd-num" id="cd-hours">--</span>
+          <span class="cd-lbl">Hours</span>
+        </div>
+        <div class="cd-sep">:</div>
+        <div class="cd-unit">
+          <span class="cd-num" id="cd-mins">--</span>
+          <span class="cd-lbl">Mins</span>
+        </div>
+        <div class="cd-sep">:</div>
+        <div class="cd-unit">
+          <span class="cd-num" id="cd-secs">--</span>
+          <span class="cd-lbl">Secs</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- USA Cities -->
+    <div class="section-header fade-in">
+      <span class="section-title">🇺🇸 USA Venues</span>
+      <span class="section-line"></span>
+    </div>
+
+    <!-- NY/NJ Featured -->
+    <a class="city-card featured fade-in" href="https://usa-fan-pass.vercel.app/nynj-worldcup-guide.html" target="_blank" rel="noopener">
+      <div class="card-inner">
+        <div class="card-flag">🗽</div>
+        <div class="card-body">
+          <div class="card-title">New York / New Jersey</div>
+          <div class="card-subtitle">MetLife Stadium · Multiple matches</div>
+          <div class="card-dates">Matches across group stage &amp; knockouts</div>
+          <div class="card-note">Largest metro in the USA · Hub city</div>
+        </div>
+        <div class="card-arrow">›</div>
+      </div>
+    </a>
+
+    <!-- LA -->
+    <a class="city-card fade-in" href="https://usa-fan-pass.vercel.app/la-fan-pass-2026.html" target="_blank" rel="noopener">
+      <div class="card-inner">
+        <div class="card-flag">🎬</div>
+        <div class="card-body">
+          <div class="card-title">Los Angeles</div>
+          <div class="card-subtitle">SoFi Stadium · Multiple matches</div>
+          <div class="card-dates">Group stage · Knockout rounds</div>
+          <div class="card-note">Perfect weather · Largest Latino fan base in USA</div>
+        </div>
+        <div class="card-arrow">›</div>
+      </div>
+    </a>
+
+    <!-- Dallas -->
+    <a class="city-card fade-in" href="https://usa-fan-pass.vercel.app/dallas-fan-pass-2026.html" target="_blank" rel="noopener">
+      <div class="card-inner">
+        <div class="card-flag">🤠</div>
+        <div class="card-body">
+          <div class="card-title">Dallas</div>
+          <div class="card-subtitle">AT&amp;T Stadium · Multiple matches</div>
+          <div class="card-dates">Group stage · Knockout rounds</div>
+          <div class="card-note">🌡️ Extreme heat — read heat protocol in guide</div>
+        </div>
+        <div class="card-arrow">›</div>
+      </div>
+    </a>
+
+    <!-- Miami -->
+    <a class="city-card fade-in" href="https://usa-fan-pass.vercel.app/miami-fan-pass.html" target="_blank" rel="noopener">
+      <div class="card-inner">
+        <div class="card-flag">🌴</div>
+        <div class="card-body">
+          <div class="card-title">Miami</div>
+          <div class="card-subtitle">Hard Rock Stadium · Multiple matches</div>
+          <div class="card-dates">Group stage · Knockout rounds</div>
+          <div class="card-note">🌡️ Humidity + heat — check guide for protocols</div>
+        </div>
+        <div class="card-arrow">›</div>
+      </div>
+    </a>
+
+    <!-- Boston -->
+    <a class="city-card fade-in" href="https://usa-fan-pass.vercel.app/boston-fan-pass-2026.html" target="_blank" rel="noopener">
+      <div class="card-inner">
+        <div class="card-flag">🦞</div>
+        <div class="card-body">
+          <div class="card-title">Boston</div>
+          <div class="card-subtitle">Gillette Stadium · Multiple matches</div>
+          <div class="card-dates">Group stage · Knockout rounds</div>
+          <div class="card-note">Best fan atmosphere on the East Coast</div>
+        </div>
+        <div class="card-arrow">›</div>
+      </div>
+    </a>
+
+    <!-- Mexico Cities -->
+    <div class="section-header fade-in">
+      <span class="section-title">🇲🇽 Mexico Venues</span>
+      <span class="section-line"></span>
+    </div>
+    <p class="section-note fade-in">Your Mexico guides are hosted on <strong style="color:var(--off-white)">mexicotravelpass.com</strong></p>
+
+    <!-- CDMX -->
+    <a class="city-card mx-card fade-in" href="https://www.mexicotravelpass.com/cdmx-guide-2026" target="_blank" rel="noopener">
+      <div class="card-inner">
+        <div class="card-flag">🏙️</div>
+        <div class="card-body">
+          <div class="card-title">Mexico City</div>
+          <div class="card-subtitle">Estadio Azteca · 5 matches</div>
+          <div class="card-dates">Jun 11 · Jun 17 · Jun 24 · Jun 30 · Jul 5</div>
+          <div class="card-note">Opening match · Altitude 2,240m — read guide first</div>
+        </div>
+        <div class="card-arrow">›</div>
+      </div>
+    </a>
+
+    <!-- Guadalajara -->
+    <a class="city-card mx-card fade-in" href="https://www.mexicotravelpass.com/GDL-guide-2026" target="_blank" rel="noopener">
+      <div class="card-inner">
+        <div class="card-flag">🌵</div>
+        <div class="card-body">
+          <div class="card-title">Guadalajara</div>
+          <div class="card-subtitle">Estadio Akron · 4 matches</div>
+          <div class="card-dates">Jun 11 · Jun 18 · Jun 23 · Jun 26</div>
+          <div class="card-note">Best weather of all 8 cities · 22°C</div>
+        </div>
+        <div class="card-arrow">›</div>
+      </div>
+    </a>
+
+    <!-- Monterrey -->
+    <a class="city-card mx-card fade-in" href="https://www.mexicotravelpass.com/MTY-guide-2026" target="_blank" rel="noopener">
+      <div class="card-inner">
+        <div class="card-flag">⛰️</div>
+        <div class="card-body">
+          <div class="card-title">Monterrey</div>
+          <div class="card-subtitle">Estadio BBVA · 4 matches</div>
+          <div class="card-dates">Jun 14 · Jun 20 · Jun 24 · Jun 29</div>
+          <div class="card-note">Industrial city · Hot · Great food</div>
+        </div>
+        <div class="card-arrow">›</div>
+      </div>
+    </a>
+
+    <div class="gold-divider"></div>
+
+    <!-- Also Included -->
+    <div class="section-header fade-in">
+      <span class="section-title">📦 Also Included</span>
+      <span class="section-line"></span>
+    </div>
+
+    <div class="bonus-grid">
+      <a class="bonus-link fade-in" href="https://usa-fan-pass.vercel.app/healthcare-survival-guide-wc2026.html" target="_blank" rel="noopener">
+        <span class="bonus-icon">🏥</span>
+        <span class="bonus-text">Healthcare Survival Guide</span>
+        <span class="bonus-arrow">›</span>
+      </a>
+      <a class="bonus-link fade-in" href="https://usa-fan-pass.vercel.app/know-your-rights-worldcup2026.html" target="_blank" rel="noopener">
+        <span class="bonus-icon">⚖️</span>
+        <span class="bonus-text">Know Your Rights</span>
+        <span class="bonus-arrow">›</span>
+      </a>
+      <a class="bonus-link fade-in" href="https://usa-fan-pass.vercel.app/wc2026-survival-guide.html" target="_blank" rel="noopener">
+        <span class="bonus-icon">🚨</span>
+        <span class="bonus-text">Scam Survival Guide</span>
+        <span class="bonus-arrow">›</span>
+      </a>
+    </div>
+
+    <!-- Emergency -->
+    <div class="emergency-section fade-in">
+      <div class="emergency-title">🆘 Emergency Numbers</div>
+      <div class="emergency-cols">
+        <div>
+          <div class="emergency-col-title">🇺🇸 USA</div>
+          <div class="emergency-item">
+            <span class="emergency-num">911</span>
+            <span class="emergency-desc">All emergencies</span>
+          </div>
+          <div class="emergency-item">
+            <span class="emergency-num">311</span>
+            <span class="emergency-desc">Non-emergency</span>
+          </div>
+          <div class="emergency-item">
+            <span class="emergency-num" style="font-size:13px;line-height:1.4">+1-888<br>407-4747</span>
+            <span class="emergency-desc">Tourist help</span>
+          </div>
+        </div>
+        <div>
+          <div class="emergency-col-title">🇲🇽 Mexico</div>
+          <div class="emergency-item">
+            <span class="emergency-num">911</span>
+            <span class="emergency-desc">All emergencies</span>
+          </div>
+          <div class="emergency-item">
+            <span class="emergency-num">078</span>
+            <span class="emergency-desc">Tourist help (English)</span>
+          </div>
+          <div class="emergency-item">
+            <span class="emergency-num">065</span>
+            <span class="emergency-desc">Cruz Roja medical</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Quick Rules -->
+    <div class="rules-section fade-in">
+      <div class="rules-title">⚡ Quick Rules — Both Countries</div>
+      <div class="rule-item">
+        <span class="rule-icon">🚖</span>
+        <span>USA: Uber/Lyft only &nbsp;·&nbsp; Mexico: InDrive/Uber only — <strong>no street taxis</strong></span>
+      </div>
+      <div class="rule-item">
+        <span class="rule-icon">🏥</span>
+        <span>USA: Urgent Care first &nbsp;·&nbsp; Mexico: Cruz Roja or private clinic</span>
+      </div>
+      <div class="rule-item">
+        <span class="rule-icon">💧</span>
+        <span>Mexico: <strong>bottled water only</strong> &nbsp;·&nbsp; USA: tap water is safe</span>
+      </div>
+      <div class="rule-item">
+        <span class="rule-icon">📱</span>
+        <span>Phone secured at all times — <strong>both countries</strong></span>
+      </div>
+      <div class="rule-item">
+        <span class="rule-icon">🌡️</span>
+        <span>Dallas, Miami, Monterrey: extreme heat protocol in guides</span>
+      </div>
+    </div>
+
+  </div><!-- /page-wrap -->
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="footer-brand">USA FAN PASS × MEXICO TRAVEL PASS</div>
+    <div class="footer-tagline">Your guide. Your trip. Your safety.<br>Across two countries.</div>
+    <div class="footer-support">Support: <a href="mailto:hello@usfanpass.com">hello@usfanpass.com</a></div>
+    <div class="footer-copy">© 2026 &nbsp;·&nbsp; For personal use only</div>
+  </footer>
+
+  <script>
+    // ── Countdown to June 11, 2026 00:00:00 UTC ──
+    const target = new Date('2026-06-11T00:00:00Z').getTime();
+
+    function pad(n) { return String(n).padStart(2, '0'); }
+
+    function tick() {
+      const now = Date.now();
+      const diff = target - now;
+
+      if (diff <= 0) {
+        document.getElementById('cd-days').textContent  = '00';
+        document.getElementById('cd-hours').textContent = '00';
+        document.getElementById('cd-mins').textContent  = '00';
+        document.getElementById('cd-secs').textContent  = '00';
+        return;
+      }
+
+      const days  = Math.floor(diff / 86400000);
+      const hours = Math.floor((diff % 86400000) / 3600000);
+      const mins  = Math.floor((diff % 3600000) / 60000);
+      const secs  = Math.floor((diff % 60000) / 1000);
+
+      document.getElementById('cd-days').textContent  = pad(days);
+      document.getElementById('cd-hours').textContent = pad(hours);
+      document.getElementById('cd-mins').textContent  = pad(mins);
+      document.getElementById('cd-secs').textContent  = pad(secs);
+    }
+
+    tick();
+    setInterval(tick, 1000);
+
+    // ── Scroll fade-in ──
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+          observer.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.08, rootMargin: '0px 0px -30px 0px' });
+
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+  </script>
+
+</body>
+</html>

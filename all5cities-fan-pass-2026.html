@@ -1,0 +1,821 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>USA Fan Pass · All 5 Cities · 2026</title>
+  <meta name="theme-color" content="#050D1F" />
+  <meta name="description" content="Your complete USA Fan Pass for all 5 World Cup 2026 host cities — New York, Los Angeles, Dallas, Miami & Boston." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Oswald:wght@500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy:      #050D1F;
+      --navy-mid:  #0A1628;
+      --navy-card: #0D1E35;
+      --navy-edge: #112240;
+      --gold:      #F5C518;
+      --gold-dim:  #C49A10;
+      --gold-glow: rgba(245,197,24,0.18);
+      --white:     #FFFFFF;
+      --white-70:  rgba(255,255,255,0.70);
+      --white-40:  rgba(255,255,255,0.40);
+      --white-15:  rgba(255,255,255,0.07);
+      --red:       #E63946;
+      --green:     #2DC653;
+      --radius-sm: 10px;
+      --radius-md: 14px;
+      --radius-lg: 20px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--navy);
+      color: var(--white);
+      font-family: 'Inter', sans-serif;
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── BEST VALUE BANNER ── */
+    .best-value-banner {
+      background: linear-gradient(90deg, #B8860B 0%, var(--gold) 40%, #FFE066 65%, var(--gold) 100%);
+      text-align: center;
+      padding: 10px 16px;
+      font-family: 'Oswald', sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      color: #050D1F;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      text-transform: uppercase;
+      text-shadow: none;
+      box-shadow: 0 2px 16px rgba(245,197,24,0.35);
+    }
+
+    /* ── HEADER ── */
+    header {
+      background: linear-gradient(180deg, #081325 0%, var(--navy) 100%);
+      text-align: center;
+      padding: 36px 20px 32px;
+      border-bottom: 1px solid var(--navy-edge);
+      position: relative;
+      overflow: hidden;
+    }
+
+    header::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 70% 60% at 50% 0%, rgba(245,197,24,0.07) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .header-eyebrow {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--gold);
+      background: rgba(245,197,24,0.10);
+      border: 1px solid rgba(245,197,24,0.25);
+      padding: 5px 14px;
+      border-radius: 100px;
+      margin-bottom: 18px;
+    }
+
+    .header-main-title {
+      font-family: 'Oswald', sans-serif;
+      font-size: clamp(26px, 7vw, 44px);
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      line-height: 1.1;
+      color: var(--white);
+      margin-bottom: 10px;
+      text-shadow: 0 0 40px rgba(245,197,24,0.2);
+    }
+
+    .header-ready {
+      font-family: 'Oswald', sans-serif;
+      font-size: clamp(36px, 10vw, 64px);
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      line-height: 1;
+      background: linear-gradient(135deg, #FFE066 0%, var(--gold) 50%, #C49A10 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 12px;
+    }
+
+    .header-cities {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--white-70);
+      letter-spacing: 0.06em;
+      margin-bottom: 10px;
+    }
+
+    .header-tap {
+      font-size: 13px;
+      color: var(--white-40);
+      margin-top: 4px;
+    }
+
+    /* ── COUNTDOWN ── */
+    .countdown-wrap {
+      background: var(--navy-mid);
+      border-top: 1px solid var(--navy-edge);
+      border-bottom: 1px solid var(--navy-edge);
+      padding: 18px 20px;
+      text-align: center;
+    }
+
+    .countdown-label {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 12px;
+    }
+
+    .countdown-grid {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .cd-unit {
+      background: var(--navy-card);
+      border: 1px solid var(--navy-edge);
+      border-radius: var(--radius-sm);
+      padding: 10px 14px;
+      min-width: 64px;
+      text-align: center;
+    }
+
+    .cd-number {
+      font-family: 'Oswald', sans-serif;
+      font-size: 28px;
+      font-weight: 700;
+      color: var(--gold);
+      line-height: 1;
+      display: block;
+    }
+
+    .cd-text {
+      font-size: 9px;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--white-40);
+      margin-top: 4px;
+      display: block;
+    }
+
+    .countdown-started {
+      font-family: 'Oswald', sans-serif;
+      font-size: 22px;
+      font-weight: 600;
+      color: var(--gold);
+      letter-spacing: 0.04em;
+    }
+
+    /* ── MAIN CONTENT ── */
+    main {
+      max-width: 640px;
+      margin: 0 auto;
+      padding: 28px 16px 40px;
+    }
+
+    /* ── SECTION LABEL ── */
+    .section-label {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--white-40);
+      margin-bottom: 14px;
+      padding-left: 2px;
+    }
+
+    /* ── CITY CARDS ── */
+    .city-cards {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 32px;
+    }
+
+    .city-card {
+      background: var(--navy-card);
+      border: 1px solid var(--navy-edge);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      text-decoration: none;
+      color: var(--white);
+      display: block;
+      transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
+      position: relative;
+    }
+
+    .city-card:hover, .city-card:focus-visible {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+      outline: none;
+    }
+
+    /* FEATURED — New York gold treatment */
+    .city-card.featured {
+      border-color: var(--gold-dim);
+      box-shadow: 0 0 0 1px rgba(245,197,24,0.2), 0 4px 24px rgba(245,197,24,0.08);
+      background: linear-gradient(135deg, #0F1E36 0%, #0D1B30 100%);
+    }
+
+    .city-card.featured:hover, .city-card.featured:focus-visible {
+      border-color: var(--gold);
+      box-shadow: 0 0 0 1px rgba(245,197,24,0.5), 0 8px 40px rgba(245,197,24,0.14);
+    }
+
+    .featured-ribbon {
+      background: linear-gradient(90deg, #B8860B, var(--gold), #C49A10);
+      color: #050D1F;
+      font-size: 9px;
+      font-weight: 800;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      padding: 5px 14px;
+      text-align: center;
+    }
+
+    .card-inner {
+      padding: 16px 18px 18px;
+    }
+
+    .card-top {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+    }
+
+    .card-flag {
+      font-size: 28px;
+      line-height: 1;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .card-meta { flex: 1; min-width: 0; }
+
+    .card-title {
+      font-family: 'Oswald', sans-serif;
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      line-height: 1.1;
+      color: var(--white);
+      margin-bottom: 3px;
+    }
+
+    .city-card.featured .card-title {
+      color: var(--gold);
+    }
+
+    .card-subtitle {
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--white-70);
+      margin-bottom: 8px;
+    }
+
+    .card-dates {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
+      margin-bottom: 8px;
+    }
+
+    .date-chip {
+      background: var(--white-15);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 6px;
+      padding: 3px 8px;
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--white-70);
+      white-space: nowrap;
+    }
+
+    .date-chip.final {
+      background: rgba(245,197,24,0.12);
+      border-color: rgba(245,197,24,0.30);
+      color: var(--gold);
+      font-weight: 700;
+    }
+
+    .card-note {
+      font-size: 11px;
+      color: var(--white-40);
+      font-style: italic;
+    }
+
+    .city-card.featured .card-note {
+      color: rgba(245,197,24,0.55);
+    }
+
+    .card-arrow {
+      font-size: 18px;
+      color: var(--white-40);
+      flex-shrink: 0;
+      margin-top: 2px;
+      transition: transform 0.18s ease, color 0.18s ease;
+    }
+
+    .city-card:hover .card-arrow {
+      transform: translateX(3px);
+      color: var(--white-70);
+    }
+
+    .city-card.featured:hover .card-arrow {
+      color: var(--gold);
+    }
+
+    /* ── ALSO INCLUDED ── */
+    .also-section {
+      margin-bottom: 32px;
+    }
+
+    .also-cards {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .also-card {
+      background: var(--navy-card);
+      border: 1px solid var(--navy-edge);
+      border-radius: var(--radius-md);
+      padding: 14px 16px;
+      text-decoration: none;
+      color: var(--white);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      transition: transform 0.15s ease, border-color 0.15s ease;
+    }
+
+    .also-card:hover, .also-card:focus-visible {
+      transform: translateY(-1px);
+      border-color: rgba(255,255,255,0.18);
+      outline: none;
+    }
+
+    .also-icon {
+      font-size: 22px;
+      flex-shrink: 0;
+    }
+
+    .also-text { flex: 1; min-width: 0; }
+
+    .also-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--white);
+    }
+
+    .also-sub {
+      font-size: 11px;
+      color: var(--white-40);
+      margin-top: 1px;
+    }
+
+    .also-arrow {
+      font-size: 16px;
+      color: var(--white-40);
+      transition: transform 0.15s ease;
+    }
+
+    .also-card:hover .also-arrow { transform: translateX(3px); }
+
+    /* ── EMERGENCY ── */
+    .emergency-section {
+      background: var(--navy-card);
+      border: 1px solid rgba(230, 57, 70, 0.3);
+      border-radius: var(--radius-lg);
+      padding: 20px 18px;
+      margin-bottom: 24px;
+    }
+
+    .emergency-header {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 14px;
+    }
+
+    .emergency-dot {
+      width: 8px; height: 8px;
+      background: var(--red);
+      border-radius: 50%;
+      animation: pulse-red 1.4s infinite;
+      flex-shrink: 0;
+    }
+
+    @keyframes pulse-red {
+      0%, 100% { opacity: 1; box-shadow: 0 0 0 0 rgba(230,57,70,0.5); }
+      50% { opacity: 0.7; box-shadow: 0 0 0 5px rgba(230,57,70,0); }
+    }
+
+    .emergency-title {
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--red);
+    }
+
+    .emergency-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    .em-item {
+      background: rgba(230,57,70,0.07);
+      border: 1px solid rgba(230,57,70,0.15);
+      border-radius: var(--radius-sm);
+      padding: 10px 12px;
+      text-align: center;
+    }
+
+    .em-label {
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(230,57,70,0.6);
+      margin-bottom: 2px;
+    }
+
+    .em-number {
+      font-family: 'Oswald', sans-serif;
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--white);
+    }
+
+    /* ── QUICK RULES ── */
+    .rules-section {
+      background: var(--navy-card);
+      border: 1px solid var(--navy-edge);
+      border-radius: var(--radius-lg);
+      padding: 20px 18px;
+      margin-bottom: 32px;
+    }
+
+    .rules-title {
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--white-40);
+      margin-bottom: 14px;
+    }
+
+    .rules-list {
+      display: flex;
+      flex-direction: column;
+      gap: 9px;
+      list-style: none;
+    }
+
+    .rules-list li {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--white-70);
+      line-height: 1.4;
+      padding-left: 2px;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid var(--navy-edge);
+      padding: 24px 20px;
+      text-align: center;
+    }
+
+    .footer-logo {
+      font-family: 'Oswald', sans-serif;
+      font-size: 15px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      color: var(--white-70);
+      margin-bottom: 6px;
+    }
+
+    .footer-meta {
+      font-size: 11px;
+      color: var(--white-40);
+      line-height: 1.6;
+    }
+
+    .footer-disclaimer {
+      font-size: 10px;
+      color: rgba(255,255,255,0.22);
+      margin-top: 10px;
+      line-height: 1.5;
+      max-width: 480px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    /* ── DIVIDER ── */
+    .divider {
+      height: 1px;
+      background: var(--navy-edge);
+      margin: 0 0 28px;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation: none !important; transition: none !important; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── BEST VALUE BANNER ── -->
+  <div class="best-value-banner">⭐ BEST VALUE PASS — ALL 5 CITIES INCLUDED</div>
+
+  <!-- ── HEADER ── -->
+  <header>
+    <div class="header-eyebrow">🇺🇸 USA FAN PASS · ALL 5 CITIES · SUMMER 2026 ⚽</div>
+    <div class="header-ready">YOUR PASS IS READY</div>
+    <p class="header-cities">New York · Los Angeles · Dallas · Miami · Boston</p>
+    <p class="header-tap">Tap any city below to open your guide.</p>
+  </header>
+
+  <!-- ── COUNTDOWN ── -->
+  <div class="countdown-wrap">
+    <div class="countdown-label">⏳ Kickoff countdown — June 11, 2026</div>
+    <div class="countdown-grid" id="countdown-grid">
+      <div class="cd-unit"><span class="cd-number" id="cd-days">--</span><span class="cd-text">Days</span></div>
+      <div class="cd-unit"><span class="cd-number" id="cd-hours">--</span><span class="cd-text">Hours</span></div>
+      <div class="cd-unit"><span class="cd-number" id="cd-mins">--</span><span class="cd-text">Mins</span></div>
+      <div class="cd-unit"><span class="cd-number" id="cd-secs">--</span><span class="cd-text">Secs</span></div>
+    </div>
+  </div>
+
+  <!-- ── MAIN ── -->
+  <main>
+
+    <!-- CITY CARDS -->
+    <p class="section-label">Your 5-City Guides</p>
+    <div class="city-cards">
+
+      <!-- NEW YORK — FEATURED -->
+      <a href="https://usa-fan-pass.vercel.app/nynj-worldcup-guide.html" class="city-card featured" target="_blank" rel="noopener">
+        <div class="featured-ribbon">🏆 Home of the World Cup Final · MetLife Stadium</div>
+        <div class="card-inner">
+          <div class="card-top">
+            <div class="card-flag">🗽</div>
+            <div class="card-meta">
+              <div class="card-title">NEW YORK / NJ</div>
+              <div class="card-subtitle">MetLife Stadium · 6 matches + FINAL</div>
+              <div class="card-dates">
+                <span class="date-chip">Jun 12</span>
+                <span class="date-chip">Jun 15</span>
+                <span class="date-chip">Jun 19</span>
+                <span class="date-chip">Jun 25</span>
+                <span class="date-chip">Jul 1</span>
+                <span class="date-chip final">⚽ FINAL</span>
+              </div>
+              <div class="card-note">Home of the World Cup Final</div>
+            </div>
+            <div class="card-arrow">›</div>
+          </div>
+        </div>
+      </a>
+
+      <!-- LOS ANGELES -->
+      <a href="https://usa-fan-pass.vercel.app/la-fan-pass-2026.html" class="city-card" target="_blank" rel="noopener">
+        <div class="card-inner">
+          <div class="card-top">
+            <div class="card-flag">🌴</div>
+            <div class="card-meta">
+              <div class="card-title">LOS ANGELES</div>
+              <div class="card-subtitle">SoFi Stadium · 5 matches</div>
+              <div class="card-dates">
+                <span class="date-chip">Jun 11</span>
+                <span class="date-chip">Jun 17</span>
+                <span class="date-chip">Jun 21</span>
+                <span class="date-chip">Jun 27</span>
+                <span class="date-chip">Jul 2</span>
+              </div>
+              <div class="card-note">Opening match city</div>
+            </div>
+            <div class="card-arrow">›</div>
+          </div>
+        </div>
+      </a>
+
+      <!-- DALLAS -->
+      <a href="https://usa-fan-pass.vercel.app/dallas-fan-pass-2026.html" class="city-card" target="_blank" rel="noopener">
+        <div class="card-inner">
+          <div class="card-top">
+            <div class="card-flag">🤠</div>
+            <div class="card-meta">
+              <div class="card-title">DALLAS</div>
+              <div class="card-subtitle">AT&T Stadium · 5 matches</div>
+              <div class="card-dates">
+                <span class="date-chip">Jun 13</span>
+                <span class="date-chip">Jun 18</span>
+                <span class="date-chip">Jun 22</span>
+                <span class="date-chip">Jun 28</span>
+                <span class="date-chip">Jul 3</span>
+              </div>
+              <div class="card-note">🌡️ Heat warning: 40°C+ — read guide before arriving</div>
+            </div>
+            <div class="card-arrow">›</div>
+          </div>
+        </div>
+      </a>
+
+      <!-- MIAMI -->
+      <a href="https://usa-fan-pass.vercel.app/miami-fan-pass.html" class="city-card" target="_blank" rel="noopener">
+        <div class="card-inner">
+          <div class="card-top">
+            <div class="card-flag">🌊</div>
+            <div class="card-meta">
+              <div class="card-title">MIAMI</div>
+              <div class="card-subtitle">Hard Rock Stadium · 4 matches</div>
+              <div class="card-dates">
+                <span class="date-chip">Jun 14</span>
+                <span class="date-chip">Jun 20</span>
+                <span class="date-chip">Jun 26</span>
+                <span class="date-chip">Jul 4</span>
+              </div>
+              <div class="card-note">Latin America hub</div>
+            </div>
+            <div class="card-arrow">›</div>
+          </div>
+        </div>
+      </a>
+
+      <!-- BOSTON -->
+      <a href="https://usa-fan-pass.vercel.app/boston-fan-pass-2026.html" class="city-card" target="_blank" rel="noopener">
+        <div class="card-inner">
+          <div class="card-top">
+            <div class="card-flag">🦞</div>
+            <div class="card-meta">
+              <div class="card-title">BOSTON</div>
+              <div class="card-subtitle">Gillette Stadium · 4 matches</div>
+              <div class="card-dates">
+                <span class="date-chip">Jun 16</span>
+                <span class="date-chip">Jun 23</span>
+                <span class="date-chip">Jun 29</span>
+                <span class="date-chip">Jul 5</span>
+              </div>
+              <div class="card-note">Most European feel · Best weather</div>
+            </div>
+            <div class="card-arrow">›</div>
+          </div>
+        </div>
+      </a>
+
+    </div><!-- /city-cards -->
+
+    <div class="divider"></div>
+
+    <!-- ALSO INCLUDED -->
+    <div class="also-section">
+      <p class="section-label">Also Included in Your Pass</p>
+      <div class="also-cards">
+
+        <a href="https://usa-fan-pass.vercel.app/healthcare-survival-guide-wc2026.html" class="also-card" target="_blank" rel="noopener">
+          <div class="also-icon">🏥</div>
+          <div class="also-text">
+            <div class="also-title">Healthcare Survival Guide</div>
+            <div class="also-sub">What to do if you get sick or injured in the USA</div>
+          </div>
+          <div class="also-arrow">›</div>
+        </a>
+
+        <a href="https://usa-fan-pass.vercel.app/know-your-rights-worldcup2026.html" class="also-card" target="_blank" rel="noopener">
+          <div class="also-icon">⚖️</div>
+          <div class="also-text">
+            <div class="also-title">Know Your Rights</div>
+            <div class="also-sub">Legal guide for international visitors in the USA</div>
+          </div>
+          <div class="also-arrow">›</div>
+        </a>
+
+        <a href="https://usa-fan-pass.vercel.app/wc2026-survival-guide.html" class="also-card" target="_blank" rel="noopener">
+          <div class="also-icon">🚨</div>
+          <div class="also-text">
+            <div class="also-title">Scam Survival Guide</div>
+            <div class="also-sub">Avoid the most common tourist traps &amp; scams</div>
+          </div>
+          <div class="also-arrow">›</div>
+        </a>
+
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- EMERGENCY NUMBERS -->
+    <div class="emergency-section">
+      <div class="emergency-header">
+        <div class="emergency-dot"></div>
+        <div class="emergency-title">Emergency Numbers — USA</div>
+      </div>
+      <div class="emergency-grid">
+        <div class="em-item">
+          <div class="em-label">Police / Fire / Medical</div>
+          <div class="em-number">911</div>
+        </div>
+        <div class="em-item">
+          <div class="em-label">Non-Emergency</div>
+          <div class="em-number">311</div>
+        </div>
+        <div class="em-item">
+          <div class="em-label">Poison Control</div>
+          <div class="em-number">1-800-222-1222</div>
+        </div>
+        <div class="em-item">
+          <div class="em-label">Crisis Helpline</div>
+          <div class="em-number">988</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- QUICK RULES -->
+    <div class="rules-section">
+      <div class="rules-title">⚡ Quick Rules — All 5 Cities</div>
+      <ul class="rules-list">
+        <li>🚖 Use Uber or Lyft only — no street taxis in any of the 5 cities</li>
+        <li>🏥 Go to Urgent Care first — never call an ambulance unless unconscious</li>
+        <li>🌡️ Dallas &amp; Miami: read the extreme heat protocol in your guide before arriving</li>
+        <li>📱 Keep your phone secured at all times — pickpockets operate near stadiums</li>
+        <li>🏦 Use bank ATMs only — never street kiosks or exchange booths</li>
+      </ul>
+    </div>
+
+  </main>
+
+  <!-- ── FOOTER ── -->
+  <footer>
+    <div class="footer-logo">🇺🇸 USA FAN PASS · ALL 5 CITIES · 2026</div>
+    <div class="footer-meta">
+      Your complete guide system for the FIFA World Cup 2026.<br />
+      New York · Los Angeles · Dallas · Miami · Boston
+    </div>
+    <div class="footer-disclaimer">
+      This pass is for personal use only. Not affiliated with FIFA, the World Cup, or any official governing body.
+      Information is provided for general guidance — always verify locally.
+    </div>
+  </footer>
+
+  <script>
+    (function () {
+      const target = new Date('2026-06-11T19:00:00-07:00'); // LA kickoff
+
+      function pad(n) { return String(n).padStart(2, '0'); }
+
+      function tick() {
+        const now = Date.now();
+        const diff = target - now;
+
+        if (diff <= 0) {
+          document.getElementById('countdown-grid').innerHTML =
+            '<span class="countdown-started">⚽ THE WORLD CUP HAS STARTED!</span>';
+          return;
+        }
+
+        const days  = Math.floor(diff / 86400000);
+        const hours = Math.floor((diff % 86400000) / 3600000);
+        const mins  = Math.floor((diff % 3600000) / 60000);
+        const secs  = Math.floor((diff % 60000) / 1000);
+
+        document.getElementById('cd-days').textContent  = pad(days);
+        document.getElementById('cd-hours').textContent = pad(hours);
+        document.getElementById('cd-mins').textContent  = pad(mins);
+        document.getElementById('cd-secs').textContent  = pad(secs);
+      }
+
+      tick();
+      setInterval(tick, 1000);
+    })();
+  </script>
+
+</body>
+</html>
