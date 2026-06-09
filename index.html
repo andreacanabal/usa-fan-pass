@@ -270,6 +270,77 @@
   footer a { color: #666; text-decoration: none; margin: 0 8px; }
   footer a:hover { color: #aaa; }
 
+
+  /* ── STICKY URGENCY BAR ── */
+  .sticky-bar {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 999;
+    background: var(--dark);
+    border-bottom: 2px solid var(--red);
+    padding: 10px 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    transform: translateY(-100%);
+    transition: transform 0.3s cubic-bezier(0.34,1.26,0.64,1);
+  }
+  .sticky-bar.visible { transform: translateY(0); }
+  .sticky-bar-left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex: 1;
+    min-width: 0;
+  }
+  .sticky-countdown {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 18px;
+    letter-spacing: 0.06em;
+    color: var(--gold);
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+  .sticky-countdown span { color: white; font-size: 11px; opacity: 0.5; margin: 0 1px; }
+  .sticky-fans {
+    font-size: 12px;
+    color: #aaa;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .sticky-fans strong { color: white; }
+  .sticky-dot {
+    width: 6px; height: 6px;
+    background: var(--gold);
+    border-radius: 50%;
+    animation: pulse 1.4s ease-in-out infinite;
+    flex-shrink: 0;
+  }
+  .sticky-cta {
+    background: var(--red);
+    color: white;
+    border: none;
+    padding: 9px 16px;
+    border-radius: 8px;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 15px;
+    letter-spacing: 0.06em;
+    cursor: pointer;
+    white-space: nowrap;
+    flex-shrink: 0;
+    transition: background 0.2s;
+  }
+  .sticky-cta:hover { background: #a80d25; }
+  @media (max-width: 380px) {
+    .sticky-fans { display: none; }
+    .sticky-countdown { font-size: 16px; }
+  }
+
   /* CART MODAL */
   .cart-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.55); z-index: 200; align-items: flex-end; justify-content: center; }
   .cart-overlay.open { display: flex; }
@@ -407,6 +478,22 @@
   <symbol id="ic-plus" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></symbol>
   <symbol id="ic-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></symbol>
 </svg>
+
+<!-- STICKY URGENCY BAR -->
+<div class="sticky-bar" id="stickyBar">
+  <div class="sticky-bar-left">
+    <div class="sticky-countdown">
+      <span id="sb-days">--</span><span>d</span>
+      <span id="sb-hrs">--</span><span>h</span>
+      <span id="sb-min">--</span><span>m</span>
+    </div>
+    <div class="sticky-dot"></div>
+    <div class="sticky-fans"><strong id="sb-fans">1,204</strong> fans protected</div>
+  </div>
+  <button class="sticky-cta" onclick="openCart([{id:'all5',name:'All 5 Cities Pass',desc:'NY · LA · Dallas · Miami · Boston',flag:'🇺🇸',price:34.99}], 34.99, 49.95)">
+    GET PASS ↓
+  </button>
+</div>
 
 <!-- TICKER -->
 <div class="ticker">
@@ -1515,6 +1602,55 @@ window.addEventListener('load', function() {
   var lang = (navigator.language || 'en').toLowerCase().slice(0,2) === 'es' ? 'es' : 'en';
   setLang(lang);
 });
+</script>
+
+
+<script>
+// ── STICKY BAR ────────────────────────────────────────────────────
+(function() {
+  var bar      = document.getElementById('stickyBar');
+  var nav      = document.querySelector('nav');
+  var navH     = 0;
+  var shown    = false;
+
+  function updateStickyCountdown() {
+    var diff = new Date('2026-06-11T20:00:00-04:00') - new Date();
+    if (diff <= 0) return;
+    var days = Math.floor(diff / 86400000);
+    var hrs  = Math.floor((diff % 86400000) / 3600000);
+    var min  = Math.floor((diff % 3600000) / 60000);
+    var d = document.getElementById('sb-days');
+    var h = document.getElementById('sb-hrs');
+    var m = document.getElementById('sb-min');
+    if(d) d.textContent = String(days).padStart(2,'0');
+    if(h) h.textContent = String(hrs).padStart(2,'0');
+    if(m) m.textContent = String(min).padStart(2,'0');
+  }
+
+  function syncFans() {
+    var main = document.getElementById('buyerCount');
+    var sb   = document.getElementById('sb-fans');
+    if(main && sb) sb.textContent = main.textContent;
+  }
+
+  window.addEventListener('scroll', function() {
+    navH = nav ? nav.offsetHeight : 60;
+    var heroH = document.querySelector('.hero') ?
+                document.querySelector('.hero').offsetHeight : 400;
+    if (window.scrollY > heroH * 0.6) {
+      if(!shown) { bar.classList.add('visible'); shown = true; syncFans(); }
+    } else {
+      if(shown) { bar.classList.remove('visible'); shown = false; }
+    }
+  }, { passive: true });
+
+  // Offset nav so sticky bar doesn't overlap
+  bar.style.top = '0';
+
+  updateStickyCountdown();
+  setInterval(updateStickyCountdown, 30000);
+  setTimeout(syncFans, 3000);
+})();
 </script>
 
 </body>
