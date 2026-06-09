@@ -14,10 +14,9 @@ const PORT = process.env.PORT || 3000;
 // ── CORS ──────────────────────────────────────────────────────────
 app.use(cors({
   origin: [
-    'https://www.usafanpass.com',
-    'https://usafanpass.com',
-    'https://usafanpass.vercel.app',
-    // add vercel preview URLs during dev:
+    'https://www.usfanpass.com',
+    'https://usfanpass.com',
+    'https://usa-fan-pass.vercel.app',
     /\.vercel\.app$/,
   ],
   methods: ['GET','POST','OPTIONS'],
@@ -116,7 +115,7 @@ async function sendMetaCAPI({ email, value, currency, eventId, priceIds, userAge
       event_name:       'Purchase',
       event_time:       Math.floor(Date.now() / 1000),
       event_id:         eventId,
-      event_source_url: sourceUrl || 'https://usafanpass.com',
+      event_source_url: sourceUrl || 'https://usfanpass.com',
       action_source:    'website',
       user_data: {
         em:         [hashedEmail],
@@ -268,7 +267,7 @@ app.get('/verify-session', async (req, res) => {
         email, value: amount, currency,
         eventId, priceIds,
         userAgent,
-        sourceUrl: `https://usafanpass.com/success.html`,
+        sourceUrl: `https://usfanpass.com/success.html`,
       });
     }
 
